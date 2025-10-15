@@ -21,4 +21,74 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  // Crop tool functionality
+  const canvas = document.getElementById('canvas');
+  const cropCircle = document.querySelector('.crop-circle');
+  const resizeHandle = document.querySelector('.resize-handle');
+
+  let isDragging = false;
+  let isResizing = false;
+  let startX, startY, startLeft, startTop, startWidth, startHeight;
+
+  if (cropCircle) {
+    cropCircle.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      startX = e.clientX;
+      startY = e.clientY;
+      const rect = cropCircle.getBoundingClientRect();
+      startLeft = rect.left;
+      startTop = rect.top;
+      e.preventDefault();
+    });
+  }
+
+  if (resizeHandle) {
+    resizeHandle.addEventListener('mousedown', (e) => {
+      isResizing = true;
+      startX = e.clientX;
+      startY = e.clientY;
+      const rect = cropCircle.getBoundingClientRect();
+      startWidth = rect.width;
+      startHeight = rect.height;
+      e.preventDefault();
+    });
+  }
+
+  document.addEventListener('mousemove', (e) => {
+    if (isDragging && cropCircle) {
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+      cropCircle.style.left = (startLeft + dx) + 'px';
+      cropCircle.style.top = (startTop + dy) + 'px';
+      updateClipPath();
+    } else if (isResizing && cropCircle) {
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+      const newSize = Math.max(50, startWidth + dx); // minimum size 50px
+      cropCircle.style.width = newSize + 'px';
+      cropCircle.style.height = newSize + 'px';
+      updateClipPath();
+    }
+  });
+
+  document.addEventListener('mouseup', () => {
+    isDragging = false;
+    isResizing = false;
+  });
+
+  function updateClipPath() {
+    if (!canvas || !cropCircle) return;
+    const canvasRect = canvas.getBoundingClientRect();
+    const circleRect = cropCircle.getBoundingClientRect();
+    const centerX = circleRect.left + circleRect.width / 2 - canvasRect.left;
+    const centerY = circleRect.top + circleRect.height / 2 - canvasRect.top;
+    const radius = circleRect.width / 2;
+    canvas.style.clipPath = `circle(${radius}px at ${centerX}px ${centerY}px)`;
+  }
+
+  // Initial update if elements exist
+  if (canvas && cropCircle) {
+    updateClipPath();
+  }
 });
