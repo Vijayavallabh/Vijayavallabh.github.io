@@ -88,9 +88,9 @@ a:hover { text-decoration: underline; }
 }
 
 .profile-photo {
-  width: 120px;
-  height: 120px;
-  clip-path: circle(60px at center);
+  width: 100px;
+  height: 100px;
+  clip-path: circle(50px at center);
   object-fit: cover;
   object-position: center top;
   border: 3px solid var(--border);
