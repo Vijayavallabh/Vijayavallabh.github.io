@@ -81,10 +81,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!canvas || !cropCircle) return;
     const canvasRect = canvas.getBoundingClientRect();
     const circleRect = cropCircle.getBoundingClientRect();
-    const centerX = circleRect.left + circleRect.width / 2 - canvasRect.left;
-    const centerY = circleRect.top + circleRect.height / 2 - canvasRect.top;
-    const radius = circleRect.width / 2;
-    canvas.style.clipPath = `circle(${radius}px at ${centerX}px ${centerY}px)`;
+    const centerXPercent = ((circleRect.left + circleRect.width / 2 - canvasRect.left) / canvasRect.width) * 100;
+    const centerYPercent = ((circleRect.top + circleRect.height / 2 - canvasRect.top) / canvasRect.height) * 100;
+    const radiusPercent = (circleRect.width / 2 / canvasRect.width) * 100;
+    canvas.style.clipPath = `circle(${radiusPercent}% at ${centerXPercent}% ${centerYPercent}%)`;
   }
 
   // Initial update if elements exist
