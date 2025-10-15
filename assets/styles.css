@@ -1,12 +1,12 @@
 :root {
-  --bg: #fafafa;
+  --bg: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   --text: #1f2937;
   --muted: #6b7280;
   --accent: #4f46e5;
-  --card: #ffffff;
-  --border: #e5e7eb;
-  --shadow: 0 4px 6px rgba(0,0,0,0.05), 0 10px 15px rgba(0,0,0,0.1);
-  --radius: 12px;
+  --card: rgba(255, 255, 255, 0.9);
+  --border: rgba(255, 255, 255, 0.2);
+  --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  --radius: 16px;
 }
 
 * { box-sizing: border-box; }
@@ -19,37 +19,41 @@ html, body {
   font: 16px/1.6 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
 }
 
 a { color: var(--accent); text-decoration: none; transition: color 0.3s ease; }
 a:hover { color: #3730a3; text-decoration: underline; }
 
 .site-header {
-  border-bottom: 1px solid var(--border);
-  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
 .tabs {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 16px 24px;
+  padding: 20px 24px;
   display: flex;
-  gap: 8px;
+  gap: 12px;
   flex-wrap: wrap;
   justify-content: center;
 }
 
 .tab-button {
+  position: relative;
   color: var(--text);
-  padding: 8px 16px;
-  border-radius: var(--radius);
+  padding: 10px 20px;
+  border-radius: 25px;
   border: 1px solid var(--border);
   background: var(--card);
+  backdrop-filter: blur(10px);
   cursor: pointer;
   font-weight: 500;
   transition: all 0.3s ease;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .tab-button:hover {
@@ -62,7 +66,25 @@ a:hover { color: #3730a3; text-decoration: underline; }
 .tab-button.active {
   background: var(--accent);
   color: white;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.tab-button.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 3px;
+  background: white;
+  border-radius: 2px;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from { width: 0; }
+  to { width: 30px; }
 }
 
 .tab-pane:not(.active) {
@@ -72,22 +94,34 @@ a:hover { color: #3730a3; text-decoration: underline; }
 .hero {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 48px 24px;
+  padding: 60px 24px;
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 40px;
   text-align: center;
+  animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .profile-photo {
-  width: 120px;
-  height: 120px;
+  width: 60px;
+  height: 60px;
   clip-path: circle(30px at center);
   object-fit: cover;
   object-position: center top;
   border: 4px solid var(--accent);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
   transition: transform 0.3s ease;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
 }
 
 .profile-photo:hover {
