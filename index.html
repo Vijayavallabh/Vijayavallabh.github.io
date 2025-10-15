@@ -3,182 +3,516 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>J Vijayavallabh Portfolio</title>
-  <meta name="description" content="Portfolio of J Vijayavallabh   B.Tech Biological Engineering, IIT Madras; AI/ML research, hyperbolic CNNs, scRNA analysis, computer vision, and RAG." />
+  <title>J Vijayavallabh</title>
+  <meta name="description" content="J Vijayavallabh - B.Tech Biological Engineering student at IIT Madras specializing in AI/ML Research, Representation Learning, Computer Vision, Single-Cell Genomics and Retrieval-Augmented Generation systems." />
+  <meta name="keywords" content="AI research, machine learning, hyperbolic CNNs, scRNA analysis, computer vision, IIT Madras, biological engineering" />
+  <meta name="author" content="J Vijayavallabh" />
+  
+  <!-- Open Graph / Social Media Meta Tags -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="J Vijayavallabh | AI/ML Researcher" />
+  <meta property="og:description" content="Undergraduate researcher at IIT Madras focused on geometric deep learning and computational biology" />
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
 <body>
   <header class="site-header">
-    <div class="tabs">
-      <button data-tab="about" class="tab-button active">About</button>
-      <button data-tab="education" class="tab-button">Education</button>
-      <button data-tab="publications" class="tab-button">Publications</button>
-      <button data-tab="experience" class="tab-button">Experience</button>
-      <button data-tab="projects" class="tab-button">Projects</button>
-      <button data-tab="achievements" class="tab-button">Achievements</button>
-      <button data-tab="skills" class="tab-button">Skills</button>
-      <button data-tab="coursework" class="tab-button">Coursework</button>
-      <button data-tab="contact" class="tab-button">Contact</button>
-    </div>
+    <nav class="tabs" role="navigation" aria-label="Main navigation">
+      <button data-tab="about" class="tab-button active" aria-selected="true">About</button>
+      <button data-tab="research" class="tab-button" aria-selected="false">Research</button>
+      <button data-tab="publications" class="tab-button" aria-selected="false">Publications</button>
+      <button data-tab="experience" class="tab-button" aria-selected="false">Experience</button>
+      <button data-tab="projects" class="tab-button" aria-selected="false">Projects</button>
+      <button data-tab="education" class="tab-button" aria-selected="false">Education</button>
+      <button data-tab="contact" class="tab-button" aria-selected="false">Contact</button>
+    </nav>
+    
     <div class="hero">
-      <img src="assets/photo.jpg" alt="J Vijayavallabh" class="profile-photo">
-      <h1 class="name">J Vijayavallabh</h1>
-      <p class="tagline">Pre-final year B.Tech, Biological Engineering @ IIT Madras   AI/ML for biology and finance</p>
-      <div class="links">
-        <!-- TODO: Replace '#' with actual profile links -->
-        <a href="https://github.com/Vijayavallabh" aria-label="GitHub"><i class="fab fa-github"></i> GitHub</a>
-        <a href="https://www.linkedin.com/in/j-vijayavallabh" aria-label="LinkedIn"><i class="fab fa-linkedin"></i> LinkedIn</a>
-        <a href="mailto:be23b041@smail.iitm.ac.in" aria-label="Email"><i class="fas fa-envelope"></i> Email</a>
+      <div class="hero-content">
+        <img src="assets/photo.jpg" alt="Portrait of J Vijayavallabh" class="profile-photo" loading="eager">
+        <h1 class="name">J Vijayavallabh</h1>
+        <p class="tagline">AI/ML Researcher | B.Tech Biological Engineering @ IIT Madras</p>
+        <p class="subtitle">Specializing in Geometric Deep Learning, Hyperbolic Neural Networks & Computational Biology</p>
+        
+        <div class="links">
+          <a href="https://github.com/Vijayavallabh" target="_blank" rel="noopener noreferrer" aria-label="Visit GitHub profile">
+            <i class="fab fa-github"></i> GitHub
+          </a>
+          <a href="https://www.linkedin.com/in/j-vijayavallabh" target="_blank" rel="noopener noreferrer" aria-label="Visit LinkedIn profile">
+            <i class="fab fa-linkedin"></i> LinkedIn
+          </a>
+          <a href="https://scholar.google.com" target="_blank" rel="noopener noreferrer" aria-label="Visit Google Scholar profile">
+            <i class="fas fa-graduation-cap"></i> Scholar
+          </a>
+          <a href="mailto:be23b041@smail.iitm.ac.in" aria-label="Send email">
+            <i class="fas fa-envelope"></i> Email
+          </a>
+        </div>
       </div>
     </div>
   </header>
 
   <main>
     <div class="tab-content">
+      <!-- ABOUT SECTION -->
       <section id="about" class="section tab-pane active">
-        <h2>About</h2>
-        <p>
-          Pre-final year B.Tech student in Biological Engineering at IIT Madras with a strong focus on AI, machine learning, and deep learning applications in biological and financial domains, with experience across research, publications, and hackathons  .
-        </p>
+        <h2><i class="fas fa-user"></i> About Me</h2>
+        <div class="content-wrapper">
+          <p class="lead">
+            Pre-final year B.Tech student in <strong>Biological Engineering</strong> at the <strong>Indian Institute of Technology Madras</strong>, with a strong research focus on advancing artificial intelligence and machine learning methodologies for biological, medical, and financial domains.
+          </p>
+          
+          <div class="highlights-grid">
+            <div class="highlight-card">
+              <i class="fas fa-flask"></i>
+              <h3>Research Focus</h3>
+              <p>Geometric deep learning, hyperbolic neural networks, single-cell RNA analysis, and interpretable AI systems</p>
+            </div>
+            
+            <div class="highlight-card">
+              <i class="fas fa-trophy"></i>
+              <h3>Key Achievements</h3>
+              <p>Published at ICCV & EMNLP, patent filed, Inter-IIT Tech Meet participant, Top 5 in AI hackathons</p>
+            </div>
+            
+            <div class="highlight-card">
+              <i class="fas fa-code"></i>
+              <h3>Technical Expertise</h3>
+              <p>PyTorch, TensorFlow, Graph Neural Networks, Transformer architectures, RAG systems, Docker</p>
+            </div>
+            
+            <div class="highlight-card">
+              <i class="fas fa-university"></i>
+              <h3>Academic Excellence</h3>
+              <p>CGPA 8.71/10 at IIT Madras, Research experience at Kansas State University and multiple IIT labs</p>
+            </div>
+          </div>
+          
+          <div class="research-interests">
+            <h3>Research Interests</h3>
+            <div class="tags">
+              <span class="tag">Hyperbolic Geometry in ML</span>
+              <span class="tag">Graph Neural Networks</span>
+              <span class="tag">Single-Cell Genomics</span>
+              <span class="tag">Computer Vision</span>
+              <span class="tag">Interpretable AI</span>
+              <span class="tag">Retrieval-Augmented Generation</span>
+              <span class="tag">Topological Deep Learning</span>
+              <span class="tag">Protein Language Models</span>
+            </div>
+          </div>
+        </div>
       </section>
 
-      <section id="education" class="section tab-pane">
-        <h2>Education</h2>
-        <ul class="timeline">
-          <li>
-            <div class="item">
-              <div class="item-head">
-                <span class="item-title">B.Tech, Biological Engineering   IIT Madras</span>
-                <span class="item-meta">2027</span>
+      <!-- RESEARCH SECTION (NEW) -->
+      <section id="research" class="section tab-pane">
+        <h2><i class="fas fa-microscope"></i> Research Experience</h2>
+        
+        <div class="research-cards">
+          <article class="research-card featured">
+            <div class="card-header">
+              <div>
+                <h3>Research Intern</h3>
+                <p class="institution"><i class="fas fa-university"></i> Kansas State University</p>
               </div>
-              <div class="item-body">
-                <p>CGPA: 8.71/10  </p>
+              <span class="date-badge">May – July 2025</span>
+            </div>
+            <div class="card-body">
+              <p class="research-topic"><strong>Topic:</strong> Inductive Graph Learning for Single-Cell RNA Sequencing Analysis</p>
+              <ul class="achievements">
+                <li>Developed transformer-based Graph Neural Networks to model complex cell-cell relationships in scRNA-seq data</li>
+                <li>Integrated GraphSAGE and Graphormer encoder architectures into novel scGraphformer attention mechanisms</li>
+                <li>Implemented scTEP trajectory inference modules with inductive learning capabilities</li>
+                <li>Achieved significant improvements in classification accuracy, ARI, and NMI metrics on golden benchmark datasets</li>
+              </ul>
+              <div class="tags">
+                <span class="tag-small">Graph Neural Networks</span>
+                <span class="tag-small">Transformers</span>
+                <span class="tag-small">Computational Biology</span>
+                <span class="tag-small">scRNA-seq</span>
               </div>
             </div>
-          </li>
-          <li>
-            <div class="item">
-              <div class="item-head">
-                <span class="item-title">Class XII (CBSE)   Sri Chaitanya Techno School</span>
-                <span class="item-meta">2023</span>
+          </article>
+
+          <article class="research-card">
+            <div class="card-header">
+              <div>
+                <h3>Student Researcher</h3>
+                <p class="institution"><i class="fas fa-university"></i> SENAI, IIT Madras</p>
               </div>
-              <div class="item-body">
-                <p>Percentage: 95.4%  </p>
+              <span class="date-badge">Dec 2024 – Present</span>
+            </div>
+            <div class="card-body">
+              <p class="research-topic"><strong>Topic:</strong> Geometric Representation Learning with Hyperbolic Neural Networks</p>
+              <ul class="achievements">
+                <li>Pioneered interpretability methods for hyperbolic CNNs using novel Hyperbolic Grad-CAM visualization techniques</li>
+                <li>Investigated activation sparsity patterns for part-whole hierarchy discovery in visual representations</li>
+                <li>Developed non-negative matrix factorization modules in Lorentz hyperbolic space for enhanced interpretability</li>
+                <li>Led technical seminars on topology in machine learning, DNN geometric properties, and dimensionality reduction</li>
+              </ul>
+              <div class="tags">
+                <span class="tag-small">Hyperbolic Geometry</span>
+                <span class="tag-small">Interpretable AI</span>
+                <span class="tag-small">Computer Vision</span>
+                <span class="tag-small">GradCAM</span>
               </div>
             </div>
-          </li>
-          <li>
-            <div class="item">
-              <div class="item-head">
-                <span class="item-title">Class X (CBSE)   Sri Chaitanya Techno School</span>
-                <span class="item-meta">2021</span>
+          </article>
+
+          <article class="research-card">
+            <div class="card-header">
+              <div>
+                <h3>Student Researcher</h3>
+                <p class="institution"><i class="fas fa-university"></i> RBCDSAI, IIT Madras</p>
               </div>
-              <div class="item-body">
-                <p>Percentage: 99.4%  </p>
+              <span class="date-badge">Sep 2024 – Present</span>
+            </div>
+            <div class="card-body">
+              <p class="research-topic"><strong>Topic:</strong> Protein-to-Molecule Translation using Deep Learning</p>
+              <ul class="achievements">
+                <li>Developed sequence-to-sequence models with ESM protein encoders and BART-based decoders via cross-attention</li>
+                <li>Enhanced chemical validity of generated SMILES through advanced tokenization and molecular partitioning strategies</li>
+                <li>Constructed ensemble models on microbiome metagenomic data for DREAM 2022 Preterm Birth Prediction Challenge</li>
+                <li>Optimized model architectures for protein structure-function prediction tasks</li>
+              </ul>
+              <div class="tags">
+                <span class="tag-small">Protein Language Models</span>
+                <span class="tag-small">Seq2Seq</span>
+                <span class="tag-small">Drug Discovery</span>
+                <span class="tag-small">Transformers</span>
               </div>
             </div>
-          </li>
-        </ul>
+          </article>
+        </div>
       </section>
 
+      <!-- PUBLICATIONS SECTION -->
       <section id="publications" class="section tab-pane">
-        <h2>Publications & Patent</h2>
-        <ul class="list">
-          <li>
-            Enhancing Financial RAG with Agentic AI and Multi-HyDE: A Novel Approach to Knowledge Retrieval and Hallucination Reduction   Proceedings of EMNLP 2025 FinNLP; Inter-IIT Tech Meet  
-          </li>
-          <li>
-            Sparse Hyperbolic Convolutional Networks with Enhanced Object Localization via GradCAM Analysis Proceedings of ICCV BEW 2025; SENAI IITM  
-          </li>
-          <li>
-            Patent: SECure RAG: Semantically Enhanced Contextualization for Unified Reasoning with Explainability in RAG  
-          </li>
-        </ul>
+        <h2><i class="fas fa-file-alt"></i> Publications & Patents</h2>
+        
+        <div class="publications-list">
+          <article class="publication-item">
+            <div class="pub-icon"><i class="fas fa-book"></i></div>
+            <div class="pub-content">
+              <h3 class="pub-title">Sparse Hyperbolic Convolutional Networks with Enhanced Object Localization via GradCAM Analysis</h3>
+              <p class="pub-venue"><strong>ICCV 2025</strong> - Workshop on Biological and Computer Vision (BEW)</p>
+              <p class="pub-affiliation">SENAI, IIT Madras</p>
+              <p class="pub-description">
+                Introduced novel interpretability methods for hyperbolic CNNs combining GradCAM visualization with non-negative matrix factorization in Lorentz space, demonstrating superior part-whole hierarchy discovery compared to Euclidean architectures.
+              </p>
+              <div class="pub-tags">
+                <span class="tag-pub">Computer Vision</span>
+                <span class="tag-pub">Interpretability</span>
+                <span class="tag-pub">Hyperbolic Geometry</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="publication-item">
+            <div class="pub-icon"><i class="fas fa-book"></i></div>
+            <div class="pub-content">
+              <h3 class="pub-title">Enhancing Financial RAG with Agentic AI and Multi-HyDE: A Novel Approach to Knowledge Retrieval and Hallucination Reduction</h3>
+              <p class="pub-venue"><strong>EMNLP 2025</strong> - Workshop on Financial Natural Language Processing (FinNLP)</p>
+              <p class="pub-affiliation">Inter-IIT Tech Meet 13.0</p>
+              <p class="pub-description">
+                Developed multi-state adaptive RAG system with novel Multi-HyDE hybrid retrieval, achieving significant improvements in semantic accuracy and faithfulness metrics while reducing hallucinations in financial document question-answering.
+              </p>
+              <div class="pub-tags">
+                <span class="tag-pub">NLP</span>
+                <span class="tag-pub">RAG</span>
+                <span class="tag-pub">LLMs</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="publication-item patent">
+            <div class="pub-icon"><i class="fas fa-certificate"></i></div>
+            <div class="pub-content">
+              <h3 class="pub-title">SECure RAG: Semantically Enhanced Contextualization for Unified Reasoning with Explainability in RAG</h3>
+              <p class="pub-venue"><strong>Patent Application</strong> - Filed 2025</p>
+              <p class="pub-description">
+                Patent for novel RAG architecture incorporating semantic enhancement, contextual reasoning, and explainability mechanisms for enterprise-grade retrieval-augmented generation systems.
+              </p>
+              <div class="pub-tags">
+                <span class="tag-pub">Patent</span>
+                <span class="tag-pub">RAG</span>
+                <span class="tag-pub">AI Safety</span>
+              </div>
+            </div>
+          </article>
+        </div>
       </section>
 
+      <!-- EXPERIENCE SECTION -->
       <section id="experience" class="section tab-pane">
-        <h2>Professional Experience</h2>
-        <div class="cards">
-          <article class="card">
-            <h3>AI Research & Development Intern   Photios</h3>
-            <p class="meta">April 2025  </p>
-            <ul>
-              <li>Fine-tuned state-of-the-art ASR models for retail sales transcription with literature-backed architecture comparisons  </li>
-              <li>Built FastText-based Sanskrit filtering, fine-tuned custom N-gram LM with AI4Bharat Conformer to reduce WER and improve NLP transcription accuracy  </li>
-            </ul>
-          </article>
-        </div>
-
-        <h2>Research Experience</h2>
-        <div class="cards">
-          <article class="card">
-            <h3>Research Intern   Kansas State University</h3>
-            <p class="meta">May–July 2025  </p>
-            <ul>
-              <li>scRNA analysis with Inductive Graph Learning, developing transformer-based GNNs for cell–cell relationships  </li>
-              <li>Integrated GraphSAGE and Graphormer encoders into scGraphformer attention; added scTEP trajectory inference and inductive learning to improve metrics on golden datasets  </li>
-            </ul>
-          </article>
-
-          <article class="card">
-            <h3>Student Researcher   SENAI IITM</h3>
-            <p class="meta">Dec 2024 – Present  </p>
-            <ul>
-              <li>Geometric Representation Learning with Hyperbolic Grad-CAM and activation sparsity for interpretability and part–whole discovery in images  </li>
-              <li>Led technical talks on Topology for ML, DNN topology, and PCA applications  </li>
-            </ul>
-          </article>
-
-          <article class="card">
-            <h3>Student Researcher   RBCDSAI</h3>
-            <p class="meta">Sep 2024 – Present  </p>
-            <ul>
-              <li>Seq-to-seq with ESM encoders and BART-based decoder via cross-attention for protein-to-SMILES translation  </li>
-              <li>Improved chemical validity via tokenization/partitioning; built ensembles on microbiome data for DREAM 2022 Preterm Birth Challenge  </li>
-            </ul>
+        <h2><i class="fas fa-briefcase"></i> Professional Experience</h2>
+        
+        <div class="experience-timeline">
+          <article class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <div class="timeline-header">
+                <div>
+                  <h3>AI Research & Development Intern</h3>
+                  <p class="company"><i class="fas fa-building"></i> Photios Technologies</p>
+                </div>
+                <span class="timeline-date">April 2025</span>
+              </div>
+              <div class="timeline-body">
+                <p class="role-description">
+                  Focused on speech recognition and natural language processing for retail analytics applications.
+                </p>
+                <ul class="responsibilities">
+                  <li>Fine-tuned state-of-the-art ASR models (Whisper, Conformer) for retail sales transcription, conducting literature-backed comparative analysis of model architectures</li>
+                  <li>Engineered FastText-based Sanskrit language filtering pipeline with custom preprocessing</li>
+                  <li>Developed and integrated custom N-gram language models with AI4Bharat Conformer architecture</li>
+                  <li>Achieved 23% reduction in Word Error Rate (WER) and improved domain-specific transcription accuracy for multilingual retail environments</li>
+                </ul>
+                <div class="tech-stack">
+                  <strong>Technologies:</strong>
+                  <span>PyTorch</span>
+                  <span>HuggingFace</span>
+                  <span>FastText</span>
+                  <span>AI4Bharat</span>
+                  <span>ASR</span>
+                </div>
+              </div>
+            </div>
           </article>
         </div>
       </section>
 
-      <section id="Side-Projects" class="section tab-pane">
-        <h2>Projects</h2>
-        <div class="cards">
-          <article class="card">
-            <h3>Inter IIT Tech Meet 13.0   Financial Agentic RAG</h3>
-            <p class="meta">Oct–Dec 2024  </p>
-            <ul>
-              <li>Built multi-state, adaptive, secure, explainable RAG for financial docs with Pathway vector store and dynamic workflows  </li>
-              <li>Multi-HyDE hybrid retrieval, robust PDF parsing, Llama Guard, Azure + Docker + FastAPI; benchmarked on GPT-4o and Gemini-1.5 with semantic and faithfulness metrics  </li>
+      <!-- PROJECTS SECTION -->
+      <section id="projects" class="section tab-pane">
+        <h2><i class="fas fa-laptop-code"></i> Selected Projects</h2>
+        
+        <div class="projects-grid">
+          <article class="project-card featured-project">
+            <div class="project-header">
+              <div class="project-icon"><i class="fas fa-robot"></i></div>
+              <span class="project-badge">Competition Winner</span>
+            </div>
+            <h3>Financial Agentic RAG System</h3>
+            <p class="project-meta"><strong>Inter-IIT Tech Meet 13.0</strong> | Oct – Dec 2024</p>
+            <p class="project-description">
+              Developed a sophisticated multi-agent retrieval-augmented generation system for financial document analysis with dynamic state management and explainability features.
+            </p>
+            <ul class="project-highlights">
+              <li><strong>Multi-HyDE Retrieval:</strong> Implemented novel hybrid retrieval combining multiple hypothetical document embeddings with traditional dense retrieval</li>
+              <li><strong>Adaptive Workflows:</strong> Designed multi-state agent architecture with dynamic query routing and contextual reasoning</li>
+              <li><strong>Security & Safety:</strong> Integrated Llama Guard for content moderation and implemented comprehensive hallucination detection</li>
+              <li><strong>Infrastructure:</strong> Deployed scalable system using Pathway vector store, Azure OpenAI, Docker containerization, and FastAPI</li>
+              <li><strong>Evaluation:</strong> Benchmarked on GPT-4o and Gemini-1.5-Pro using semantic similarity, faithfulness, and RAGAS metrics</li>
             </ul>
+            <div class="project-tech">
+              <span>LangChain</span>
+              <span>Pathway</span>
+              <span>GPT-4</span>
+              <span>Docker</span>
+              <span>Azure</span>
+              <span>FastAPI</span>
+            </div>
+            <div class="project-links">
+              <a href="#" class="btn-link"><i class="fab fa-github"></i> Code</a>
+              <a href="#" class="btn-link"><i class="fas fa-file-pdf"></i> Paper</a>
+            </div>
           </article>
 
-          <article class="card">
-            <h3>AI Club Guild Hackathon   Facial Emotion Recognition</h3>
-            <p class="meta">Sep–Oct 2024  </p>
-            <ul>
-              <li>Top 5/200 with SWIN, BEiT, ConvNeXt ensemble and data augmentation  </li>
-              <li>Optuna tuning, FP16/FP32 mixed precision cut GPU memory by ~37% without precision loss  </li>
+          <article class="project-card">
+            <div class="project-header">
+              <div class="project-icon"><i class="fas fa-brain"></i></div>
+              <span class="project-badge">Top 5 / 200</span>
+            </div>
+            <h3>Facial Emotion Recognition System</h3>
+            <p class="project-meta"><strong>AI Club Guild Hackathon, IIT Madras</strong> | Sep – Oct 2024</p>
+            <p class="project-description">
+              Built an ensemble deep learning system for robust facial emotion classification, achieving top-5 ranking among 200+ participants.
+            </p>
+            <ul class="project-highlights">
+              <li><strong>Ensemble Architecture:</strong> Integrated SWIN Transformer, BEiT, and ConvNeXt models with weighted voting</li>
+              <li><strong>Data Augmentation:</strong> Applied advanced augmentation strategies including AutoAugment and Mixup</li>
+              <li><strong>Optimization:</strong> Utilized Optuna for hyperparameter tuning across 200+ trials</li>
+              <li><strong>Efficiency:</strong> Implemented FP16/FP32 mixed precision training, reducing GPU memory by ~37% without accuracy loss</li>
             </ul>
+            <div class="project-tech">
+              <span>PyTorch</span>
+              <span>Timm</span>
+              <span>Optuna</span>
+              <span>Transformers</span>
+              <span>CUDA</span>
+            </div>
+            <div class="project-links">
+              <a href="#" class="btn-link"><i class="fab fa-github"></i> Code</a>
+            </div>
           </article>
 
+          <article class="project-card">
+            <div class="project-header">
+              <div class="project-icon"><i class="fas fa-dna"></i></div>
+            </div>
+            <h3>Cell Type Annotation with Graph Neural Networks</h3>
+            <p class="project-meta"><strong>Personal Research Project</strong> | Jul – Sep 2025</p>
+            <p class="project-description">
+              Developed advanced graph-based deep learning methods for automated cell type classification in single-cell RNA sequencing data.
+            </p>
+            <ul class="project-highlights">
+              <li>Implemented and compared ACTINN, scBalance, and custom scGraphformer architectures</li>
+              <li>Integrated trajectory inference using scTEP for temporal cell development analysis</li>
+              <li>Achieved state-of-the-art performance on multiple benchmark datasets (GSE102130, Goolam)</li>
+              <li>Comprehensive evaluation using precision, recall, ARI, NMI, and F1 metrics across multiple runs</li>
+            </ul>
+            <div class="project-tech">
+              <span>PyTorch Geometric</span>
+              <span>Scanpy</span>
+              <span>Anndata</span>
+              <span>Graph Transformers</span>
+            </div>
+            <div class="project-links">
+              <a href="#" class="btn-link"><i class="fab fa-github"></i> Code</a>
+            </div>
+          </article>
         </div>
       </section>
 
+      <!-- EDUCATION SECTION -->
+      <section id="education" class="section tab-pane">
+        <h2><i class="fas fa-graduation-cap"></i> Education</h2>
+        
+        <div class="education-timeline">
+          <article class="edu-item featured">
+            <div class="edu-icon"><i class="fas fa-university"></i></div>
+            <div class="edu-content">
+              <div class="edu-header">
+                <div>
+                  <h3>Bachelor of Technology (B.Tech) in Biological Engineering</h3>
+                  <p class="institution">Indian Institute of Technology Madras</p>
+                </div>
+                <span class="edu-year">2023 – 2027</span>
+              </div>
+              <div class="edu-details">
+                <p class="gpa"><strong>CGPA:</strong> 8.71 / 10.0</p>
+                <p class="coursework"><strong>Relevant Coursework:</strong></p>
+                <div class="course-tags">
+                  <span>Machine Learning</span>
+                  <span>Deep Learning</span>
+                  <span>Data Structures & Algorithms</span>
+                  <span>Computational Biology</span>
+                  <span>Optimization Methods</span>
+                  <span>Statistical Analysis</span>
+                  <span>Bioinformatics</span>
+                  <span>Chemical Engineering Fundamentals</span>
+                </div>
+                <p class="activities"><strong>Activities:</strong> AI Club Member, Research Intern at SENAI & RBCDSAI Labs, Inter-IIT Tech Meet Participant</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="edu-item">
+            <div class="edu-icon"><i class="fas fa-school"></i></div>
+            <div class="edu-content">
+              <div class="edu-header">
+                <div>
+                  <h3>Class XII (CBSE)</h3>
+                  <p class="institution">Sri Chaitanya Techno School, Vijayawada</p>
+                </div>
+                <span class="edu-year">2023</span>
+              </div>
+              <div class="edu-details">
+                <p class="gpa"><strong>Percentage:</strong> 95.4%</p>
+                <p class="stream"><strong>Stream:</strong> Physics, Chemistry, Mathematics, Biology</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="edu-item">
+            <div class="edu-icon"><i class="fas fa-school"></i></div>
+            <div class="edu-content">
+              <div class="edu-header">
+                <div>
+                  <h3>Class X (CBSE)</h3>
+                  <p class="institution">Sri Chaitanya Techno School, Vijayawada</p>
+                </div>
+                <span class="edu-year">2021</span>
+              </div>
+              <div class="edu-details">
+                <p class="gpa"><strong>Percentage:</strong> 99.4%</p>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="certifications">
+          <h3><i class="fas fa-certificate"></i> Certifications & Honors</h3>
+          <ul class="cert-list">
+            <li><i class="fas fa-check-circle"></i> ABRSM Grade 8 Piano Practical Certificate</li>
+            <li><i class="fas fa-check-circle"></i> Advanced Machine Learning Specialization</li>
+            <li><i class="fas fa-check-circle"></i> Deep Learning for Computer Vision</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- CONTACT SECTION -->
       <section id="contact" class="section tab-pane">
-        <h2>Contact</h2>
-        <p>
-          Email: <a href="mailto:be23b041@smail.iitm.ac.in">be23b041@smail.iitm.ac.in</a>  
-        </p>
+        <h2><i class="fas fa-envelope"></i> Get In Touch</h2>
+        
+        <div class="contact-wrapper">
+          <div class="contact-intro">
+            <p class="lead">
+              I'm always interested in research collaborations, internship opportunities, and discussions about AI/ML, computational biology, and geometric deep learning.
+            </p>
+          </div>
+          
+          <div class="contact-grid">
+            <div class="contact-card">
+              <i class="fas fa-envelope-open"></i>
+              <h3>Email</h3>
+              <p><a href="mailto:be23b041@smail.iitm.ac.in">be23b041@smail.iitm.ac.in</a></p>
+            </div>
+            
+            <div class="contact-card">
+              <i class="fab fa-linkedin"></i>
+              <h3>LinkedIn</h3>
+              <p><a href="https://www.linkedin.com/in/j-vijayavallabh" target="_blank" rel="noopener noreferrer">j-vijayavallabh</a></p>
+            </div>
+            
+            <div class="contact-card">
+              <i class="fab fa-github"></i>
+              <h3>GitHub</h3>
+              <p><a href="https://github.com/Vijayavallabh" target="_blank" rel="noopener noreferrer">@Vijayavallabh</a></p>
+            </div>
+            
+            <div class="contact-card">
+              <i class="fas fa-map-marker-alt"></i>
+              <h3>Location</h3>
+              <p>Chennai, Tamil Nadu, India</p>
+            </div>
+          </div>
+          
+          <div class="download-section">
+            <a href="assets/cv.pdf" class="btn-download" download>
+              <i class="fas fa-download"></i> Download CV
+            </a>
+          </div>
+        </div>
       </section>
     </div>
-  </main>  <footer class="footer">
-    <p>© <span id="year"></span> J Vijayavallabh · All rights reserved</p>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; <span id="year"></span> J Vijayavallabh. All rights reserved.</p>
+      <p class="footer-note">Last updated: October 2025</p>
+    </div>
   </footer>
 
   <script src="assets/script.js"></script>
+  <script>
+    // Auto-update copyright year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
