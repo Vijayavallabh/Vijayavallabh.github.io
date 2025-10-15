@@ -108,11 +108,12 @@ a:hover { color: #3730a3; text-decoration: underline; }
 }
 
 .profile-photo {
-  width: 280px;
-  height: 280px;
-  border-radius: 50%;
-  object-fit: cover;
-  object-position: center 20%;
+  max-width: 280px;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  object-fit: contain;
+  object-position: center;
   border: none;
   box-shadow: 0 8px 24px rgba(0,0,0,0.2);
   transition: transform 0.3s ease;
@@ -421,7 +422,7 @@ input[type="range"] {
 }
 
 .preview-canvas {
-  border-radius: 50%;
+  border-radius: var(--radius);
   border: 2px solid #ddd;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
