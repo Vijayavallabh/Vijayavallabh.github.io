@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Photo Crop Tool</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <h1>Photo Crop Tool</h1>
+  
+  <div class="upload-section">
+    <div class="upload-area" id="uploadArea">
+      <h2>📷 Upload an Image</h2>
+      <p>Click to browse or drag & drop your image here</p>
+      <p class="info-text">Supports JPG, PNG, and WebP</p>
+    </div>
+    <input type="file" id="fileInput" accept="image/*">
+  </div>
+
+  <div class="workspace" id="workspace">
+    <div class="canvas-container" id="canvasContainer">
+      <canvas id="canvas"></canvas>
+      <div class="crop-overlay">
+        <div class="crop-circle" id="cropCircle">
+          <div class="resize-handle" id="resizeHandle"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="controls" id="controls">
+    <div class="control-group">
+      <label>
+        Crop Size: 
+        <span class="value-display" id="sizeValue">300</span>px
+      </label>
+      <input type="range" id="sizeSlider" min="100" max="500" step="10" value="300">
+    </div>
+    
+    <div class="control-group">
+      <label>
+        Zoom: 
+        <span class="value-display" id="zoomValue">100</span>%
+      </label>
+      <input type="range" id="zoomSlider" min="50" max="200" step="5" value="100">
+    </div>
+
+    <div class="button-group">
+      <button onclick="cropImage()">✓ Crop & Preview</button>
+      <button class="secondary" onclick="resetCrop()">↻ Reset</button>
+      <button class="secondary" onclick="loadNewImage()">⇪ Upload New</button>
+    </div>
+  </div>
+
+  <div class="final-preview" id="finalPreview">
+    <h2>Cropped Result</h2>
+    <canvas id="previewCanvas" class="preview-canvas"></canvas>
+    <div class="button-group">
+      <button onclick="downloadImage()">⬇ Download Image</button>
+      <button class="secondary" onclick="backToEdit()">← Back to Edit</button>
+    </div>
+  </div>
+
+  <script>
+    // Global variables
+    let canvas, ctx, img;
+    let cropCircle, resizeHandle;
+    let isDragging = false;
+    let isResizing = false;
+    let dragStartX, dragStartY;
+    let cropX = 0, cropY = 0, cropSize = 300;
+    let scale = 1, imageScale = 1;
+    let offsetX = 0, offsetY = 0;
+    let canvasWidth, canvasHeight;
+
+    // Initialize
+    const fileInput = document.getElementById('fileInput');
+    const uploadArea = document.getElementById('uploadArea');
+    const workspace = document.getElementById('workspace');
+    const controls = document.getElementById('controls');
+    const finalPreview = document.getElementById('finalPreview');
+    const sizeSlider = document.getElementById('sizeSlider');
+    const zoomSlider = document.getElementById('zoomSlider');
+    const sizeValue = document.getElementById('sizeValue');
+    const zoomValue = document.getElementById('zoomValue');
+
+    // Upload area interactions
+    uploadArea.addEventListener('click', () => fileInput.click());
+    
+    uploadArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadArea.classList.add('dragover');
+    });
+
+    uploadArea.addEventListener('dragleave', () => {
+      uploadArea.classList.remove('dragover');
+    });
+
+    uploadArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadArea.classList.remove('dragover');
+      const files = e.dataTransfer.files;
+      if (files.length > 0) {
+        handleFileSelect(files[0]);
+      }
+    });
+
+    fileInput.addEventListener('change', (e) => {
+      if (e.target.files.length > 0) {
+        handleFileSelect(e.target.files[0]);
+      }
+    });
+
+    function handleFileSelect(file) {
+      if (!file.type.match('image.*')) {
+        alert('Please select an image file');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        loadImage(e.target.result);
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function loadImage(src) {
+      img = new Image();
+      img.onload = () => {
+        initCanvas();
+        document.querySelector('.upload-section').style.display = 'none';
+        workspace.style.display = 'block';
+        controls.style.display = 'block';
+      };
+      img.src = src;
+    }
+
+    function initCanvas() {
+      canvas = document.getElementById('canvas');
+      ctx = canvas.getContext('2d');
+      cropCircle = document.getElementById('cropCircle');
+      resizeHandle = document.getElementById('resizeHandle');
+
+      // Set canvas size to full image size
+      canvas.width = img.width;
+      canvas.height = img.height;
+      canvasWidth = img.width;
+      canvasHeight = img.height;
+
+      imageScale = 1;
+      
+      // Initial crop position (center)
+      cropX = (img.width - cropSize) / 2;
+      cropY = (img.height - cropSize) / 2;
+
+      drawCanvas();
+      updateCropCircle();
+      setupEventListeners();
+    }
+
+    function drawCanvas() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      ctx.drawImage(img, 0, 0, img.width, img.height);
+    }
+
+    function updateCropCircle() {
+      cropCircle.style.left = cropX + 'px';
+      cropCircle.style.top = cropY + 'px';
+      cropCircle.style.width = cropSize + 'px';
+      cropCircle.style.height = cropSize + 'px';
+    }
+
+    function setupEventListeners() {
+      // Crop circle dragging
+      cropCircle.addEventListener('mousedown', startDrag);
+      resizeHandle.addEventListener('mousedown', startResize);
+      
+      document.addEventListener('mousemove', onMouseMove);
+      document.addEventListener('mouseup', stopDragResize);
+
+      // Sliders
+      sizeSlider.addEventListener('input', () => {
+        cropSize = parseInt(sizeSlider.value);
+        sizeValue.textContent = cropSize;
+        cropX = Math.max(0, Math.min(cropX, canvasWidth - cropSize));
+        cropY = Math.max(0, Math.min(cropY, canvasHeight - cropSize));
+        updateCropCircle();
+      });
+
+      zoomSlider.addEventListener('input', () => {
+        scale = parseInt(zoomSlider.value);
+        zoomValue.textContent = scale;
+        drawCanvas();
+      });
+
+      // Canvas panning (optional - hold Shift and drag)
+      canvas.addEventListener('mousedown', (e) => {
+        if (e.shiftKey) {
+          isDragging = true;
+          dragStartX = e.clientX - offsetX;
+          dragStartY = e.clientY - offsetY;
+          canvas.style.cursor = 'grabbing';
+        }
+      });
+    }
+
+    function startDrag(e) {
+      e.stopPropagation();
+      isDragging = true;
+      dragStartX = e.clientX - cropX;
+      dragStartY = e.clientY - cropY;
+    }
+
+    function startResize(e) {
+      e.stopPropagation();
+      isResizing = true;
+      dragStartX = e.clientX;
+      dragStartY = e.clientY;
+    }
+
+    function onMouseMove(e) {
+      if (isDragging && !isResizing) {
+        cropX = Math.max(0, Math.min(e.clientX - dragStartX, canvasWidth - cropSize));
+        cropY = Math.max(0, Math.min(e.clientY - dragStartY, canvasHeight - cropSize));
+        updateCropCircle();
+      } else if (isResizing) {
+        const deltaX = e.clientX - dragStartX;
+        const newSize = Math.max(100, Math.min(cropSize + deltaX, Math.min(canvasWidth, canvasHeight)));
+        cropSize = newSize;
+        sizeSlider.value = cropSize;
+        sizeValue.textContent = cropSize;
+        dragStartX = e.clientX;
+        dragStartY = e.clientY;
+        
+        cropX = Math.max(0, Math.min(cropX, canvasWidth - cropSize));
+        cropY = Math.max(0, Math.min(cropY, canvasHeight - cropSize));
+        updateCropCircle();
+      }
+    }
+
+    function stopDragResize() {
+      isDragging = false;
+      isResizing = false;
+      canvas.style.cursor = 'move';
+    }
+
+    function cropImage() {
+      const previewCanvas = document.getElementById('previewCanvas');
+      const previewCtx = previewCanvas.getContext('2d');
+      
+      previewCanvas.width = cropSize;
+      previewCanvas.height = cropSize;
+
+      // Create temporary canvas with current view
+      const tempCanvas = document.createElement('canvas');
+      tempCanvas.width = canvasWidth;
+      tempCanvas.height = canvasHeight;
+      const tempCtx = tempCanvas.getContext('2d');
+      
+      tempCtx.save();
+      tempCtx.translate(canvasWidth / 2, canvasHeight / 2);
+      tempCtx.scale(scale / 100, scale / 100);
+      tempCtx.translate(-canvasWidth / 2, -canvasHeight / 2);
+      tempCtx.translate(offsetX, offsetY);
+      
+      const scaledWidth = img.width * imageScale;
+      const scaledHeight = img.height * imageScale;
+      const drawX = (canvasWidth - scaledWidth) / 2;
+      const drawY = (canvasHeight - scaledHeight) / 2;
+      
+      tempCtx.drawImage(img, drawX, drawY, scaledWidth, scaledHeight);
+      tempCtx.restore();
+
+      // Crop the circular area
+      previewCtx.save();
+      previewCtx.beginPath();
+      previewCtx.arc(cropSize / 2, cropSize / 2, cropSize / 2, 0, Math.PI * 2);
+      previewCtx.closePath();
+      previewCtx.clip();
+      
+      previewCtx.drawImage(tempCanvas, cropX, cropY, cropSize, cropSize, 0, 0, cropSize, cropSize);
+      previewCtx.restore();
+
+      workspace.style.display = 'none';
+      controls.style.display = 'none';
+      finalPreview.style.display = 'flex';
+    }
+
+    function downloadImage() {
+      const previewCanvas = document.getElementById('previewCanvas');
+      const link = document.createElement('a');
+      link.download = 'cropped-image.png';
+      link.href = previewCanvas.toDataURL('image/png');
+      link.click();
+    }
+
+    function backToEdit() {
+      workspace.style.display = 'block';
+      controls.style.display = 'block';
+      finalPreview.style.display = 'none';
+    }
+
+    function resetCrop() {
+      cropX = (canvasWidth - cropSize) / 2;
+      cropY = (canvasHeight - cropSize) / 2;
+      scale = 100;
+      offsetX = 0;
+      offsetY = 0;
+      zoomSlider.value = 100;
+      zoomValue.textContent = 100;
+      updateCropCircle();
+      drawCanvas();
+    }
+
+    function loadNewImage() {
+      document.querySelector('.upload-section').style.display = 'block';
+      workspace.style.display = 'none';
+      controls.style.display = 'none';
+      finalPreview.style.display = 'none';
+      fileInput.value = '';
+    }
+  </script>
+</body>
+</html>
