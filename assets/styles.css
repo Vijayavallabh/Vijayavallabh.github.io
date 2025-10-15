@@ -1,0 +1,152 @@
+:root {
+  --bg: #ffffff;
+  --text: #14171a;
+  --muted: #5b7083;
+  --accent: #2b6cb0;
+  --card: #f7fafc;
+  --border: #e2e8f0;
+  --shadow: 0 6px 24px rgba(0,0,0,0.06);
+  --radius: 14px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.site-header {
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, #eef2f7 0%, #ffffff 80%);
+}
+
+.nav {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 12px 20px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.nav a {
+  color: var(--text);
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+
+.nav a:hover {
+  background: var(--card);
+  text-decoration: none;
+}
+
+.hero {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 20px 24px 20px;
+}
+
+.name {
+  font-size: 2.2rem;
+  margin: 0 0 8px 0;
+}
+
+.tagline {
+  margin: 0;
+  color: var(--muted);
+}
+
+.links {
+  margin-top: 12px;
+  display: flex;
+  gap: 12px;
+}
+
+.section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 28px 20px;
+}
+
+.section h2 {
+  font-size: 1.5rem;
+  margin: 8px 0 16px 0;
+}
+
+.list {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 16px;
+}
+
+.item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 14px;
+}
+
+.item-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.item-title { font-weight: 600; }
+.item-meta { color: var(--muted); }
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 16px;
+}
+
+.card {
+  grid-column: span 12;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 14px;
+}
+
+.card h3 {
+  margin-top: 4px;
+  margin-bottom: 6px;
+}
+
+.card .meta {
+  color: var(--muted);
+  margin: 0 0 8px 0;
+}
+
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 16px 20px 40px 20px;
+  text-align: center;
+  color: var(--muted);
+}
+
+/* Responsive */
+@media (min-width: 720px) {
+  .card { grid-column: span 6; }
+}
+@media (min-width: 1024px) {
+  .card { grid-column: span 4; }
+}
