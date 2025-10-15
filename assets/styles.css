@@ -74,12 +74,8 @@ a:hover { text-decoration: underline; }
   color: white;
 }
 
-.tab-pane {
+.tab-pane:not(.active) {
   display: none;
-}
-
-.tab-pane.active {
-  display: block;
 }
 
 .hero {
@@ -96,6 +92,7 @@ a:hover { text-decoration: underline; }
   height: 120px;
   border-radius: 50%;
   object-fit: cover;
+  object-position: center top;
   border: 3px solid var(--border);
 }
 
