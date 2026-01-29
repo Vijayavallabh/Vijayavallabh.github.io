@@ -72,15 +72,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }, observerOptions);
 
-  // Observe all cards and sections
-  document.querySelectorAll('.highlight-card, .research-card, .publication-item, .project-card, .edu-item, .contact-card').forEach(el => {
+  // Observe all cards and sections with animation delay for stagger effect
+  document.querySelectorAll('.highlight-card, .research-card, .publication-item, .project-card, .edu-item, .contact-card, .timeline-item').forEach((el, index) => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(20px)';
-    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
     observer.observe(el);
   });
 
-  // Add mouse move effect for cards
+  // Add mouse move effect for interactive cards
   document.querySelectorAll('.highlight-card, .research-card, .project-card').forEach(card => {
     card.addEventListener('mousemove', (e) => {
       const rect = card.getBoundingClientRect();
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Add typing effect to tagline (optional)
+  // Add typing effect to tagline
   const tagline = document.querySelector('.tagline');
   if (tagline && !sessionStorage.getItem('taglineAnimated')) {
     const text = tagline.textContent;
@@ -121,8 +121,8 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(typeWriter, 500);
   }
 
-  // Add click ripple effect
-  document.querySelectorAll('.tab-button, .tag, .links a').forEach(element => {
+  // Add click ripple effect for interactive elements
+  document.querySelectorAll('.tab-button, .tag, .links a, .btn-download').forEach(element => {
     element.addEventListener('click', function(e) {
       const ripple = document.createElement('span');
       ripple.classList.add('ripple');
@@ -139,5 +139,36 @@ document.addEventListener('DOMContentLoaded', () => {
       
       setTimeout(() => ripple.remove(), 600);
     });
+  });
+
+  // Add scroll progress indicator
+  const createScrollProgress = () => {
+    const progressBar = document.createElement('div');
+    progressBar.className = 'scroll-progress';
+    progressBar.style.cssText = `
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+      z-index: 9999;
+      transition: width 0.1s ease;
+    `;
+    document.body.appendChild(progressBar);
+
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrollPercent = (scrollTop / scrollHeight) * 100;
+      progressBar.style.width = scrollPercent + '%';
+    });
+  };
+
+  createScrollProgress();
+
+  // Add badge pulse animation for achievement badges
+  const badges = document.querySelectorAll('.project-badge, .date-badge, .status-badge');
+  badges.forEach(badge => {
+    badge.style.animation = 'pulse 2s infinite';
   });
 });
