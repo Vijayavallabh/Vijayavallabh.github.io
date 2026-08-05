@@ -1,196 +1,264 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const y = document.getElementById('year');
-  if (y) y.textContent = new Date().getFullYear();
+/* ============================================================
+   Poincaré disk, drawn properly.
 
-  // Cards that fade in on scroll. Kept here so tab switching can reveal them
-  // directly — a hidden pane's cards are never "intersecting", so relying on
-  // the observer alone can leave a freshly opened tab blank.
-  const animatedSelector = '.highlight-card, .research-card, .publication-item, .project-card, .edu-item, .contact-card, .timeline-item, .skill-group';
+   Points live in the open unit disk. A geodesic between two of
+   them is the arc of the circle through both that meets the unit
+   circle at right angles, so edges bow away from the boundary.
+   Pointer movement applies a Mobius translation, which is an
+   isometry of the hyperbolic plane: the picture slides without
+   distorting any hyperbolic distance, even though it looks like
+   it does in Euclidean terms.
 
-  const revealPane = pane => {
-    pane.querySelectorAll(animatedSelector).forEach(el => {
-      el.style.opacity = '1';
-      el.style.transform = 'translateY(0)';
-    });
+   The tree is his research: six branches from the centre, one per
+   domain, coloured to match the legend.
+   ============================================================ */
+
+(() => {
+  'use strict';
+
+  const canvas = document.getElementById('disk');
+  const frame = canvas && canvas.parentElement;
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  /* ── complex helpers ──────────────────────────────────── */
+
+  // Mobius translation by a: z -> (z + a) / (1 + conj(a) z)
+  const translate = (z, a) => {
+    const nx = z.x + a.x;
+    const ny = z.y + a.y;
+    const dx = 1 + a.x * z.x + a.y * z.y;
+    const dy = a.x * z.y - a.y * z.x;
+    const den = dx * dx + dy * dy || 1e-9;
+    return { x: (nx * dx + ny * dy) / den, y: (ny * dx - nx * dy) / den };
   };
 
-  // Tab functionality with smooth transitions
-  const tabButtons = document.querySelectorAll('.tab-button');
-  const tabPanes = document.querySelectorAll('.tab-pane');
+  const rotate = (z, t) => {
+    const c = Math.cos(t), s = Math.sin(t);
+    return { x: z.x * c - z.y * s, y: z.x * s + z.y * c };
+  };
 
-  tabButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      // Remove active class from all buttons and panes
-      tabButtons.forEach(btn => {
-        btn.classList.remove('active');
-        btn.setAttribute('aria-selected', 'false');
-      });
-      tabPanes.forEach(pane => {
-        pane.classList.remove('active');
-        pane.style.opacity = '0';
-      });
+  /* ── the tree ─────────────────────────────────────────── */
 
-      // Add active class to clicked button and corresponding pane
-      button.classList.add('active');
-      button.setAttribute('aria-selected', 'true');
-      const tabId = button.getAttribute('data-tab');
-      const activePane = document.getElementById(tabId);
-      if (activePane) {
-        activePane.classList.add('active');
-        setTimeout(() => {
-          activePane.style.opacity = '1';
-          revealPane(activePane);
-        }, 50);
-      }
-    });
-  });
+  const DOMAINS = ['genomics', 'geometry', 'privacy', 'agents', 'vision', 'speech'];
+  const CHILDREN = [6, 3, 2];
+  // Euclidean radius of a point at hyperbolic distance d from the
+  // centre is tanh(d / 2). Depth crowds toward the boundary.
+  const RADII = [0, 0.56, 0.845, 0.962];
 
-  // Smooth scroll for anchor links
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      const href = this.getAttribute('href');
-      if (href !== '#' && href.length > 1) {
-        const target = document.querySelector(href);
-        if (target) {
-          e.preventDefault();
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
+  const nodes = [];
+  const edges = [];
+
+  function build() {
+    const root = { pos: { x: 0, y: 0 }, depth: 0, domain: null, i: 0 };
+    nodes.push(root);
+
+    let level = [{ node: root, a0: 0, a1: Math.PI * 2 }];
+
+    for (let depth = 1; depth < RADII.length; depth++) {
+      const next = [];
+      level.forEach(parent => {
+        const k = CHILDREN[depth - 1];
+        const span = (parent.a1 - parent.a0) / k;
+        for (let i = 0; i < k; i++) {
+          const a0 = parent.a0 + i * span;
+          const a1 = a0 + span;
+          const jitter = (Math.random() - 0.5) * span * 0.34;
+          const theta = a0 + span / 2 + jitter;
+          const r = RADII[depth] * (1 - Math.random() * 0.035);
+          const node = {
+            pos: { x: r * Math.cos(theta), y: r * Math.sin(theta) },
+            depth,
+            // depth 1 fans out into the six domains, one per branch
+            domain: depth === 1 ? DOMAINS[i % DOMAINS.length] : parent.node.domain,
+            i: nodes.length
+          };
+          nodes.push(node);
+          edges.push([parent.node, node]);
+          next.push({ node, a0, a1 });
         }
-      }
-    });
-  });
+      });
+      level = next;
+    }
+  }
 
-  // Add parallax effect to hero section
-  const hero = document.querySelector('.hero');
-  if (hero) {
-    window.addEventListener('scroll', () => {
-      const scrolled = window.pageYOffset;
-      if (scrolled < 500) {
-        hero.style.transform = `translateY(${scrolled * 0.3}px)`;
-        hero.style.opacity = 1 - scrolled / 600;
-      }
+  /* ── palette, read from CSS so dark mode follows ──────── */
+
+  let palette = {};
+  function readPalette() {
+    const s = getComputedStyle(document.documentElement);
+    palette = { rule: s.getPropertyValue('--rule').trim(), ink: s.getPropertyValue('--ink').trim() };
+    DOMAINS.forEach(d => { palette[d] = s.getPropertyValue('--' + d).trim(); });
+  }
+
+  /* ── geodesic drawing ─────────────────────────────────── */
+
+  // Solve for the circle through p and q orthogonal to the unit
+  // circle. Orthogonality means |c|^2 = r^2 + 1, which turns the
+  // two "on the circle" conditions into a linear system in c.
+  function geodesic(ctx, p, q, R, ox, oy) {
+    const det = 4 * (p.x * q.y - p.y * q.x);
+
+    // p, q and the origin are collinear: the geodesic is a diameter.
+    if (Math.abs(det) < 1e-7) {
+      ctx.moveTo(ox + p.x * R, oy + p.y * R);
+      ctx.lineTo(ox + q.x * R, oy + q.y * R);
+      return;
+    }
+
+    const pp = p.x * p.x + p.y * p.y + 1;
+    const qq = q.x * q.x + q.y * q.y + 1;
+    const cx = (pp * 2 * q.y - qq * 2 * p.y) / det;
+    const cy = (2 * p.x * qq - 2 * q.x * pp) / det;
+    const rad = Math.sqrt(Math.max(cx * cx + cy * cy - 1, 1e-9));
+
+    let a1 = Math.atan2(p.y - cy, p.x - cx);
+    let a2 = Math.atan2(q.y - cy, q.x - cx);
+    let diff = a2 - a1;
+    while (diff > Math.PI) diff -= Math.PI * 2;
+    while (diff < -Math.PI) diff += Math.PI * 2;
+
+    ctx.moveTo(ox + p.x * R, oy + p.y * R);
+    ctx.arc(ox + cx * R, oy + cy * R, rad * R, a1, a1 + diff, diff < 0);
+  }
+
+  /* ── render loop ──────────────────────────────────────── */
+
+  const ctx = canvas && canvas.getContext('2d');
+  let size = 0, spin = 0, last = 0;
+  const aim = { x: 0, y: 0 };
+  const shift = { x: 0, y: 0 };
+
+  function resize() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const box = frame.getBoundingClientRect();
+    size = Math.max(box.width, 1);
+    canvas.width = Math.round(size * dpr);
+    canvas.height = Math.round(size * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function draw() {
+    const R = size / 2 - 8;
+    const ox = size / 2;
+    const oy = size / 2;
+
+    ctx.clearRect(0, 0, size, size);
+
+    // the boundary: infinity, one hyperbolic step further out forever
+    ctx.beginPath();
+    ctx.arc(ox, oy, R, 0, Math.PI * 2);
+    ctx.strokeStyle = palette.rule;
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    const place = z => translate(rotate(z, spin), shift);
+    const pos = nodes.map(n => place(n.pos));
+
+    // edges, grouped by colour so we batch the paths
+    const byDomain = {};
+    edges.forEach(([a, b]) => {
+      const key = b.domain || 'genomics';
+      (byDomain[key] || (byDomain[key] = [])).push([pos[a.i], pos[b.i]]);
+    });
+
+    Object.keys(byDomain).forEach(key => {
+      ctx.beginPath();
+      byDomain[key].forEach(([p, q]) => geodesic(ctx, p, q, R, ox, oy));
+      ctx.strokeStyle = palette[key];
+      ctx.globalAlpha = 0.42;
+      ctx.lineWidth = 1.1;
+      ctx.stroke();
+    });
+    ctx.globalAlpha = 1;
+
+    // nodes
+    nodes.forEach((n, i) => {
+      const p = pos[i];
+      const rad = n.depth === 0 ? 4.5 : Math.max(3.6 - n.depth * 0.75, 1.5);
+      ctx.beginPath();
+      ctx.arc(ox + p.x * R, oy + p.y * R, rad, 0, Math.PI * 2);
+      ctx.fillStyle = n.domain ? palette[n.domain] : palette.ink;
+      ctx.fill();
     });
   }
 
-  // Add intersection observer for fade-in animations
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-  };
+  function frameLoop(now) {
+    const dt = Math.min((now - last) || 16, 50);
+    last = now;
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
-        observer.unobserve(entry.target);
-      }
-    });
-  }, observerOptions);
+    spin += dt * 0.000045;
+    shift.x += (aim.x - shift.x) * 0.055;
+    shift.y += (aim.y - shift.y) * 0.055;
 
-  // Observe all cards and sections with animation delay for stagger effect.
-  // Stagger is scoped per tab and capped so later cards never wait long.
-  tabPanes.forEach(pane => {
-    pane.querySelectorAll(animatedSelector).forEach((el, index) => {
-      const delay = Math.min(index, 6) * 0.08;
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(20px)';
-      el.style.transition = `opacity 0.6s ease ${delay}s, transform 0.6s ease ${delay}s`;
-      observer.observe(el);
-    });
-  });
-
-  // Add mouse move effect for interactive cards
-  document.querySelectorAll('.highlight-card, .research-card, .project-card').forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-      
-      const rotateX = (y - centerY) / 20;
-      const rotateY = (centerX - x) / 20;
-      
-      card.style.transform = `translateY(-8px) scale(1.02) perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-    });
-    
-    card.addEventListener('mouseleave', () => {
-      card.style.transform = '';
-    });
-  });
-
-  // Add typing effect to tagline
-  const tagline = document.querySelector('.tagline');
-  if (tagline && !sessionStorage.getItem('taglineAnimated')) {
-    const text = tagline.textContent;
-    tagline.textContent = '';
-    let i = 0;
-    
-    const typeWriter = () => {
-      if (i < text.length) {
-        tagline.textContent += text.charAt(i);
-        i++;
-        setTimeout(typeWriter, 50);
-      } else {
-        sessionStorage.setItem('taglineAnimated', 'true');
-      }
-    };
-    
-    setTimeout(typeWriter, 500);
+    draw();
+    requestAnimationFrame(frameLoop);
   }
 
-  // Add click ripple effect for interactive elements
-  document.querySelectorAll('.tab-button, .tag, .links a, .btn-download').forEach(element => {
-    element.addEventListener('click', function(e) {
-      const ripple = document.createElement('span');
-      ripple.classList.add('ripple');
-      this.appendChild(ripple);
-      
-      const rect = this.getBoundingClientRect();
-      const size = Math.max(rect.width, rect.height);
-      const x = e.clientX - rect.left - size / 2;
-      const y = e.clientY - rect.top - size / 2;
-      
-      ripple.style.width = ripple.style.height = size + 'px';
-      ripple.style.left = x + 'px';
-      ripple.style.top = y + 'px';
-      
-      setTimeout(() => ripple.remove(), 600);
+  function initDisk() {
+    if (!canvas || !ctx) return;
+    build();
+    readPalette();
+    resize();
+
+    let pending = false;
+    window.addEventListener('resize', () => {
+      if (pending) return;
+      pending = true;
+      requestAnimationFrame(() => { pending = false; resize(); draw(); });
     });
-  });
 
-  // Add scroll progress indicator
-  const createScrollProgress = () => {
-    const progressBar = document.createElement('div');
-    progressBar.className = 'scroll-progress';
-    progressBar.style.cssText = `
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 3px;
-      background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-      z-index: 9999;
-      transition: width 0.1s ease;
-    `;
-    document.body.appendChild(progressBar);
+    const scheme = window.matchMedia('(prefers-color-scheme: dark)');
+    const onScheme = () => { readPalette(); draw(); };
+    scheme.addEventListener ? scheme.addEventListener('change', onScheme)
+                            : scheme.addListener(onScheme);
 
-    window.addEventListener('scroll', () => {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrollPercent = (scrollTop / scrollHeight) * 100;
-      progressBar.style.width = scrollPercent + '%';
+    if (reduced.matches) { draw(); return; }
+
+    // Pointer drives a Mobius translation, capped well inside the
+    // disk so the transform never blows up near the boundary.
+    if (window.matchMedia('(hover: hover)').matches) {
+      window.addEventListener('pointermove', e => {
+        const box = frame.getBoundingClientRect();
+        const nx = (e.clientX - (box.left + box.width / 2)) / (box.width / 2);
+        const ny = (e.clientY - (box.top + box.height / 2)) / (box.height / 2);
+        const cap = 0.26;
+        const len = Math.hypot(nx, ny) || 1;
+        const mag = Math.min(len, 1) * cap;
+        aim.x = -(nx / len) * mag;
+        aim.y = -(ny / len) * mag;
+      }, { passive: true });
+    }
+
+    requestAnimationFrame(frameLoop);
+  }
+
+  /* ── nav: mark the section you're reading ─────────────── */
+
+  function initNav() {
+    const links = Array.from(document.querySelectorAll('.topbar-nav a'));
+    if (!links.length) return;
+
+    const map = new Map();
+    links.forEach(a => {
+      const el = document.querySelector(a.getAttribute('href'));
+      if (el) map.set(el, a);
     });
-  };
 
-  createScrollProgress();
+    const seen = new Set();
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => e.isIntersecting ? seen.add(e.target) : seen.delete(e.target));
+      let top = null;
+      map.forEach((_, el) => {
+        if (!seen.has(el)) return;
+        if (!top || el.offsetTop < top.offsetTop) top = el;
+      });
+      links.forEach(a => a.classList.remove('current'));
+      if (top) map.get(top).classList.add('current');
+    }, { rootMargin: '-20% 0px -70% 0px' });
 
-  // Add badge pulse animation for achievement badges
-  const badges = document.querySelectorAll('.project-badge, .date-badge, .status-badge');
-  badges.forEach(badge => {
-    badge.style.animation = 'pulse 2s infinite';
-  });
-});
+    map.forEach((_, el) => observer.observe(el));
+  }
+
+  initDisk();
+  initNav();
+})();
