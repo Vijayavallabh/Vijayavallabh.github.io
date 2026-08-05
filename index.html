@@ -6,22 +6,54 @@
   <title>J Vijayavallabh</title>
   <meta name="description" content="Pre-final year B.Tech Biological Engineering at IIT Madras. Protein-interaction graphs, single-cell perturbation modelling, hyperbolic representation learning, and agentic retrieval." />
   <meta name="author" content="J Vijayavallabh" />
+  <link rel="canonical" href="https://vijayavallabh.github.io/" />
+
   <meta name="theme-color" content="#f4f5f9" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#0e1219" media="(prefers-color-scheme: dark)" />
 
   <meta property="og:type" content="profile" />
+  <meta property="og:url" content="https://vijayavallabh.github.io/" />
   <meta property="og:title" content="J Vijayavallabh" />
   <meta property="og:description" content="AI for biotech. Protein-interaction graphs, single-cell perturbation modelling, and non-Euclidean geometry." />
+  <meta property="og:image" content="https://vijayavallabh.github.io/assets/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="assets/og.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/styles.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "J Vijayavallabh",
+    "url": "https://vijayavallabh.github.io/",
+    "email": "be23b041@smail.iitm.ac.in",
+    "jobTitle": "AI Genomics Research Intern",
+    "affiliation": { "@type": "CollegeOrUniversity", "name": "Indian Institute of Technology Madras" },
+    "knowsAbout": [
+      "Graph neural networks",
+      "Single-cell genomics",
+      "Hyperbolic representation learning",
+      "Differential privacy auditing",
+      "Retrieval augmented generation",
+      "Vision language models"
+    ],
+    "sameAs": [
+      "https://github.com/Vijayavallabh",
+      "https://www.linkedin.com/in/j-vijayavallabh"
+    ]
+  }
+  </script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
 
-  <header class="topbar">
+  <header class="topbar shell">
     <a class="topbar-name" href="#top">J&nbsp;Vijayavallabh</a>
     <nav class="topbar-nav" aria-label="Sections">
       <a href="#work">Work</a>
@@ -35,11 +67,12 @@
   </header>
 
   <main id="main">
-    <!-- ───────────────────────────── HERO ───────────────────────────── -->
-    <section class="hero" id="top">
-      <div class="hero-text">
-        <p class="eyebrow">IIT Madras · B.Tech Biological Engineering · 2027</p>
-        <h1 class="display">
+
+    <!-- ── hero ─────────────────────────────────────────────── -->
+    <section class="hero shell" id="top" aria-labelledby="hero-title">
+      <div>
+        <p class="label">IIT Madras · B.Tech Biological Engineering · 2027</p>
+        <h1 class="display" id="hero-title">
           AI for biotech.
           <em>Graphs, geometry, and single-cell data.</em>
         </h1>
@@ -69,264 +102,292 @@
       </figure>
     </section>
 
-    <!-- ───────────────────────────── LEGEND ───────────────────────────── -->
-    <div class="legend" aria-label="Colour key for research domains">
-      <span class="legend-label">Domains</span>
+    <!-- ── legend: key to the colour coding used below ──────── -->
+    <div class="legend shell">
+      <span class="label">Domains</span>
       <ul>
-        <li data-domain="genomics"><i class="dot"></i>genomics</li>
-        <li data-domain="geometry"><i class="dot"></i>geometry</li>
-        <li data-domain="privacy"><i class="dot"></i>privacy</li>
-        <li data-domain="agents"><i class="dot"></i>agents</li>
-        <li data-domain="vision"><i class="dot"></i>vision</li>
-        <li data-domain="speech"><i class="dot"></i>speech</li>
+        <li data-domain="genomics">genomics</li>
+        <li data-domain="geometry">geometry</li>
+        <li data-domain="privacy">privacy</li>
+        <li data-domain="agents">agents</li>
+        <li data-domain="vision">vision</li>
+        <li data-domain="speech">speech</li>
       </ul>
     </div>
 
-    <!-- ───────────────────────────── WORK ───────────────────────────── -->
-    <section class="band" id="work">
+    <!-- ── work ─────────────────────────────────────────────── -->
+    <section class="band shell" id="work" aria-labelledby="work-h">
       <div class="band-head">
-        <p class="eyebrow">Work</p>
-        <h2>Research and internships</h2>
+        <p class="label">Work</p>
+        <h2 id="work-h">Research and internships</h2>
         <p class="band-note">Newest first. Advisors named where the work was supervised.</p>
       </div>
 
-      <article class="entry" data-domain="genomics">
-        <div class="entry-meta">
-          <p class="when">Jul 2026</p>
-          <p class="domain"><i class="dot"></i>genomics</p>
-        </div>
-        <div class="entry-body">
-          <h3>AI Genomics Research Intern</h3>
-          <p class="org">Erdős AI Lab</p>
-          <ul class="points">
-            <li>Built EG-IPG, an evidence-gated GNN over an 8M-edge protein-interaction graph, with gating applied at the level of individual edges.</li>
-            <li>Combined ESM-2 and PINNACLE embeddings to predict CRISPRi Perturb-seq response in CD4<sup>+</sup> T cells across roughly 11.5K targets.</li>
-            <li>Wrote the training and evaluation pipeline: multi-GPU sweeps, a test suite, and a run registry.</li>
-            <li>Ran preregistered multi-seed ablations on leakage-safe target-OOD splits with family-wise error control. The result was a bounded null, written up for AAAI 2027.</li>
-          </ul>
-          <ul class="figures">
-            <li><b>8M</b><span>graph edges</span></li>
-            <li><b>11.5K</b><span>CRISPRi targets</span></li>
-          </ul>
-        </div>
-      </article>
-
-      <article class="entry" data-domain="privacy">
-        <div class="entry-meta">
-          <p class="when">Jan 2026<br>May 2026</p>
-          <p class="domain"><i class="dot"></i>privacy</p>
-        </div>
-        <div class="entry-body">
-          <h3>Adversarial auditing of K-NAF privacy</h3>
-          <p class="org">IIT Madras · Privacy in AI course project</p>
-          <ul class="points">
-            <li>Built an auditing pipeline that attacks K-NAF decoding guarantees with targeted prompts, across optimization, validation, stress tests, and held-out evaluation, over several global <var>K</var> budgets and model variants.</li>
-            <li>Measured certified privacy risk with <var>U</var><sub>EBB</sub>, effective budget, and ρ. Both settings stayed certified in aggregate.</li>
-            <li>At <var>k</var> = 3 the audit transferred better to held-out data, separated attacks more sharply, and stayed more reliable than at <var>k</var> = 5.</li>
-          </ul>
-        </div>
-      </article>
-
-      <article class="entry" data-domain="genomics">
-        <div class="entry-meta">
-          <p class="when">May 2025<br>Jul 2025</p>
-          <p class="domain"><i class="dot"></i>genomics</p>
-        </div>
-        <div class="entry-body">
-          <h3>Research Intern <span class="flag">paper under review</span></h3>
-          <p class="org">Kansas State University · Prof. Bala Natarajan</p>
-          <ul class="points">
-            <li>Built PAIGT, a position-aware inductive graph transformer for scRNA-seq: GraphSAGE with degree, shortest-path, and path-attention encoders.</li>
-            <li>Added six biological-prior modules with 18 CLI controls, injectable at four points in the network.</li>
-            <li>Kept the pipeline leak-free by splitting before HVG selection and fitting HVG, kNN, and prior standardization on training data only, with scTEP ensemble inference.</li>
-            <li>Swept 12,576 configs across 5 seeds, 23 arms and 7 metrics, on 4 GPUs over 18 cohorts.</li>
-          </ul>
-          <ul class="figures">
-            <li><b>88,032</b><span>runs swept</span></li>
-            <li><b>+4.3 pp</b><span>accuracy</span></li>
-            <li><b>+0.59 / +0.48</b><span>ARI / NMI</span></li>
-          </ul>
-        </div>
-      </article>
-
-      <article class="entry" data-domain="speech">
-        <div class="entry-meta">
-          <p class="when">Apr 2025<br>May 2025</p>
-          <p class="domain"><i class="dot"></i>speech</p>
-        </div>
-        <div class="entry-body">
-          <h3>AI Research and Development Intern</h3>
-          <p class="org">Photios</p>
-          <ul class="points">
-            <li>Fine-tuned speech recognition models for transcribing retail sales conversations, after a literature review and a comparison of ASR architectures.</li>
-            <li>Built a data cleaning pipeline that uses FastText to strip Sanskrit words out of Hindi datasets.</li>
-            <li>Fine-tuned an N-Gram language model on top of the AI4Bharat Conformer, which brought word error rate down.</li>
-          </ul>
-        </div>
-      </article>
-
-      <article class="entry" data-domain="geometry">
-        <div class="entry-meta">
-          <p class="when">Dec 2024<br>May 2025</p>
-          <p class="domain"><i class="dot"></i>geometry</p>
-        </div>
-        <div class="entry-body">
-          <h3>Student Researcher</h3>
-          <p class="org">SENAI, IIT Madras · Prof. Raghunathan Rengaswamy</p>
-          <ul class="points">
-            <li>Worked on hyperbolic Grad-CAM and activation sparsity in hyperbolic and hybrid CNNs, on the question of how to interpret a model whose representations do not live in flat space.</li>
-            <li>Those representations exposed hierarchical, part-whole structure in images.</li>
-            <li>Gave talks on geometric deep learning, disentanglement via topology, the topology of deep networks, and PCA in ML research.</li>
-          </ul>
-        </div>
-      </article>
-
-      <article class="entry" data-domain="genomics">
-        <div class="entry-meta">
-          <p class="when">Sep 2024<br>Dec 2024</p>
-          <p class="domain"><i class="dot"></i>genomics</p>
-        </div>
-        <div class="entry-body">
-          <h3>Student Researcher</h3>
-          <p class="org">RBCDSAI, IIT Madras · Prof. Karthik Raman</p>
-          <ul class="points">
-            <li>Modelled reaction-protein relationships with a seq2seq pipeline: ESM-encoded proteins feeding a BART-style cross-attention decoder that generates every SMILES sequence for a given reaction.</li>
-            <li>Tuned tokenization and data partitioning to raise the share of chemically valid SMILES.</li>
-          </ul>
-        </div>
-      </article>
-    </section>
-
-    <!-- ───────────────────────────── PAPERS ───────────────────────────── -->
-    <section class="band" id="papers">
-      <div class="band-head">
-        <p class="eyebrow">Papers</p>
-        <h2>Publications and patent</h2>
-      </div>
-
-      <ol class="papers">
-        <li data-domain="privacy">
-          <p class="venue"><i class="dot"></i>arXiv preprint · 2605.28001</p>
-          <h3><a href="https://arxiv.org/abs/2605.28001" target="_blank" rel="noopener noreferrer">An Empirical Audit of k-NAF Budget Accounting for Anchored Decoding</a></h3>
-          <p class="gloss">How reliable the k-NAF privacy certification is once you attack it with adversarial prompts, and how the budget accounts for anchored decoding.</p>
-        </li>
-        <li data-domain="agents">
-          <p class="venue"><i class="dot"></i>EMNLP 2025 · FinNLP Workshop</p>
-          <h3><a href="https://aclanthology.org/2025.finnlp-2.3/" target="_blank" rel="noopener noreferrer">Enhancing Financial RAG with Agentic AI and Multi-HyDE</a></h3>
-          <p class="gloss">A dynamic agentic retrieval pipeline for SEC-10K filings: hybrid retrieval, safety guardrails, and source attribution a reader can check. Out of Inter-IIT Tech Meet 13.0.</p>
-        </li>
-        <li data-domain="geometry">
-          <p class="venue"><i class="dot"></i>ICCV 2025 · Beyond Euclidean Workshop · pp. 706-714</p>
-          <h3><a href="https://openaccess.thecvf.com/content/ICCV2025W/BEW/html/Jayamanikandan_Sparse_Hyperbolic_Convolutional_Networks_with_Enhanced_Object_Localization_via_GradCAM_ICCVW_2025_paper.html" target="_blank" rel="noopener noreferrer">Sparse Hyperbolic Convolutional Networks with Enhanced Object Localization via GradCAM Analysis</a></h3>
-          <p class="gloss">GradCAM and activation sparsity applied to hyperbolic CNNs, which surfaces the part-whole hierarchy the geometry was chosen to hold. From SENAI, IIT Madras.</p>
-        </li>
-        <li data-domain="agents" class="is-patent">
-          <p class="venue"><i class="dot"></i>Patent, granted 19 March 2025</p>
-          <h3><a href="https://drive.google.com/file/d/1tEh2rGkdvlokpQDNb8HjZaIaiiJd_C-4/view?usp=sharing" target="_blank" rel="noopener noreferrer">Systems and Methods for Agentic Based Approach in Retrieval Augmented Generation</a></h3>
-          <p class="gloss">Covers the multi-agent orchestration, adaptive retrieval, and source attribution behind the financial RAG work.</p>
-        </li>
-      </ol>
-    </section>
-
-    <!-- ───────────────────────────── PROJECTS ───────────────────────────── -->
-    <section class="band" id="projects">
-      <div class="band-head">
-        <p class="eyebrow">Projects</p>
-        <h2>Things I built</h2>
-      </div>
-
-      <div class="projects">
-        <article class="project" data-domain="genomics">
-          <p class="venue"><i class="dot"></i>FAST Grants, Biswas Family Foundation</p>
-          <h3>PhageHost-Bench</h3>
-          <p class="gloss">An open benchmark for AI-driven phage-host prediction. Twelve-month project, funded on a $25,000 Fast Grant in Cycle 1, decided July 2026 and funded that August.</p>
-          <ul class="figures">
-            <li><b>$25,000</b><span>Fast Grant, Cycle 1</span></li>
-            <li><b>12 mo</b><span>project</span></li>
-          </ul>
-          <p class="project-links"><a href="https://www.biswasfamilyfoundation.org/science/fast-grants" target="_blank" rel="noopener noreferrer">FAST Grants<span class="ext" aria-hidden="true"></span></a></p>
+      <div class="records">
+        <article class="record" data-domain="genomics">
+          <div class="record-spine">
+            <p class="record-when">Jul 2026</p>
+            <p class="record-domain">genomics</p>
+          </div>
+          <div class="record-main">
+            <h3 class="record-title">AI Genomics Research Intern</h3>
+            <p class="record-org">Erdős AI Lab</p>
+            <ul class="points">
+              <li>Built EG-IPG, an evidence-gated GNN over an 8M-edge protein-interaction graph, with gating applied at the level of individual edges.</li>
+              <li>Combined ESM-2 and PINNACLE embeddings to predict CRISPRi Perturb-seq response in CD4<sup>+</sup> T cells across roughly 11.5K targets.</li>
+              <li>Wrote the training and evaluation pipeline: multi-GPU sweeps, a test suite, and a run registry.</li>
+              <li>Ran preregistered multi-seed ablations on leakage-safe target-OOD splits with family-wise error control. The result was a bounded null, written up for AAAI 2027.</li>
+            </ul>
+            <ul class="figures">
+              <li><b>8M</b><span>graph edges</span></li>
+              <li><b>11.5K</b><span>CRISPRi targets</span></li>
+            </ul>
+          </div>
         </article>
 
-        <article class="project" data-domain="vision">
-          <p class="venue"><i class="dot"></i>Inter-IIT Tech Meet 14.0 · ISRO · Nov 2025</p>
-          <h3>GeoNLI <span class="flag">Top 8 of 23</span></h3>
-          <p class="gloss">An offline, on-prem vision language model for remote sensing: captioning, semantic and binary and numeric VQA, and visual grounding. I led six people and we had fifteen days.</p>
-          <ul class="points">
-            <li>Curated multi-resolution datasets from VRSBench, RSVLM-QA and XLRS, then synthesized adversarial and counting or area VQA on top.</li>
-            <li>Fine-tuned Ovis2.5-9B with LoRA for captioning and VQA.</li>
-            <li>Built a hybrid grounding stack: Ovis intent routing into SAM-3 segmentation, OpenCV mask metadata, then oriented boxes and tool-based geometry. VQA runs the same way.</li>
-          </ul>
-          <p class="project-links"><a href="https://github.com/Vijayavallabh/ISRO-GeoNLI" target="_blank" rel="noopener noreferrer">Repository<span class="ext" aria-hidden="true"></span></a></p>
+        <article class="record" data-domain="privacy">
+          <div class="record-spine">
+            <p class="record-when">Jan 2026<br>May 2026</p>
+            <p class="record-domain">privacy</p>
+          </div>
+          <div class="record-main">
+            <h3 class="record-title">Adversarial auditing of K-NAF privacy</h3>
+            <p class="record-org">IIT Madras · Privacy in AI course project</p>
+            <ul class="points">
+              <li>Built an auditing pipeline that attacks K-NAF decoding guarantees with targeted prompts, across optimization, validation, stress tests, and held-out evaluation, over several global <var>K</var> budgets and model variants.</li>
+              <li>Measured certified privacy risk with <var>U</var><sub>EBB</sub>, effective budget, and ρ. Both settings stayed certified in aggregate.</li>
+              <li>At <var>k</var> = 3 the audit transferred better to held-out data, separated attacks more sharply, and stayed more reliable than at <var>k</var> = 5.</li>
+            </ul>
+          </div>
         </article>
 
-        <article class="project" data-domain="agents">
-          <p class="venue"><i class="dot"></i>Inter-IIT Tech Meet 13.0 · Pathway · Oct 2024</p>
-          <h3>Dynamic agentic RAG for SEC-10K filings <span class="flag">Top 6 of 23</span></h3>
-          <p class="gloss">A retrieval pipeline for financial documents that adapts to the query, refuses what it should, and shows its sources. Built on Pathway's vector store.</p>
-          <ul class="points">
-            <li>Engineered Multi-HyDE, a hybrid retrieval mechanism over multi-query and hypothetical document embeddings.</li>
-            <li>Added PDF parsing, Llama Guard safety guardrails, and source attribution.</li>
-            <li>Deployed on Azure with Docker and FastAPI, then evaluated against GPT-4o and Gemini-1.5 on semantic similarity, recall, factual correctness, faithfulness and ROUGE.</li>
-          </ul>
-          <p class="project-links">
-            <a href="https://aclanthology.org/2025.finnlp-2.3/" target="_blank" rel="noopener noreferrer">Paper<span class="ext" aria-hidden="true"></span></a>
-            <a href="https://pathway.com/" target="_blank" rel="noopener noreferrer">Pathway<span class="ext" aria-hidden="true"></span></a>
-          </p>
+        <article class="record" data-domain="genomics">
+          <div class="record-spine">
+            <p class="record-when">May 2025<br>Jul 2025</p>
+            <p class="record-domain">genomics</p>
+          </div>
+          <div class="record-main">
+            <h3 class="record-title">Research Intern <span class="flag">paper under review</span></h3>
+            <p class="record-org">Kansas State University · Prof. Bala Natarajan</p>
+            <ul class="points">
+              <li>Built PAIGT, a position-aware inductive graph transformer for scRNA-seq: GraphSAGE with degree, shortest-path, and path-attention encoders.</li>
+              <li>Added six biological-prior modules with 18 CLI controls, injectable at four points in the network.</li>
+              <li>Kept the pipeline leak-free by splitting before HVG selection and fitting HVG, kNN, and prior standardization on training data only, with scTEP ensemble inference.</li>
+              <li>Swept 12,576 configs across 5 seeds, 23 arms and 7 metrics, on 4 GPUs over 18 cohorts.</li>
+            </ul>
+            <ul class="figures">
+              <li><b>88,032</b><span>runs swept</span></li>
+              <li><b>+4.3 pp</b><span>accuracy</span></li>
+              <li><b>+0.59 / +0.48</b><span>ARI / NMI</span></li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="record" data-domain="speech">
+          <div class="record-spine">
+            <p class="record-when">Apr 2025<br>May 2025</p>
+            <p class="record-domain">speech</p>
+          </div>
+          <div class="record-main">
+            <h3 class="record-title">AI Research and Development Intern</h3>
+            <p class="record-org">Photios</p>
+            <ul class="points">
+              <li>Fine-tuned speech recognition models for transcribing retail sales conversations, after a literature review and a comparison of ASR architectures.</li>
+              <li>Built a data cleaning pipeline that uses FastText to strip Sanskrit words out of Hindi datasets.</li>
+              <li>Fine-tuned an N-Gram language model on top of the AI4Bharat Conformer, which brought word error rate down.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="record" data-domain="geometry">
+          <div class="record-spine">
+            <p class="record-when">Dec 2024<br>May 2025</p>
+            <p class="record-domain">geometry</p>
+          </div>
+          <div class="record-main">
+            <h3 class="record-title">Student Researcher</h3>
+            <p class="record-org">SENAI, IIT Madras · Prof. Raghunathan Rengaswamy</p>
+            <ul class="points">
+              <li>Worked on hyperbolic Grad-CAM and activation sparsity in hyperbolic and hybrid CNNs, on the question of how to interpret a model whose representations do not live in flat space.</li>
+              <li>Those representations exposed hierarchical, part-whole structure in images.</li>
+              <li>Gave talks on geometric deep learning, disentanglement via topology, the topology of deep networks, and PCA in ML research.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="record" data-domain="genomics">
+          <div class="record-spine">
+            <p class="record-when">Sep 2024<br>Dec 2024</p>
+            <p class="record-domain">genomics</p>
+          </div>
+          <div class="record-main">
+            <h3 class="record-title">Student Researcher</h3>
+            <p class="record-org">RBCDSAI, IIT Madras · Prof. Karthik Raman</p>
+            <ul class="points">
+              <li>Modelled reaction-protein relationships with a seq2seq pipeline: ESM-encoded proteins feeding a BART-style cross-attention decoder that generates every SMILES sequence for a given reaction.</li>
+              <li>Tuned tokenization and data partitioning to raise the share of chemically valid SMILES.</li>
+            </ul>
+          </div>
         </article>
       </div>
     </section>
 
-    <!-- ───────────────────────────── TOOLKIT ───────────────────────────── -->
-    <section class="band" id="toolkit">
+    <!-- ── papers ───────────────────────────────────────────── -->
+    <section class="band shell" id="papers" aria-labelledby="papers-h">
       <div class="band-head">
-        <p class="eyebrow">Toolkit</p>
-        <h2>What I work in</h2>
+        <p class="label">Papers</p>
+        <h2 id="papers-h">Publications and patent</h2>
+      </div>
+
+      <div class="records">
+        <article class="record" data-domain="privacy">
+          <div class="record-spine">
+            <p class="record-when">2026</p>
+            <p class="record-domain">privacy</p>
+          </div>
+          <div class="record-main">
+            <p class="record-venue">arXiv preprint · 2605.28001</p>
+            <h3 class="record-title"><a href="https://arxiv.org/abs/2605.28001" target="_blank" rel="noopener noreferrer">An Empirical Audit of k-NAF Budget Accounting for Anchored Decoding</a></h3>
+            <p class="gloss">How reliable the k-NAF privacy certification is once you attack it with adversarial prompts, and how the budget accounts for anchored decoding.</p>
+          </div>
+        </article>
+
+        <article class="record" data-domain="agents">
+          <div class="record-spine">
+            <p class="record-when">2025</p>
+            <p class="record-domain">agents</p>
+          </div>
+          <div class="record-main">
+            <p class="record-venue">EMNLP 2025 · FinNLP Workshop</p>
+            <h3 class="record-title"><a href="https://aclanthology.org/2025.finnlp-2.3/" target="_blank" rel="noopener noreferrer">Enhancing Financial RAG with Agentic AI and Multi-HyDE</a></h3>
+            <p class="gloss">A dynamic agentic retrieval pipeline for SEC-10K filings: hybrid retrieval, safety guardrails, and source attribution a reader can check. Out of Inter-IIT Tech Meet 13.0.</p>
+          </div>
+        </article>
+
+        <article class="record" data-domain="geometry">
+          <div class="record-spine">
+            <p class="record-when">2025</p>
+            <p class="record-domain">geometry</p>
+          </div>
+          <div class="record-main">
+            <p class="record-venue">ICCV 2025 · Beyond Euclidean Workshop · pp. 706-714</p>
+            <h3 class="record-title"><a href="https://openaccess.thecvf.com/content/ICCV2025W/BEW/html/Jayamanikandan_Sparse_Hyperbolic_Convolutional_Networks_with_Enhanced_Object_Localization_via_GradCAM_ICCVW_2025_paper.html" target="_blank" rel="noopener noreferrer">Sparse Hyperbolic Convolutional Networks with Enhanced Object Localization via GradCAM Analysis</a></h3>
+            <p class="gloss">GradCAM and activation sparsity applied to hyperbolic CNNs, which surfaces the part-whole hierarchy the geometry was chosen to hold. From SENAI, IIT Madras.</p>
+          </div>
+        </article>
+
+        <article class="record is-patent" data-domain="agents">
+          <div class="record-spine">
+            <p class="record-when">2025</p>
+            <p class="record-domain">agents</p>
+          </div>
+          <div class="record-main">
+            <p class="record-venue">Patent, granted 19 March 2025</p>
+            <h3 class="record-title"><a href="https://drive.google.com/file/d/1tEh2rGkdvlokpQDNb8HjZaIaiiJd_C-4/view?usp=sharing" target="_blank" rel="noopener noreferrer">Systems and Methods for Agentic Based Approach in Retrieval Augmented Generation</a></h3>
+            <p class="gloss">Covers the multi-agent orchestration, adaptive retrieval, and source attribution behind the financial RAG work.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ── projects ─────────────────────────────────────────── -->
+    <section class="band shell" id="projects" aria-labelledby="projects-h">
+      <div class="band-head">
+        <p class="label">Projects</p>
+        <h2 id="projects-h">Things I built</h2>
+      </div>
+
+      <div class="records">
+        <article class="record" data-domain="genomics">
+          <div class="record-spine">
+            <p class="record-when">Aug 2026</p>
+            <p class="record-domain">genomics</p>
+          </div>
+          <div class="record-main">
+            <h3 class="record-title">PhageHost-Bench</h3>
+            <p class="record-org">FAST Grants, Biswas Family Foundation</p>
+            <p class="gloss">An open benchmark for AI-driven phage-host prediction. Twelve-month project, funded on a $25,000 Fast Grant in Cycle 1, decided July 2026 and funded that August.</p>
+            <ul class="figures">
+              <li><b>$25,000</b><span>Fast Grant, Cycle 1</span></li>
+              <li><b>12 mo</b><span>project</span></li>
+            </ul>
+            <p class="record-links"><a href="https://www.biswasfamilyfoundation.org/science/fast-grants" target="_blank" rel="noopener noreferrer">FAST Grants<span class="ext" aria-hidden="true"></span></a></p>
+          </div>
+        </article>
+
+        <article class="record" data-domain="vision">
+          <div class="record-spine">
+            <p class="record-when">Nov 2025<br>Dec 2025</p>
+            <p class="record-domain">vision</p>
+          </div>
+          <div class="record-main">
+            <h3 class="record-title">GeoNLI <span class="flag">Top 8 of 23</span></h3>
+            <p class="record-org">Inter-IIT Tech Meet 14.0 · ISRO</p>
+            <p class="gloss">An offline, on-prem vision language model for remote sensing: captioning, semantic and binary and numeric VQA, and visual grounding. I led six people and we had fifteen days.</p>
+            <ul class="points">
+              <li>Curated multi-resolution datasets from VRSBench, RSVLM-QA and XLRS, then synthesized adversarial and counting or area VQA on top.</li>
+              <li>Fine-tuned Ovis2.5-9B with LoRA for captioning and VQA.</li>
+              <li>Built a hybrid grounding stack: Ovis intent routing into SAM-3 segmentation, OpenCV mask metadata, then oriented boxes and tool-based geometry. VQA runs the same way.</li>
+            </ul>
+            <p class="record-links"><a href="https://github.com/Vijayavallabh/ISRO-GeoNLI" target="_blank" rel="noopener noreferrer">Repository<span class="ext" aria-hidden="true"></span></a></p>
+          </div>
+        </article>
+
+        <article class="record" data-domain="agents">
+          <div class="record-spine">
+            <p class="record-when">Oct 2024<br>Dec 2024</p>
+            <p class="record-domain">agents</p>
+          </div>
+          <div class="record-main">
+            <h3 class="record-title">Dynamic agentic RAG for SEC-10K filings <span class="flag">Top 6 of 23</span></h3>
+            <p class="record-org">Inter-IIT Tech Meet 13.0 · Pathway</p>
+            <p class="gloss">A retrieval pipeline for financial documents that adapts to the query, refuses what it should, and shows its sources. Built on Pathway's vector store.</p>
+            <ul class="points">
+              <li>Engineered Multi-HyDE, a hybrid retrieval mechanism over multi-query and hypothetical document embeddings.</li>
+              <li>Added PDF parsing, Llama Guard safety guardrails, and source attribution.</li>
+              <li>Deployed on Azure with Docker and FastAPI, then evaluated against GPT-4o and Gemini-1.5 on semantic similarity, recall, factual correctness, faithfulness and ROUGE.</li>
+            </ul>
+            <p class="record-links">
+              <a href="https://aclanthology.org/2025.finnlp-2.3/" target="_blank" rel="noopener noreferrer">Paper<span class="ext" aria-hidden="true"></span></a>
+              <a href="https://pathway.com/" target="_blank" rel="noopener noreferrer">Pathway<span class="ext" aria-hidden="true"></span></a>
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ── toolkit ──────────────────────────────────────────── -->
+    <section class="band shell" id="toolkit" aria-labelledby="toolkit-h">
+      <div class="band-head">
+        <p class="label">Toolkit</p>
+        <h2 id="toolkit-h">What I work in</h2>
       </div>
 
       <dl class="toolkit">
-        <div>
-          <dt>Languages</dt>
-          <dd>Python, Matlab, Bash, LaTeX</dd>
-        </div>
-        <div>
-          <dt>Modelling</dt>
-          <dd>PyTorch, TensorFlow, Unsloth, Optuna, Pix2pixHD</dd>
-        </div>
-        <div>
-          <dt>Graphs and molecules</dt>
-          <dd>DGL, NetworkX, RDKit, MNE-Python</dd>
-        </div>
-        <div>
-          <dt>Data</dt>
-          <dd>Pandas, NumPy, Matplotlib, NLTK</dd>
-        </div>
-        <div>
-          <dt>Retrieval</dt>
-          <dd>LangChain</dd>
-        </div>
-        <div>
-          <dt>Shipping</dt>
-          <dd>Git, Docker, FastAPI, Azure</dd>
-        </div>
+        <div class="spine-row"><dt class="label">Languages</dt><dd>Python, Matlab, Bash, LaTeX</dd></div>
+        <div class="spine-row"><dt class="label">Modelling</dt><dd>PyTorch, TensorFlow, Unsloth, Optuna, Pix2pixHD</dd></div>
+        <div class="spine-row"><dt class="label">Graphs and molecules</dt><dd>DGL, NetworkX, RDKit, MNE-Python</dd></div>
+        <div class="spine-row"><dt class="label">Data</dt><dd>Pandas, NumPy, Matplotlib, NLTK</dd></div>
+        <div class="spine-row"><dt class="label">Retrieval</dt><dd>LangChain</dd></div>
+        <div class="spine-row"><dt class="label">Shipping</dt><dd>Git, Docker, FastAPI, Azure</dd></div>
       </dl>
     </section>
 
-    <!-- ───────────────────────────── RECORD ───────────────────────────── -->
-    <section class="band" id="record">
+    <!-- ── record ───────────────────────────────────────────── -->
+    <section class="band shell" id="record" aria-labelledby="record-h">
       <div class="band-head">
-        <p class="eyebrow">Record</p>
-        <h2>Education and honours</h2>
+        <p class="label">Record</p>
+        <h2 id="record-h">Education and honours</h2>
       </div>
 
-      <div class="record">
-        <div class="record-col">
-          <h3 class="sub">Education</h3>
-
-          <article class="entry entry-tight">
-            <div class="entry-meta"><p class="when">2023<br>2027</p></div>
-            <div class="entry-body">
-              <h3>B.Tech, Biological Engineering</h3>
-              <p class="org">Indian Institute of Technology Madras</p>
+      <section aria-labelledby="edu-h">
+        <h3 class="label" id="edu-h">Education</h3>
+        <div class="records">
+          <article class="record">
+            <div class="record-spine"><p class="record-when">2023<br>2027</p></div>
+            <div class="record-main">
+              <h4 class="record-title">B.Tech, Biological Engineering</h4>
+              <p class="record-org">Indian Institute of Technology Madras</p>
               <p class="stat"><b>CGPA 8.64</b> out of 10</p>
               <p class="courses">
                 Protein Structures and Functions · Computational Systems Biology ·
@@ -340,73 +401,97 @@
             </div>
           </article>
 
-          <article class="entry entry-tight">
-            <div class="entry-meta"><p class="when">2023</p></div>
-            <div class="entry-body">
-              <h3>Class XII, CBSE</h3>
-              <p class="org">Sri Chaitanya Techno School</p>
+          <article class="record">
+            <div class="record-spine"><p class="record-when">2023</p></div>
+            <div class="record-main">
+              <h4 class="record-title">Class XII, CBSE</h4>
+              <p class="record-org">Sri Chaitanya Techno School</p>
               <p class="stat"><b>95.4%</b> · physics, chemistry, mathematics, biology</p>
             </div>
           </article>
 
-          <article class="entry entry-tight">
-            <div class="entry-meta"><p class="when">2021</p></div>
-            <div class="entry-body">
-              <h3>Class X, CBSE</h3>
-              <p class="org">Sri Chaitanya Techno School</p>
+          <article class="record">
+            <div class="record-spine"><p class="record-when">2021</p></div>
+            <div class="record-main">
+              <h4 class="record-title">Class X, CBSE</h4>
+              <p class="record-org">Sri Chaitanya Techno School</p>
               <p class="stat"><b>99.4%</b></p>
             </div>
           </article>
         </div>
+      </section>
 
-        <div class="record-col">
-          <h3 class="sub">Honours</h3>
-          <ul class="honours">
-            <li>
-              <b>$25,000 FAST Grant</b>, Biswas Family Foundation, Cycle 1. Decided July 2026,
-              funded that August, for PhageHost-Bench.
-            </li>
-            <li><b>Reviewer</b> for UniReps at the NeurIPS 2025 workshop.</li>
-            <li><b>YC Startup School India</b>, Bengaluru. Received YC AI Stack benefits, over $25k in tools and cloud credits.</li>
-            <li><b>Top 1%</b> in JEE Main and JEE Advanced, 2023.</li>
-            <li><b>Top 6 of 23</b> at Inter-IIT Tech Meet 13.0, High Prep, for the SEC-10K retrieval pipeline.</li>
-            <li><b>Top 8 of 23</b> at Inter-IIT Tech Meet 14.0, Mid Prep, for ISRO GeoNLI.</li>
-            <li><b>ABRSM Grade 8 Piano</b>, practical, Merit. November 2024.</li>
-            <li>Deep Learning Specialization, Coursera. LLM Agents MOOC, UC Berkeley.</li>
-          </ul>
-        </div>
-      </div>
+      <section aria-labelledby="hon-h" class="honours-block">
+        <h3 class="label" id="hon-h">Honours</h3>
+        <ul class="honours">
+          <li class="spine-row">
+            <span class="record-when">2026</span>
+            <span><b>$25,000 FAST Grant</b>, Biswas Family Foundation, Cycle 1. Decided July 2026, funded that August, for PhageHost-Bench.</span>
+          </li>
+          <li class="spine-row">
+            <span class="record-when">2025</span>
+            <span><b>Reviewer</b> for UniReps at the NeurIPS 2025 workshop.</span>
+          </li>
+          <li class="spine-row">
+            <span class="record-when">2025</span>
+            <span><b>Top 8 of 23</b> at Inter-IIT Tech Meet 14.0, Mid Prep, for ISRO GeoNLI.</span>
+          </li>
+          <li class="spine-row">
+            <span class="record-when">2024</span>
+            <span><b>Top 6 of 23</b> at Inter-IIT Tech Meet 13.0, High Prep, for the SEC-10K retrieval pipeline.</span>
+          </li>
+          <li class="spine-row">
+            <span class="record-when">2024</span>
+            <span><b>ABRSM Grade 8 Piano</b>, practical, Merit. November 2024.</span>
+          </li>
+          <li class="spine-row">
+            <span class="record-when">2023</span>
+            <span><b>Top 1%</b> in JEE Main and JEE Advanced.</span>
+          </li>
+          <li class="spine-row">
+            <span class="record-when"></span>
+            <span><b>YC Startup School India</b>, Bengaluru. Received YC AI Stack benefits, over $25k in tools and cloud credits.</span>
+          </li>
+          <li class="spine-row">
+            <span class="record-when"></span>
+            <span>Deep Learning Specialization, Coursera. LLM Agents MOOC, UC Berkeley.</span>
+          </li>
+        </ul>
+      </section>
     </section>
 
-    <!-- ───────────────────────────── CONTACT ───────────────────────────── -->
-    <section class="band band-contact" id="contact">
+    <!-- ── contact ──────────────────────────────────────────── -->
+    <section class="band shell" id="contact" aria-labelledby="contact-h">
+      <div class="band-head">
+        <p class="label">Contact</p>
+        <h2 id="contact-h">Get in touch</h2>
+      </div>
+
       <div class="contact">
-        <img src="assets/photo.jpg" alt="J Vijayavallabh" class="portrait" loading="lazy" width="160" height="160">
+        <img src="assets/photo.jpg" alt="J Vijayavallabh" class="portrait" loading="lazy" width="132" height="132">
         <div>
-          <p class="eyebrow">Contact</p>
-          <h2>Get in touch</h2>
           <p class="contact-note">
             Email reaches me fastest. I'm interested in research collaborations and
             internships in AI for biotech, and I answer students asking about hyperbolic
             models or single-cell pipelines.
           </p>
-          <ul class="contact-list">
-            <li><span>Email</span><a href="mailto:be23b041@smail.iitm.ac.in">be23b041@smail.iitm.ac.in</a></li>
-            <li><span>Phone</span><a href="tel:+919384477762">+91 93844 77762</a></li>
-            <li><span>GitHub</span><a href="https://github.com/Vijayavallabh" target="_blank" rel="noopener noreferrer">Vijayavallabh</a></li>
-            <li><span>LinkedIn</span><a href="https://www.linkedin.com/in/j-vijayavallabh" target="_blank" rel="noopener noreferrer">j-vijayavallabh</a></li>
-          </ul>
-          <p class="contact-cv"><a class="cv-button" href="./assets/autoCV.pdf" download="J_Vijayavallabh_CV.pdf">Download the CV (PDF)</a></p>
+          <dl class="contact-list">
+            <div><dt class="label">Email</dt><dd><a href="mailto:be23b041@smail.iitm.ac.in">be23b041@smail.iitm.ac.in</a></dd></div>
+            <div><dt class="label">Phone</dt><dd><a href="tel:+919384477762">+91 93844 77762</a></dd></div>
+            <div><dt class="label">GitHub</dt><dd><a href="https://github.com/Vijayavallabh" target="_blank" rel="noopener noreferrer">Vijayavallabh</a></dd></div>
+            <div><dt class="label">LinkedIn</dt><dd><a href="https://www.linkedin.com/in/j-vijayavallabh" target="_blank" rel="noopener noreferrer">j-vijayavallabh</a></dd></div>
+          </dl>
+          <a class="cv-button" href="./assets/autoCV.pdf" download="J_Vijayavallabh_CV.pdf">Download the CV (PDF)</a>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="footer">
+  <footer class="footer shell">
     <p>J Vijayavallabh, Chennai</p>
     <p>Updated August 2026</p>
   </footer>
 
-  <script src="assets/script.js"></script>
+  <script src="assets/script.js" defer></script>
 </body>
 </html>

@@ -6,132 +6,140 @@
    circle at right angles, so edges bow away from the boundary.
    Pointer movement applies a Mobius translation, which is an
    isometry of the hyperbolic plane: the picture slides without
-   distorting any hyperbolic distance, even though it looks like
-   it does in Euclidean terms.
+   changing any hyperbolic distance, even though it looks like it
+   does in Euclidean terms.
 
    The tree is his research: six branches from the centre, one per
    domain, coloured to match the legend.
+
+   Geometry is precomputed once and held in flat arrays, so the
+   frame loop allocates nothing. The loop only runs while the
+   figure is on screen and the tab is visible.
    ============================================================ */
 
 (() => {
   'use strict';
 
+  /* ─────────────────────────────────────────────────────────
+     Disk
+     ───────────────────────────────────────────────────────── */
+
   const canvas = document.getElementById('disk');
-  const frame = canvas && canvas.parentElement;
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const frame  = canvas && canvas.parentElement;
+  const ctx    = canvas && canvas.getContext('2d');
 
-  /* ── complex helpers ──────────────────────────────────── */
-
-  // Mobius translation by a: z -> (z + a) / (1 + conj(a) z)
-  const translate = (z, a) => {
-    const nx = z.x + a.x;
-    const ny = z.y + a.y;
-    const dx = 1 + a.x * z.x + a.y * z.y;
-    const dy = a.x * z.y - a.y * z.x;
-    const den = dx * dx + dy * dy || 1e-9;
-    return { x: (nx * dx + ny * dy) / den, y: (ny * dx - nx * dy) / den };
-  };
-
-  const rotate = (z, t) => {
-    const c = Math.cos(t), s = Math.sin(t);
-    return { x: z.x * c - z.y * s, y: z.x * s + z.y * c };
-  };
-
-  /* ── the tree ─────────────────────────────────────────── */
-
-  const DOMAINS = ['genomics', 'geometry', 'privacy', 'agents', 'vision', 'speech'];
+  const DOMAINS  = ['genomics', 'geometry', 'privacy', 'agents', 'vision', 'speech'];
   const CHILDREN = [6, 3, 2];
   // Euclidean radius of a point at hyperbolic distance d from the
   // centre is tanh(d / 2). Depth crowds toward the boundary.
   const RADII = [0, 0.56, 0.845, 0.962];
 
-  const nodes = [];
-  const edges = [];
+  // base positions, transformed positions, and per-domain edge lists
+  let bx, by, nodeDepth, nodeDomain, px, py;
+  const groups = DOMAINS.map(key => ({ key, a: [], b: [] }));
 
   function build() {
-    const root = { pos: { x: 0, y: 0 }, depth: 0, domain: null, i: 0 };
-    nodes.push(root);
+    const _bx = [0], _by = [0], _depth = [0], _domain = [null];
+    let level = [{ i: 0, a0: 0, a1: Math.PI * 2 }];
 
-    let level = [{ node: root, a0: 0, a1: Math.PI * 2 }];
-
-    for (let depth = 1; depth < RADII.length; depth++) {
+    for (let d = 1; d < RADII.length; d++) {
       const next = [];
-      level.forEach(parent => {
-        const k = CHILDREN[depth - 1];
+      for (const parent of level) {
+        const k = CHILDREN[d - 1];
         const span = (parent.a1 - parent.a0) / k;
         for (let i = 0; i < k; i++) {
           const a0 = parent.a0 + i * span;
           const a1 = a0 + span;
-          const jitter = (Math.random() - 0.5) * span * 0.34;
-          const theta = a0 + span / 2 + jitter;
-          const r = RADII[depth] * (1 - Math.random() * 0.035);
-          const node = {
-            pos: { x: r * Math.cos(theta), y: r * Math.sin(theta) },
-            depth,
-            // depth 1 fans out into the six domains, one per branch
-            domain: depth === 1 ? DOMAINS[i % DOMAINS.length] : parent.node.domain,
-            i: nodes.length
-          };
-          nodes.push(node);
-          edges.push([parent.node, node]);
-          next.push({ node, a0, a1 });
+          const theta = a0 + span / 2 + (Math.random() - 0.5) * span * 0.34;
+          const r = RADII[d] * (1 - Math.random() * 0.035);
+          const idx = _bx.length;
+
+          _bx.push(r * Math.cos(theta));
+          _by.push(r * Math.sin(theta));
+          _depth.push(d);
+          // depth 1 fans out into the six domains, one per branch
+          _domain.push(d === 1 ? DOMAINS[i % DOMAINS.length] : _domain[parent.i]);
+
+          const g = groups[DOMAINS.indexOf(_domain[idx])];
+          g.a.push(parent.i);
+          g.b.push(idx);
+
+          next.push({ i: idx, a0, a1 });
         }
-      });
+      }
       level = next;
     }
+
+    bx = Float64Array.from(_bx);
+    by = Float64Array.from(_by);
+    nodeDepth = _depth;
+    nodeDomain = _domain;
+    px = new Float64Array(bx.length);
+    py = new Float64Array(bx.length);
   }
 
-  /* ── palette, read from CSS so dark mode follows ──────── */
-
+  /* palette is read from CSS so dark mode follows automatically */
   let palette = {};
   function readPalette() {
     const s = getComputedStyle(document.documentElement);
-    palette = { rule: s.getPropertyValue('--rule').trim(), ink: s.getPropertyValue('--ink').trim() };
-    DOMAINS.forEach(d => { palette[d] = s.getPropertyValue('--' + d).trim(); });
+    palette = {
+      rule: s.getPropertyValue('--rule').trim(),
+      ink:  s.getPropertyValue('--ink').trim()
+    };
+    for (const d of DOMAINS) palette[d] = s.getPropertyValue('--' + d).trim();
   }
 
-  /* ── geodesic drawing ─────────────────────────────────── */
+  /* Rotate every node, then translate by the pointer offset.
+     Both are isometries, so the hyperbolic picture is unchanged. */
+  function place(spin, ax, ay) {
+    const c = Math.cos(spin), s = Math.sin(spin);
+    for (let i = 0; i < bx.length; i++) {
+      const rx = bx[i] * c - by[i] * s;
+      const ry = bx[i] * s + by[i] * c;
+      const nx = rx + ax, ny = ry + ay;
+      const dx = 1 + ax * rx + ay * ry;
+      const dy = ax * ry - ay * rx;
+      const den = dx * dx + dy * dy || 1e-9;
+      px[i] = (nx * dx + ny * dy) / den;
+      py[i] = (ny * dx - nx * dy) / den;
+    }
+  }
 
-  // Solve for the circle through p and q orthogonal to the unit
-  // circle. Orthogonality means |c|^2 = r^2 + 1, which turns the
-  // two "on the circle" conditions into a linear system in c.
-  function geodesic(ctx, p, q, R, ox, oy) {
-    const det = 4 * (p.x * q.y - p.y * q.x);
+  /* Circle through p and q orthogonal to the unit circle.
+     Orthogonality means |c|^2 = r^2 + 1, which turns the two
+     "on the circle" conditions into a linear system in c. */
+  function geodesic(i, j, R, ox, oy) {
+    const ax = px[i], ay = py[i], bxx = px[j], byy = py[j];
+    const det = 4 * (ax * byy - ay * bxx);
 
-    // p, q and the origin are collinear: the geodesic is a diameter.
+    // p, q and the origin are collinear: the geodesic is a diameter
     if (Math.abs(det) < 1e-7) {
-      ctx.moveTo(ox + p.x * R, oy + p.y * R);
-      ctx.lineTo(ox + q.x * R, oy + q.y * R);
+      ctx.moveTo(ox + ax * R, oy + ay * R);
+      ctx.lineTo(ox + bxx * R, oy + byy * R);
       return;
     }
 
-    const pp = p.x * p.x + p.y * p.y + 1;
-    const qq = q.x * q.x + q.y * q.y + 1;
-    const cx = (pp * 2 * q.y - qq * 2 * p.y) / det;
-    const cy = (2 * p.x * qq - 2 * q.x * pp) / det;
+    const pp = ax * ax + ay * ay + 1;
+    const qq = bxx * bxx + byy * byy + 1;
+    const cx = (pp * 2 * byy - qq * 2 * ay) / det;
+    const cy = (2 * ax * qq - 2 * bxx * pp) / det;
     const rad = Math.sqrt(Math.max(cx * cx + cy * cy - 1, 1e-9));
 
-    let a1 = Math.atan2(p.y - cy, p.x - cx);
-    let a2 = Math.atan2(q.y - cy, q.x - cx);
+    const a1 = Math.atan2(ay - cy, ax - cx);
+    const a2 = Math.atan2(byy - cy, bxx - cx);
     let diff = a2 - a1;
-    while (diff > Math.PI) diff -= Math.PI * 2;
+    while (diff >  Math.PI) diff -= Math.PI * 2;
     while (diff < -Math.PI) diff += Math.PI * 2;
 
-    ctx.moveTo(ox + p.x * R, oy + p.y * R);
+    ctx.moveTo(ox + ax * R, oy + ay * R);
     ctx.arc(ox + cx * R, oy + cy * R, rad * R, a1, a1 + diff, diff < 0);
   }
 
-  /* ── render loop ──────────────────────────────────────── */
-
-  const ctx = canvas && canvas.getContext('2d');
-  let size = 0, spin = 0, last = 0;
-  const aim = { x: 0, y: 0 };
-  const shift = { x: 0, y: 0 };
+  let size = 0;
 
   function resize() {
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const box = frame.getBoundingClientRect();
-    size = Math.max(box.width, 1);
+    size = Math.max(frame.getBoundingClientRect().width, 1);
     canvas.width = Math.round(size * dpr);
     canvas.height = Math.round(size * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -144,54 +152,79 @@
 
     ctx.clearRect(0, 0, size, size);
 
-    // the boundary: infinity, one hyperbolic step further out forever
+    // the boundary: infinitely far away in hyperbolic terms
     ctx.beginPath();
     ctx.arc(ox, oy, R, 0, Math.PI * 2);
     ctx.strokeStyle = palette.rule;
     ctx.lineWidth = 1;
     ctx.stroke();
 
-    const place = z => translate(rotate(z, spin), shift);
-    const pos = nodes.map(n => place(n.pos));
-
-    // edges, grouped by colour so we batch the paths
-    const byDomain = {};
-    edges.forEach(([a, b]) => {
-      const key = b.domain || 'genomics';
-      (byDomain[key] || (byDomain[key] = [])).push([pos[a.i], pos[b.i]]);
-    });
-
-    Object.keys(byDomain).forEach(key => {
+    ctx.globalAlpha = 0.42;
+    ctx.lineWidth = 1.1;
+    for (const g of groups) {
+      if (!g.a.length) continue;
       ctx.beginPath();
-      byDomain[key].forEach(([p, q]) => geodesic(ctx, p, q, R, ox, oy));
-      ctx.strokeStyle = palette[key];
-      ctx.globalAlpha = 0.42;
-      ctx.lineWidth = 1.1;
+      for (let i = 0; i < g.a.length; i++) geodesic(g.a[i], g.b[i], R, ox, oy);
+      ctx.strokeStyle = palette[g.key];
       ctx.stroke();
-    });
+    }
     ctx.globalAlpha = 1;
 
-    // nodes
-    nodes.forEach((n, i) => {
-      const p = pos[i];
-      const rad = n.depth === 0 ? 4.5 : Math.max(3.6 - n.depth * 0.75, 1.5);
+    for (let i = 0; i < px.length; i++) {
+      const d = nodeDepth[i];
+      const rad = d === 0 ? 4.5 : Math.max(3.6 - d * 0.75, 1.5);
       ctx.beginPath();
-      ctx.arc(ox + p.x * R, oy + p.y * R, rad, 0, Math.PI * 2);
-      ctx.fillStyle = n.domain ? palette[n.domain] : palette.ink;
+      ctx.arc(ox + px[i] * R, oy + py[i] * R, rad, 0, Math.PI * 2);
+      ctx.fillStyle = nodeDomain[i] ? palette[nodeDomain[i]] : palette.ink;
       ctx.fill();
-    });
+    }
   }
 
-  function frameLoop(now) {
-    const dt = Math.min((now - last) || 16, 50);
+  /* ── the loop, gated on visibility so it stops when unseen ── */
+
+  let spin = 0, last = 0, rafId = 0;
+  let aimX = 0, aimY = 0, shiftX = 0, shiftY = 0;
+  let ptrX = null, ptrY = null;
+  let onScreen = true;
+
+  function step(now) {
+    const dt = Math.min(now - last || 16, 50);
     last = now;
-
     spin += dt * 0.000045;
-    shift.x += (aim.x - shift.x) * 0.055;
-    shift.y += (aim.y - shift.y) * 0.055;
 
+    if (ptrX !== null) {
+      // one layout read per frame, not one per pointer event
+      const box = frame.getBoundingClientRect();
+      const nx = (ptrX - (box.left + box.width / 2)) / (box.width / 2);
+      const ny = (ptrY - (box.top + box.height / 2)) / (box.height / 2);
+      const len = Math.hypot(nx, ny) || 1;
+      const mag = Math.min(len, 1) * 0.26;   // stay well inside the disk
+      aimX = -(nx / len) * mag;
+      aimY = -(ny / len) * mag;
+    }
+
+    shiftX += (aimX - shiftX) * 0.055;
+    shiftY += (aimY - shiftY) * 0.055;
+
+    place(spin, shiftX, shiftY);
     draw();
-    requestAnimationFrame(frameLoop);
+    rafId = requestAnimationFrame(step);
+  }
+
+  function start() {
+    if (rafId) return;
+    last = performance.now();
+    rafId = requestAnimationFrame(step);
+  }
+  function stop() {
+    if (!rafId) return;
+    cancelAnimationFrame(rafId);
+    rafId = 0;
+  }
+
+  function renderStill() {
+    place(spin, shiftX, shiftY);
+    draw();
   }
 
   function initDisk() {
@@ -199,64 +232,76 @@
     build();
     readPalette();
     resize();
+    renderStill();
 
-    let pending = false;
+    let queued = false;
     window.addEventListener('resize', () => {
-      if (pending) return;
-      pending = true;
-      requestAnimationFrame(() => { pending = false; resize(); draw(); });
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(() => { queued = false; resize(); renderStill(); });
     });
 
     const scheme = window.matchMedia('(prefers-color-scheme: dark)');
-    const onScheme = () => { readPalette(); draw(); };
-    scheme.addEventListener ? scheme.addEventListener('change', onScheme)
-                            : scheme.addListener(onScheme);
+    const onScheme = () => { readPalette(); renderStill(); };
+    if (scheme.addEventListener) scheme.addEventListener('change', onScheme);
+    else scheme.addListener(onScheme);
 
-    if (reduced.matches) { draw(); return; }
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    // Pointer drives a Mobius translation, capped well inside the
-    // disk so the transform never blows up near the boundary.
     if (window.matchMedia('(hover: hover)').matches) {
       window.addEventListener('pointermove', e => {
-        const box = frame.getBoundingClientRect();
-        const nx = (e.clientX - (box.left + box.width / 2)) / (box.width / 2);
-        const ny = (e.clientY - (box.top + box.height / 2)) / (box.height / 2);
-        const cap = 0.26;
-        const len = Math.hypot(nx, ny) || 1;
-        const mag = Math.min(len, 1) * cap;
-        aim.x = -(nx / len) * mag;
-        aim.y = -(ny / len) * mag;
+        ptrX = e.clientX;
+        ptrY = e.clientY;
       }, { passive: true });
     }
 
-    requestAnimationFrame(frameLoop);
+    // only animate what someone can actually see
+    new IntersectionObserver(entries => {
+      onScreen = entries[0].isIntersecting;
+      if (onScreen && !document.hidden) start(); else stop();
+    }, { rootMargin: '100px' }).observe(frame);
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden || !onScreen) stop(); else start();
+    });
   }
 
-  /* ── nav: mark the section you're reading ─────────────── */
+  /* ─────────────────────────────────────────────────────────
+     Nav: mark the section being read
+     ───────────────────────────────────────────────────────── */
 
   function initNav() {
     const links = Array.from(document.querySelectorAll('.topbar-nav a'));
     if (!links.length) return;
 
-    const map = new Map();
-    links.forEach(a => {
-      const el = document.querySelector(a.getAttribute('href'));
-      if (el) map.set(el, a);
-    });
+    // document order is fixed, so rank sections once instead of
+    // reading offsetTop inside the observer callback
+    const targets = links
+      .map((link, order) => {
+        const el = document.querySelector(link.getAttribute('href'));
+        return el && { link, el, order };
+      })
+      .filter(Boolean);
 
-    const seen = new Set();
+    const visible = new Set();
+
     const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => e.isIntersecting ? seen.add(e.target) : seen.delete(e.target));
+      for (const e of entries) {
+        const t = targets.find(t => t.el === e.target);
+        if (!t) continue;
+        if (e.isIntersecting) visible.add(t); else visible.delete(t);
+      }
+
       let top = null;
-      map.forEach((_, el) => {
-        if (!seen.has(el)) return;
-        if (!top || el.offsetTop < top.offsetTop) top = el;
-      });
-      links.forEach(a => a.classList.remove('current'));
-      if (top) map.get(top).classList.add('current');
+      for (const t of visible) if (!top || t.order < top.order) top = t;
+
+      for (const t of targets) {
+        if (t === top) t.link.setAttribute('aria-current', 'true');
+        else t.link.removeAttribute('aria-current');
+      }
     }, { rootMargin: '-20% 0px -70% 0px' });
 
-    map.forEach((_, el) => observer.observe(el));
+    for (const t of targets) observer.observe(t.el);
   }
 
   initDisk();
