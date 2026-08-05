@@ -784,6 +784,12 @@ a:hover { color: #3730a3; text-decoration: underline; }
   50% { opacity: 0.7; transform: scale(1.1); }
 }
 
+/* Keep the featured ⭐ from sitting on top of the date/rank badge */
+.research-card.featured .card-header,
+.project-card.featured-project .project-header {
+  padding-right: 28px;
+}
+
 .card-header,
 .project-header {
   display: flex;
@@ -1287,6 +1293,235 @@ a:hover { color: #3730a3; text-decoration: underline; }
   color: var(--muted);
 }
 
+/* Card metadata (research, experience, education) */
+.institution,
+.company {
+  margin: 4px 0;
+  color: var(--text);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.institution i,
+.company i {
+  color: var(--accent);
+  margin-right: 6px;
+}
+
+.advisor,
+.project-meta,
+.timeline-date {
+  margin: 4px 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.timeline-date {
+  white-space: nowrap;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.card-header h3,
+.timeline-header h3,
+.project-card h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--text);
+}
+
+.timeline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.timeline-content {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+}
+
+.timeline-content:hover {
+  box-shadow: var(--shadow-hover);
+  background: var(--card-hover);
+  border-color: rgba(79, 70, 229, 0.3);
+  transform: translateY(-4px);
+}
+
+.role-description {
+  color: var(--muted);
+  margin: 12px 0;
+  line-height: 1.6;
+}
+
+.status-badge {
+  display: inline-block;
+  background: rgba(245, 158, 11, 0.15);
+  color: #b45309;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin: 8px 0;
+}
+
+.status-badge i {
+  margin-right: 6px;
+}
+
+.tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  font-size: 0.9rem;
+}
+
+.tech-stack span {
+  background: rgba(6, 182, 212, 0.12);
+  color: #0e7490;
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.tech-stack span:hover {
+  background: var(--secondary-accent);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.tag-pub {
+  display: inline-block;
+  background: rgba(79, 70, 229, 0.1);
+  color: var(--accent);
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin: 4px 8px 4px 0;
+  transition: var(--transition);
+}
+
+.tag-pub:hover {
+  background: var(--accent);
+  color: white;
+}
+
+.publication-item.patent {
+  border-left: 4px solid var(--warning);
+}
+
+.publication-item.patent .pub-icon {
+  color: var(--warning);
+}
+
+/* Education details */
+.edu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.edu-year {
+  background: var(--accent);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.edu-details {
+  margin-top: 16px;
+}
+
+.gpa,
+.stream,
+.activities {
+  margin: 8px 0;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.coursework {
+  margin: 16px 0 8px 0;
+  color: var(--text);
+}
+
+.course-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.course-tags span {
+  background: rgba(79, 70, 229, 0.06);
+  border: 1px solid rgba(79, 70, 229, 0.15);
+  color: var(--text);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  transition: var(--transition);
+}
+
+.course-tags span:hover {
+  background: rgba(79, 70, 229, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Skills */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.skill-group {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+}
+
+.skill-group:hover {
+  box-shadow: var(--shadow-hover);
+  background: var(--card-hover);
+  border-color: rgba(79, 70, 229, 0.3);
+  transform: translateY(-6px);
+}
+
+.skill-group h3 {
+  margin: 0 0 16px 0;
+  font-size: 1.1rem;
+  color: var(--text);
+}
+
+.skill-group h3 i {
+  color: var(--accent);
+  margin-right: 8px;
+}
+
+.skill-group .project-tech {
+  margin: 0;
+}
+
 /* Responsive */
 @media (min-width: 768px) {
   .hero {
@@ -1353,5 +1588,15 @@ a:hover { color: #3730a3; text-decoration: underline; }
   }
   .contact-grid {
     grid-template-columns: 1fr;
+  }
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+  .card-header,
+  .project-header,
+  .timeline-header,
+  .edu-header {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }

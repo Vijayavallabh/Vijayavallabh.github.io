@@ -2,6 +2,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const y = document.getElementById('year');
   if (y) y.textContent = new Date().getFullYear();
 
+  // Cards that fade in on scroll. Kept here so tab switching can reveal them
+  // directly — a hidden pane's cards are never "intersecting", so relying on
+  // the observer alone can leave a freshly opened tab blank.
+  const animatedSelector = '.highlight-card, .research-card, .publication-item, .project-card, .edu-item, .contact-card, .timeline-item, .skill-group';
+
+  const revealPane = pane => {
+    pane.querySelectorAll(animatedSelector).forEach(el => {
+      el.style.opacity = '1';
+      el.style.transform = 'translateY(0)';
+    });
+  };
+
   // Tab functionality with smooth transitions
   const tabButtons = document.querySelectorAll('.tab-button');
   const tabPanes = document.querySelectorAll('.tab-pane');
@@ -9,7 +21,10 @@ document.addEventListener('DOMContentLoaded', () => {
   tabButtons.forEach(button => {
     button.addEventListener('click', () => {
       // Remove active class from all buttons and panes
-      tabButtons.forEach(btn => btn.classList.remove('active'));
+      tabButtons.forEach(btn => {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-selected', 'false');
+      });
       tabPanes.forEach(pane => {
         pane.classList.remove('active');
         pane.style.opacity = '0';
@@ -17,12 +32,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Add active class to clicked button and corresponding pane
       button.classList.add('active');
+      button.setAttribute('aria-selected', 'true');
       const tabId = button.getAttribute('data-tab');
       const activePane = document.getElementById(tabId);
       if (activePane) {
         activePane.classList.add('active');
         setTimeout(() => {
           activePane.style.opacity = '1';
+          revealPane(activePane);
         }, 50);
       }
     });
@@ -68,16 +85,21 @@ document.addEventListener('DOMContentLoaded', () => {
       if (entry.isIntersecting) {
         entry.target.style.opacity = '1';
         entry.target.style.transform = 'translateY(0)';
+        observer.unobserve(entry.target);
       }
     });
   }, observerOptions);
 
-  // Observe all cards and sections with animation delay for stagger effect
-  document.querySelectorAll('.highlight-card, .research-card, .publication-item, .project-card, .edu-item, .contact-card, .timeline-item').forEach((el, index) => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
-    observer.observe(el);
+  // Observe all cards and sections with animation delay for stagger effect.
+  // Stagger is scoped per tab and capped so later cards never wait long.
+  tabPanes.forEach(pane => {
+    pane.querySelectorAll(animatedSelector).forEach((el, index) => {
+      const delay = Math.min(index, 6) * 0.08;
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = `opacity 0.6s ease ${delay}s, transform 0.6s ease ${delay}s`;
+      observer.observe(el);
+    });
   });
 
   // Add mouse move effect for interactive cards
