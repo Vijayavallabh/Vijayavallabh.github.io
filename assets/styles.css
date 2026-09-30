@@ -28,7 +28,7 @@
   --card:    #ffffff;
   --ink:     #141821;
   --ink-2:   #3d4757;
-  --muted:   #6b7688;
+  --muted:   #636e80;   /* 4.7:1 on paper, clears WCAG AA for small text */
   --rule:    #d9dee8;
   --rule-2:  #e9ecf3;
 
@@ -411,6 +411,10 @@ var { font-family: var(--serif); font-style: italic; font-size: 1.06em; }
 
 .record-spine { padding-block-start: 2px; }
 
+/* a date range stacks on the spine; the separator stays in the
+   text so it reads as a range aloud and when the spine folds */
+.record-when .to { display: block; height: 0; overflow: hidden; }
+
 .record-when {
   display: block;
   font-family: var(--mono);
@@ -530,7 +534,8 @@ var { font-family: var(--serif); font-style: italic; font-size: 1.06em; }
 .toolkit dt { padding-block-start: 2px; }
 .toolkit dd { color: var(--ink-2); }
 
-.honours-block { margin-block-start: var(--s7); }
+/* roles and honours follow education inside the Record band */
+.subsection { margin-block-start: var(--s7); }
 .honours span:last-child { color: var(--ink-2); font-size: var(--t-sm); }
 .honours b { font-weight: 500; color: var(--ink); }
 
@@ -642,7 +647,7 @@ var { font-family: var(--serif); font-style: italic; font-size: 1.06em; }
     gap: var(--s4);
     padding-block-start: 0;
   }
-  .record-when br { display: none; }
+  .record-when .to { display: inline; height: auto; overflow: visible; }
   .record-domain { margin-block-start: 0; }
   .honours .record-when:empty { display: none; }
   .portrait { width: 104px; height: 104px; }

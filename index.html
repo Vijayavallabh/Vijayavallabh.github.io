@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>J Vijayavallabh</title>
-  <meta name="description" content="Pre-final year B.Tech Biological Engineering at IIT Madras. Protein-interaction graphs, single-cell perturbation modelling, hyperbolic representation learning, and agentic retrieval." />
+  <meta name="description" content="Pre-final year B.Tech Biological Engineering at IIT Madras. AI for biotech: protein-interaction graphs, single-cell perturbation modelling, hyperbolic representation learning, and auditing agentic systems." />
   <meta name="author" content="J Vijayavallabh" />
   <link rel="canonical" href="https://vijayavallabh.github.io/" />
 
@@ -14,7 +14,7 @@
   <meta property="og:type" content="profile" />
   <meta property="og:url" content="https://vijayavallabh.github.io/" />
   <meta property="og:title" content="J Vijayavallabh" />
-  <meta property="og:description" content="AI for biotech. Protein-interaction graphs, single-cell perturbation modelling, and non-Euclidean geometry." />
+  <meta property="og:description" content="AI for biotech and agentic systems. Protein-interaction graphs, single-cell perturbation modelling, and non-Euclidean geometry." />
   <meta property="og:image" content="https://vijayavallabh.github.io/assets/og.png" />
   <meta name="twitter:card" content="summary_large_image" />
 
@@ -37,8 +37,10 @@
     "knowsAbout": [
       "Graph neural networks",
       "Single-cell genomics",
+      "Perturb-seq response prediction",
       "Hyperbolic representation learning",
       "Differential privacy auditing",
+      "Benchmark evaluation of AI agents",
       "Retrieval augmented generation",
       "Vision language models"
     ],
@@ -127,24 +129,24 @@
             <p class="record-domain">genomics</p>
           </div>
           <div class="record-main">
-            <h3 class="record-title">AI Genomics Research Intern <span class="flag">1 month</span></h3>
+            <h3 class="record-title">Research Collaborator <span class="flag">NeurIPS 2026 poster</span></h3>
             <p class="record-org">Erdős AI Lab</p>
             <ul class="points">
-              <li>Built EG-IPG, an evidence-gated GNN over an 8M-edge protein-interaction graph, with gating applied at the level of individual edges.</li>
-              <li>Combined ESM-2 and PINNACLE embeddings to predict CRISPRi Perturb-seq response in CD4<sup>+</sup> T cells across roughly 11.5K targets.</li>
-              <li>Wrote the training and evaluation pipeline: multi-GPU sweeps, a test suite, and a run registry.</li>
-              <li>Ran preregistered multi-seed ablations on leakage-safe target-OOD splits with family-wise error control. The result was a bounded null, written up for AAAI 2027.</li>
+              <li>Built EG-IPG, an evidence-gated relational GNN over an 8M-edge protein-interaction graph with ESM-2 and PINNACLE embeddings, to predict CRISPRi Perturb-seq response. Runs are reproducible and ablated end to end.</li>
+              <li>Wrote the multi-GPU training and evaluation stack behind it: sweeps, a run registry, and tests.</li>
+              <li>Led leakage-safe out-of-distribution benchmarking across eight Perturb-seq datasets.</li>
+              <li>Debugged a critical fault in the gating regularizer and isolated the encoder as the bottleneck, which made model selection robust. That work became a NeurIPS 2026 workshop poster.</li>
             </ul>
             <ul class="figures">
               <li><b>8M</b><span>graph edges</span></li>
-              <li><b>11.5K</b><span>CRISPRi targets</span></li>
+              <li><b>8</b><span>Perturb-seq datasets</span></li>
             </ul>
           </div>
         </article>
 
         <article class="record" data-domain="privacy">
           <div class="record-spine">
-            <p class="record-when">Jan 2026<br>May 2026</p>
+            <p class="record-when">Jan 2026<span class="to"> – </span>May 2026</p>
             <p class="record-domain">privacy</p>
           </div>
           <div class="record-main">
@@ -160,7 +162,7 @@
 
         <article class="record" data-domain="genomics">
           <div class="record-spine">
-            <p class="record-when">May 2025<br>Jul 2025</p>
+            <p class="record-when">May 2025<span class="to"> – </span>Jul 2025</p>
             <p class="record-domain">genomics</p>
           </div>
           <div class="record-main">
@@ -182,7 +184,7 @@
 
         <article class="record" data-domain="speech">
           <div class="record-spine">
-            <p class="record-when">Apr 2025<br>May 2025</p>
+            <p class="record-when">Apr 2025<span class="to"> – </span>May 2025</p>
             <p class="record-domain">speech</p>
           </div>
           <div class="record-main">
@@ -198,7 +200,7 @@
 
         <article class="record" data-domain="geometry">
           <div class="record-spine">
-            <p class="record-when">Dec 2024<br>May 2025</p>
+            <p class="record-when">Dec 2024<span class="to"> – </span>May 2025</p>
             <p class="record-domain">geometry</p>
           </div>
           <div class="record-main">
@@ -214,7 +216,7 @@
 
         <article class="record" data-domain="genomics">
           <div class="record-spine">
-            <p class="record-when">Sep 2024<br>Dec 2024</p>
+            <p class="record-when">Sep 2024<span class="to"> – </span>Dec 2024</p>
             <p class="record-domain">genomics</p>
           </div>
           <div class="record-main">
@@ -237,6 +239,30 @@
       </div>
 
       <div class="records">
+        <article class="record" data-domain="genomics">
+          <div class="record-spine">
+            <p class="record-when">2026</p>
+            <p class="record-domain">genomics</p>
+          </div>
+          <div class="record-main">
+            <p class="record-venue">NeurIPS 2026, Sydney · Failure Modes of AI in Biology Workshop (ICBINB-BIO) · Poster</p>
+            <h3 class="record-title">The Regularizer That Switched Off the Experiment: Why Our Protein-Interaction Null Was About the Encoder, Not the Prior</h3>
+            <p class="gloss">A gating regularizer had quietly switched off the experiment it was meant to run. With that found, the null on Perturb-seq response prediction traced to the protein encoder rather than the interaction prior. From the Erdős AI Lab work.</p>
+          </div>
+        </article>
+
+        <article class="record" data-domain="agents">
+          <div class="record-spine">
+            <p class="record-when">2026</p>
+            <p class="record-domain">agents</p>
+          </div>
+          <div class="record-main">
+            <p class="record-venue">NeurIPS 2026, Sydney · Agentic AI for Biological Discovery Workshop (AgenticLS) · Poster</p>
+            <h3 class="record-title">Forced Choice Is Not a Tolerance: What Multiple-Choice Grading Accepts on BixBench’s Numeric Questions</h3>
+            <p class="gloss">Regrading more than 5,000 BixBench runs against a 5% numeric tolerance shows that multiple-choice grading accepts 11 to 22 points’ worth of wrong answers, and traces where that leniency comes from.</p>
+          </div>
+        </article>
+
         <article class="record" data-domain="privacy">
           <div class="record-spine">
             <p class="record-when">2026</p>
@@ -295,11 +321,31 @@
       </div>
 
       <div class="records">
-
+        <article class="record" data-domain="agents">
+          <div class="record-spine">
+            <p class="record-when">Sep 2026</p>
+            <p class="record-domain">agents</p>
+          </div>
+          <div class="record-main">
+            <h3 class="record-title">Auditing BixBench’s numeric grading <span class="flag">NeurIPS 2026 poster</span></h3>
+            <p class="record-org">AgenticLS Workshop, NeurIPS 2026</p>
+            <p class="gloss">BixBench grades agents by multiple choice, even when the answer is a number. I regraded those answers against a numeric tolerance to measure how much of the score the options were supplying.</p>
+            <ul class="points">
+              <li>Regraded more than 5,000 public runs, plus new agent runs, against a 5% tolerance baseline, in a pipeline anyone can rerun. Forced-choice grading inflates scores by accepting 11 to 22 points’ worth of incorrect answers.</li>
+              <li>Attributed the errors to their sources: nearest-option bias, key-rank leakage, and refusal or parse failures.</li>
+              <li>Stress-tested counterfactual rewrites of the answer options, and wrote benchmark-design recommendations, with plots, for comparing agents more reliably.</li>
+            </ul>
+            <ul class="figures">
+              <li><b>5k+</b><span>runs regraded</span></li>
+              <li><b>5%</b><span>tolerance baseline</span></li>
+              <li><b>11–22 pts</b><span>score inflation</span></li>
+            </ul>
+          </div>
+        </article>
 
         <article class="record" data-domain="vision">
           <div class="record-spine">
-            <p class="record-when">Nov 2025<br>Dec 2025</p>
+            <p class="record-when">Nov 2025<span class="to"> – </span>Dec 2025</p>
             <p class="record-domain">vision</p>
           </div>
           <div class="record-main">
@@ -317,7 +363,7 @@
 
         <article class="record" data-domain="agents">
           <div class="record-spine">
-            <p class="record-when">Oct 2024<br>Dec 2024</p>
+            <p class="record-when">Oct 2024<span class="to"> – </span>Dec 2024</p>
             <p class="record-domain">agents</p>
           </div>
           <div class="record-main">
@@ -359,14 +405,14 @@
     <section class="band shell" id="record" aria-labelledby="record-h">
       <div class="band-head">
         <p class="label">Record</p>
-        <h2 id="record-h">Education and honours</h2>
+        <h2 id="record-h">Education, roles and honours</h2>
       </div>
 
       <section aria-labelledby="edu-h">
         <h3 class="label" id="edu-h">Education</h3>
         <div class="records">
           <article class="record">
-            <div class="record-spine"><p class="record-when">2023<br>2027</p></div>
+            <div class="record-spine"><p class="record-when">2023<span class="to"> – </span>2027</p></div>
             <div class="record-main">
               <h4 class="record-title">B.Tech, Biological Engineering</h4>
               <p class="record-org">Indian Institute of Technology Madras</p>
@@ -403,12 +449,36 @@
         </div>
       </section>
 
-      <section aria-labelledby="hon-h" class="honours-block">
+      <section aria-labelledby="roles-h" class="subsection">
+        <h3 class="label" id="roles-h">Positions of responsibility</h3>
+        <div class="records">
+          <article class="record">
+            <div class="record-spine"><p class="record-when">Jul 2024<span class="to"> – </span>Mar 2025</p></div>
+            <div class="record-main">
+              <h4 class="record-title">Marketing and Operations Coordinator</h4>
+              <p class="record-org">Finance Club, IIT Madras</p>
+              <ul class="points">
+                <li>Planned and delivered the 36th Wall Street, the club’s flagship finance fest, from 7 to 9 February 2025: eight-plus keynotes, workshops and competitions across CLT, DoMS and CRC, with sessions involving the CFA Institute, IIQF, CAMS, GetBit and IIPA. I handled speaker outreach, hospitality, scheduling and on-ground logistics.</li>
+                <li>Invited and hosted the chief guests, Arun Kohli (MD and Country Head, India, Morgan Stanley) and Shankar Sharma (co-founder of First Global, founder of GQuant). Aligned the session themes, moderated the fireside chats and Q&amp;A, and looked after the guests throughout.</li>
+                <li>Ran marketing and operations for the year’s programming: 6+ competitions with StockGro, Finlatics and QuantInsti, campus editions of IMC Prosperity and WorldQuant BRAIN IQC 2025, and the Innovision Hackathon 2024–25, co-organized with Indian Bank, CIFIL and DFS. Publicized it through institute mailing lists, Unstop, WhatsApp communities, LinkedIn, Instagram and Facebook.</li>
+                <li>Managed five volunteers and the budget, and secured sponsorships.</li>
+              </ul>
+              <ul class="figures">
+                <li><b>₹4.8 lakh</b><span>budget managed</span></li>
+                <li><b>8+</b><span>fest sessions</span></li>
+                <li><b>6+</b><span>competitions launched</span></li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section aria-labelledby="hon-h" class="subsection">
         <h3 class="label" id="hon-h">Honours</h3>
         <ul class="honours">
           <li class="spine-row">
             <span class="record-when">2026</span>
-            <span><b>$25,000 FAST Grant</b>, Biswas Family Foundation, Cycle 1. Decided July 2026, funded that August, for PhageHost-Bench.</span>
+            <span><b>$25,000 FAST Grant</b>, Biswas Family Foundation, Cycle 1, for PhageHost-Bench, an open benchmark for AI-driven phage–host prediction run over twelve months. Decided July 2026, funded that August.</span>
           </li>
           <li class="spine-row">
             <span class="record-when">2025</span>
@@ -471,7 +541,7 @@
 
   <footer class="footer shell">
     <p>J Vijayavallabh, Chennai</p>
-    <p>Updated August 2026</p>
+    <p>Updated September 2026</p>
   </footer>
 
   <script src="assets/script.js" defer></script>
