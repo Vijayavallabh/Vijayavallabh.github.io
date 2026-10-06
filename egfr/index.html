@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>A binder that switches on inside the tumour</title>
+  <meta name="description" content="Twenty designed proteins that grab the cancer target EGFR only where a tumour turns the surroundings acidic, and let go in normal blood. A plain-language write-up of the method and the results." />
+  <meta name="author" content="J Vijayavallabh" />
+  <link rel="canonical" href="https://vijayavallabh.github.io/egfr/" />
+
+  <meta name="theme-color" content="#f4f5f9" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0e1219" media="(prefers-color-scheme: dark)" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://vijayavallabh.github.io/egfr/" />
+  <meta property="og:title" content="A binder that switches on inside the tumour" />
+  <meta property="og:description" content="Designed proteins that bind the cancer target EGFR only in the acidic tumour margin, and release in blood." />
+  <meta property="og:image" content="https://vijayavallabh.github.io/assets/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="../assets/og.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="topbar shell">
+    <a class="topbar-name" href="../"><span class="back">&larr;</span>J&nbsp;Vijayavallabh</a>
+    <nav class="topbar-nav" aria-label="Sections">
+      <a href="#idea">The idea</a>
+      <a href="#switch">The switch</a>
+      <a href="#proof">The proof</a>
+      <a href="#designs">The 20 designs</a>
+    </nav>
+    <a class="topbar-cv" href="https://github.com/Vijayavallabh/ph-conditional-egfr-binders" target="_blank" rel="noopener noreferrer">Code<span class="ext" aria-hidden="true"></span></a>
+  </header>
+
+  <main id="main">
+
+    <!-- ── hero ──────────────────────────────────────────────── -->
+    <section class="post-hero shell">
+      <p class="label kicker"><a href="../">Work</a> / Adaptyv EGFR Challenge 2026</p>
+      <h1 class="display">A binder that switches on inside the tumour.</h1>
+      <p class="lede">
+        EGFR is a protein that sits on the surface of many cancer cells. It also sits
+        on healthy skin and gut cells, so drugs that grab it cause real side effects.
+        These twenty designed proteins grab EGFR only where a tumour turns its
+        surroundings acidic, and let go again in normal blood.
+      </p>
+      <p class="byline">
+        <span><b>J Vijayavallabh</b></span>
+        <span>Computational study</span>
+        <span>October 2026</span>
+        <span>Challenge 1 &middot; Track 3</span>
+      </p>
+
+      <!-- the interactive switch -->
+      <figure class="stage" aria-labelledby="stage-h">
+        <div class="stage-top">
+          <span class="label" id="stage-h">Drag the pH &middot; watch the switch</span>
+          <span class="state-readout" aria-live="polite">
+            <b id="stateWord">released</b> &middot; <span id="envWord">blood</span>
+          </span>
+        </div>
+
+        <svg class="scene" viewBox="0 0 720 300" role="img"
+             aria-label="Schematic of a designed binder meeting EGFR. As the pH drops into the acidic tumour range, a histidine on EGFR gains a positive charge, a salt bridge forms with an acidic group on the binder, and the binder clamps on. In blood the charge and the bridge are gone and the binder lets go.">
+          <ellipse id="glow" cx="400" cy="150" rx="70" ry="80" fill="var(--acid-wash)" opacity="0"></ellipse>
+
+          <!-- target: EGFR (fixed) -->
+          <g>
+            <rect x="430" y="60" width="240" height="180" rx="80" class="target-fill"></rect>
+            <text x="550" y="265" text-anchor="middle" class="lbl">EGFR &middot; the target</text>
+            <!-- histidine residue -->
+            <polygon points="420,134 434,142 434,158 420,166 406,158 406,142" class="target-fill"></polygon>
+            <text id="hisPlus" x="420" y="124" text-anchor="middle" class="charge" style="font-family:var(--mono);font-size:16px;font-weight:600" opacity="0">+</text>
+            <text x="420" y="192" text-anchor="middle" class="lbl-strong">His 433</text>
+          </g>
+
+          <!-- bridge -->
+          <line id="bridge" x1="314" y1="150" x2="404" y2="150" class="bridge" opacity="0"></line>
+
+          <!-- binder (moves) -->
+          <g id="binder" transform="translate(0,0)">
+            <rect x="80" y="70" width="210" height="160" rx="70" class="binder-fill"></rect>
+            <path d="M150 110 q40 40 0 80 M190 118 q34 32 0 64" fill="none" stroke="var(--neutral)" stroke-width="1.3" opacity=".5"></path>
+            <circle cx="300" cy="150" r="14" class="binder-fill"></circle>
+            <text x="300" y="155" text-anchor="middle" style="font-family:var(--mono);font-size:15px;font-weight:600;fill:var(--neutral)">&minus;</text>
+            <text x="185" y="265" text-anchor="middle" class="lbl">Designed binder</text>
+            <text x="300" y="192" text-anchor="middle" class="lbl-strong">Glu66</text>
+          </g>
+        </svg>
+
+        <div class="control">
+          <div class="ph-big">
+            <b id="phVal">7.4</b><span id="phDesc">blood pH &middot; switch off</span>
+          </div>
+          <div class="ph-track">
+            <span class="ph-flip" aria-hidden="true"></span>
+          </div>
+          <input type="range" class="ph" id="phSlider" min="60" max="75" value="74" step="1"
+                 aria-label="pH, from 6.0 acidic to 7.5 neutral" />
+          <div class="ph-marks">
+            <span>pH 6.0 &middot; acid</span>
+            <span>7.5 &middot; neutral</span>
+          </div>
+          <div class="grip">
+            <span>Grip</span>
+            <span class="grip-bar"><i class="grip-fill" id="gripFill"></i></span>
+            <span id="gripPct">7%</span>
+          </div>
+        </div>
+
+        <figcaption class="stage-caption">
+          A schematic, not a structure. Histidine carries a small positive charge in acid
+          and loses it near neutral, with the tipping point close to pH 6.3. That single
+          change is what forms or breaks the salt bridge holding the binder on.
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- ── problem ───────────────────────────────────────────── -->
+    <section class="section shell" id="idea">
+      <div class="band-head">
+        <p class="label">The problem</p>
+        <h2>A good target in the wrong places</h2>
+      </div>
+      <div class="prose">
+        <p>
+          EGFR drives growth in many cancers, including colorectal, head and neck, and
+          lung tumours, which makes it one of the most validated targets in oncology.
+          The approved antibodies against it, cetuximab and panitumumab, work. They also
+          reach the EGFR on healthy skin and gut lining, and that causes the rash and
+          gut problems that limit how much a patient can take.
+        </p>
+        <p>
+          The target is not the problem. Telling tumour tissue apart from healthy tissue
+          is. A binder that could read its surroundings and act only inside a tumour
+          would keep the benefit and drop much of the cost.
+        </p>
+        <ul class="figures">
+          <li><b>3</b><span>cancers where EGFR is a major drug target: colorectal, head and neck, lung</span></li>
+          <li><b>2</b><span>approved anti-EGFR antibodies, both limited by skin and gut side effects</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ── the opening: acid ─────────────────────────────────── -->
+    <section class="section shell">
+      <div class="band-head">
+        <p class="label">The opening</p>
+        <h2>Tumours are acidic. Use that.</h2>
+      </div>
+      <div class="prose">
+        <p>
+          Solid tumours run their metabolism fast and sloppily, and the tissue around
+          them turns acidic as a result. Outside a tumour cell the pH sits near 6.5.
+          Normal blood holds a steady 7.4. That gap of under one pH unit is the one
+          physical signal that marks tumour tissue almost everywhere a solid tumour grows.
+        </p>
+        <p class="pull">Read half a pH unit, and you can tell a tumour from the rest of the body.</p>
+        <p>
+          A binder that senses that difference would switch on in the acidic margin and
+          stay quiet in the bloodstream. The whole design turns on building a reliable
+          pH sensor into a protein that is small, novel, and still binds hard.
+        </p>
+      </div>
+    </section>
+
+    <!-- ── the switch ────────────────────────────────────────── -->
+    <section class="section shell" id="switch">
+      <div class="band-head">
+        <p class="label">The switch</p>
+        <h2>One amino acid does the sensing</h2>
+      </div>
+      <div class="prose">
+        <p>
+          Of the twenty amino acids, histidine is the only one that changes its electrical
+          charge right in the window between tumour and blood. In acid it picks up a small
+          positive charge. Near neutral it gives that charge up. The crossover sits close
+          to pH 6.3, which lands neatly between 6.5 and 7.4.
+        </p>
+        <p>
+          Put a positively charged histidine next to a negatively charged partner and the
+          two snap together into a salt bridge, the same attraction that holds table salt
+          in a crystal. Take the charge away and the bridge falls apart. One histidine,
+          one on/off switch, tuned by the pH of the room. Drag the slider above and the
+          whole binder follows that one charge.
+        </p>
+      </div>
+
+      <div class="mech">
+        <article class="fwd">
+          <p class="tag">Forward &middot; 18 designs</p>
+          <h3>The binder latches onto EGFR's own histidine</h3>
+          <p class="count">EGFR already carries His433, identical in human and mouse.</p>
+          <svg viewBox="0 0 300 96" role="img" aria-label="A negative group on the binder bridges to EGFR's His433 when it is positively charged.">
+            <rect x="6" y="24" width="120" height="48" rx="22" class="binder-fill"></rect>
+            <text x="66" y="88" text-anchor="middle" class="lbl">binder</text>
+            <circle cx="126" cy="48" r="10" fill="none" stroke="var(--neutral)" stroke-width="2"></circle>
+            <text x="126" y="53" text-anchor="middle" style="font-family:var(--mono);font-size:12px;fill:var(--neutral)">&minus;</text>
+            <line x1="138" y1="48" x2="168" y2="48" stroke="var(--acid)" stroke-width="2.2" stroke-dasharray="4 4"></line>
+            <polygon points="180,40 190,45 190,55 180,60 170,55 170,45" class="target-fill"></polygon>
+            <text x="180" y="34" text-anchor="middle" class="charge" style="font-family:var(--mono);font-size:13px;font-weight:600">+</text>
+            <rect x="192" y="24" width="102" height="48" rx="22" class="target-fill"></rect>
+            <text x="243" y="88" text-anchor="middle" class="lbl">His433 &middot; EGFR</text>
+          </svg>
+        </article>
+        <article class="inv">
+          <p class="tag">Inverted &middot; 2 designs</p>
+          <h3>The binder carries the histidine itself</h3>
+          <p class="count">It bridges to a fixed acidic spot on EGFR, Asp460.</p>
+          <svg viewBox="0 0 300 96" role="img" aria-label="A histidine on the binder bridges to a fixed aspartate, Asp460, on EGFR.">
+            <rect x="6" y="24" width="120" height="48" rx="22" class="binder-fill"></rect>
+            <text x="66" y="88" text-anchor="middle" class="lbl">binder</text>
+            <polygon points="126,40 136,45 136,55 126,60 116,55 116,45" class="binder-fill"></polygon>
+            <text x="126" y="34" text-anchor="middle" class="charge" style="font-family:var(--mono);font-size:13px;font-weight:600">+</text>
+            <line x1="138" y1="48" x2="168" y2="48" stroke="var(--acid)" stroke-width="2.2" stroke-dasharray="4 4"></line>
+            <circle cx="180" cy="48" r="10" fill="none" stroke="var(--ink-2)" stroke-width="2"></circle>
+            <text x="180" y="53" text-anchor="middle" style="font-family:var(--mono);font-size:12px;fill:var(--ink-2)">&minus;</text>
+            <rect x="192" y="24" width="102" height="48" rx="22" class="target-fill"></rect>
+            <text x="243" y="88" text-anchor="middle" class="lbl">Asp460 &middot; EGFR</text>
+          </svg>
+        </article>
+      </div>
+
+      <div class="prose">
+        <p>
+          This is not a brand-new idea in nature, which is a good sign. An engineered
+          anti-EGFR antibody called G532 already uses the same histidine trick, binds
+          about <strong>8 times</strong> more tightly at pH 6.5 than at 7.4, and works on
+          both human and mouse EGFR. These twenty designs rebuild that chemistry from
+          scratch in a single small chain, rather than grafting it onto an antibody.
+        </p>
+      </div>
+    </section>
+
+    <!-- ── building ──────────────────────────────────────────── -->
+    <section class="section shell">
+      <div class="band-head">
+        <p class="label">Building</p>
+        <h2>Drawing twenty proteins that did not exist</h2>
+      </div>
+      <div class="prose">
+        <p>
+          The proteins were built with three AI design tools, each doing one job.
+          RFdiffusion shapes a backbone that can reach the EGFR surface and hold the
+          switch in place. ProteinMPNN fills in the amino acids, with the switch residue
+          pinned and no cysteines allowed, so the proteins are easier to make in a lab.
+          AlphaFold2 then folds each sequence against EGFR and keeps only the ones that
+          fold cleanly and dock where they should.
+        </p>
+        <p>
+          Every design is a single chain of 56 to 108 amino acids. None reuses a known
+          protein: all twenty passed the challenge's own novelty check, which compares
+          each one against the entire public protein-structure record.
+        </p>
+      </div>
+    </section>
+
+    <!-- ── the real molecule ─────────────────────────────────── -->
+    <section class="section shell" id="molecule">
+      <div class="split">
+        <div>
+          <div class="band-head">
+            <p class="label">The real molecule</p>
+            <h2>This is design 23</h2>
+          </div>
+          <div class="prose">
+            <p>
+              The switch above is a cartoon. This is the real thing: the predicted fold
+              of design 23, the 108-residue protein that tops the panel and anchors the
+              bench test. It folds into a tight bundle of helices that holds the switch
+              acid, Glu66, out on the face that meets EGFR.
+            </p>
+            <p>
+              Turn it with the mouse. The amino acid drawn as thick sticks is Glu66, the
+              one that reaches across to EGFR's histidine and forms the pH-sensitive grip.
+              Change that single residue and you get design 32, the broken twin from the
+              bench test.
+            </p>
+          </div>
+          <ul class="figures">
+            <li><b>108</b><span>amino acids, a single chain</span></li>
+            <li><b>0</b><span>cysteines, simpler to make</span></li>
+            <li><b class="u">0.96</b><span>switch strength, among the panel's strongest</span></li>
+          </ul>
+        </div>
+        <figure class="mol">
+          <div id="viewer" class="mol-view">
+            <p class="mol-fallback">A 3D view of design 23 loads here. It needs a browser with WebGL.</p>
+          </div>
+          <figcaption>Design 23, predicted fold. Glu66 is the magenta sticks. Drag to rotate.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ── proof ─────────────────────────────────────────────── -->
+    <section class="section shell" id="proof">
+      <div class="band-head">
+        <p class="label">The proof</p>
+        <h2>Showing the switch actually flips</h2>
+      </div>
+      <div class="prose">
+        <p>
+          Here is the catch. AlphaFold2 and the other folding tools say nothing about pH.
+          They can tell you a binder docks, but not whether it docks harder in acid than
+          in blood, which is the entire point. So the pH behaviour is checked separately,
+          on the exact submitted sequence, by four methods that have to agree on the
+          direction of the switch.
+        </p>
+      </div>
+
+      <div class="checks" role="table" aria-label="The four pH checks">
+        <div class="row" role="row">
+          <span class="k" role="cell">Acid/base reading 1<small>pKa from structure</small></span>
+          <span class="v" role="cell">Predicts which way the histidine tips and by how much.</span>
+        </div>
+        <div class="row" role="row">
+          <span class="k" role="cell">Acid/base reading 2<small>independent calculator</small></span>
+          <span class="v" role="cell">A second, machine-learned estimate of the same thing, to catch disagreement.</span>
+        </div>
+        <div class="row decisive" role="row">
+          <span class="k" role="cell">Two-pH simulation<small>the decisive one</small></span>
+          <span class="v" role="cell">The binder is simulated twice, once with the histidine charged and once neutral, measuring how much of the time the salt bridge stays formed. A bridge that holds in both states is useless, and those designs were cut.</span>
+        </div>
+        <div class="row" role="row">
+          <span class="k" role="cell">Binding energy<small>from the same runs</small></span>
+          <span class="v" role="cell">Estimates how much stronger the grip is in acid than in blood.</span>
+        </div>
+      </div>
+
+      <div class="prose">
+        <p>
+          The two-pH simulation is the one that matters. A good acid/base score only shows
+          the switch points the right way. It cannot tell a real switch from a bridge that
+          happens to stay glued together whether the histidine is charged or not, and that
+          kind of bridge binds everywhere, tumour and blood alike. Running the two charge
+          states separately is what exposes the difference.
+        </p>
+        <p>
+          <strong>Twelve of the twenty pass all four checks.</strong> The rest pass the
+          simulation and the binding check. As a control, the same method correctly
+          re-finds a known pH switch in a natural antibody-receptor pair, so it is not
+          just rubber-stamping the designs.
+        </p>
+        <ul class="figures">
+          <li><b class="u">12</b><span>of 20 pass all four pH checks</span></li>
+          <li><b>4</b><span>independent methods, agreeing on direction</span></li>
+          <li><b>2&times;</b><span>the simulation is run once per pH state</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ── mouse ─────────────────────────────────────────────── -->
+    <section class="section shell">
+      <div class="band-head">
+        <p class="label">Cross-reactivity</p>
+        <h2>It has to work in mice too</h2>
+      </div>
+      <div class="prose">
+        <p>
+          A binder that only grabs human EGFR cannot be tested in animals, and no drug
+          reaches patients without that step. So each design has to bind mouse EGFR as
+          well. The switch spot was chosen with this in mind: His433 and Asp460 are
+          identical in human and mouse, so the part that does the sensing is the same
+          protein in both species.
+        </p>
+        <p>
+          Four independent checks agree the designs bind both. Every contact point on the
+          epitope is shared between the two species, a matched human-versus-mouse re-fold
+          shows no loss of grip, the surface shapes line up, and folding against mouse
+          EGFR holds up.
+        </p>
+      </div>
+    </section>
+
+    <!-- ── lab test callout ──────────────────────────────────── -->
+    <section class="section shell">
+      <div class="callout">
+        <p class="label">Built in for the bench</p>
+        <h3>A test the lab can run on day one</h3>
+        <p>
+          Two of the designs are the same protein, except one amino acid is changed to
+          switch off the pH response. Design 23 should bind harder in acid. Design 32,
+          the broken twin, should bind the same at both pH. Run the pair side by side and
+          you read the mechanism directly: if 23 prefers acid and 32 does not, the designed
+          salt bridge is what drives the switch. Test this pair first.
+        </p>
+        <div class="pair">
+          <span class="on">Design 23 &middot; prefers acid</span>
+          <span class="flat">Design 32 &middot; same at both pH</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── why histidine ─────────────────────────────────────── -->
+    <section class="section shell">
+      <div class="band-head">
+        <p class="label">The limit</p>
+        <h2>Why histidine, and nothing fancier</h2>
+      </div>
+      <div class="prose">
+        <p>
+          A stronger switch would be worth a lot, so several were tried and scored with a
+          fair, chemistry-neutral set of tools: stacked aromatic rings, a buried charge
+          pair, a hinged lid that opens with pH. Each failed for a concrete reason. The
+          stacked rings are no stronger than the salt bridge and their stronger form is
+          not novel. Buried charges cannot be predicted reliably enough to trust the
+          flip point. The hinged lid would not build as a clean two-part fold.
+        </p>
+        <p>
+          Histidine is the only amino acid whose tipping point sits inside the
+          tumour-to-blood window and can be predicted with confidence. A histidine salt
+          bridge, forward or inverted, is the practical ceiling on this target. The panel
+          sits at that ceiling rather than reaching past it on a claim that would not hold.
+        </p>
+      </div>
+    </section>
+
+    <!-- ── honest limitation ─────────────────────────────────── -->
+    <section class="section shell">
+      <div class="band-head">
+        <p class="label">What this is, and isn't</p>
+        <h2>The honest part</h2>
+      </div>
+      <div class="prose">
+        <p>
+          No one has yet shown in a lab that a designed single-chain binder flips on and
+          off with pH through this mechanism. The evidence here is agreement across
+          independent calculations, the two-pH simulations, and the built-in broken-twin
+          control. It is not a measured binding curve.
+        </p>
+        <p>
+          That is exactly why the matched pair exists. It turns the whole claim into one
+          clean experiment a lab can run early, before committing to the rest. The design
+          is made to be checked, not just trusted.
+        </p>
+      </div>
+    </section>
+
+    <!-- ── the 20 designs ────────────────────────────────────── -->
+    <section class="section shell" id="designs">
+      <div class="band-head">
+        <p class="label">The result</p>
+        <h2>The twenty designs</h2>
+        <p class="band-note">
+          Submission order. Switch strength is how much the salt bridge weakens from
+          tumour to blood in simulation, from 0 (no change) to 1 (fully off in blood).
+          A dash means that measurement was not recorded for this design's group.
+        </p>
+      </div>
+
+      <div class="table-wrap">
+        <table class="designs">
+          <thead>
+            <tr>
+              <th>#</th><th>Design</th><th>Wiring</th><th>Length</th>
+              <th>Switch strength</th><th>Off in blood</th>
+            </tr>
+          </thead>
+          <tbody id="designRows"><!-- filled by switch.js --></tbody>
+        </table>
+      </div>
+
+      <p class="ko-note">
+        Designs 23 and 32 are the matched pair from the bench test above: the same protein,
+        one with the switch and one with it removed. Design 32 carries no switch by design,
+        so it shows no strength to measure.
+      </p>
+      <p class="legend-note">
+        Full per-design data, the scoring code, and the methods writeup live in the
+        <a href="https://github.com/Vijayavallabh/ph-conditional-egfr-binders" target="_blank" rel="noopener noreferrer">project repository<span class="ext" aria-hidden="true"></span></a>,
+        which opens to the public after the challenge closes.
+      </p>
+    </section>
+
+    <!-- ── references ────────────────────────────────────────── -->
+    <section class="section shell">
+      <div class="band-head">
+        <p class="label">Sources</p>
+        <h2>References and tools</h2>
+      </div>
+      <ul class="refs">
+        <li><b>Liu et al., 2022.</b> A cross-reactive, pH-dependent anti-EGFR antibody (G532). Molecular Therapy Oncolytics. PMID 36458200.</li>
+        <li><b>Burmeister et al., 1994.</b> The FcRn-antibody complex used as the positive control for the pH scoring. PDB 1FRT.</li>
+        <li><b>Design tools.</b> RFdiffusion for backbones, ProteinMPNN for sequences, AlphaFold2 for folding, Boltz-2 and Chai-1 for docking confidence.</li>
+        <li><b>pH scoring.</b> PROPKA and pKAI for acid/base behaviour, OpenMM for the two-pH simulations, MM-GBSA for binding energy.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="footer shell">
+    <p>J Vijayavallabh &middot; <a href="../">vijayavallabh.github.io</a></p>
+    <p>Adaptyv EGFR Challenge, October 2026</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/3Dmol/2.4.2/3Dmol-min.js" defer></script>
+  <script src="switch.js" defer></script>
+</body>
+</html>
