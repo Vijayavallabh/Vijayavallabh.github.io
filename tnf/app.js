@@ -1,5 +1,5 @@
 /* ===========================================================================
-   TNF conditional binders — interactions
+   TNF conditional binders: interactions
    1) hero repulsion beat (GSAP, plays once; magenta fires once)
    2) human->mouse slopegraph from fe_data.json
    3) the 18-design table (accessible twin of the chart)
@@ -40,7 +40,7 @@
       b60 && b60.setAttribute("aria-pressed", "false");
     }
     function setReleased() {
-      stateWord.textContent = "released"; envWord.textContent = "endosome, pH 6.0";
+      stateWord.textContent = "released"; envWord.textContent = "inside the cell, pH 6.0";
       b74 && b74.setAttribute("aria-pressed", "false");
       b60 && b60.setAttribute("aria-pressed", "true");
     }

@@ -49,10 +49,10 @@
         <p class="kicker-line"><a href="../">Work</a> &nbsp;/&nbsp; Adaptyv TNF&#8209;&alpha; Challenge 2026</p>
         <h1>A gripper that lets go.</h1>
         <p class="lede">
-          These designed mini-proteins grab human TNF out of the bloodstream and release it in the acid
-          inside the cell, so one copy can come back for another. One of the firmest human switches did the
-          reverse against mouse TNF, which is why the switch was measured, one design at a time, in both
-          species.
+          I designed small proteins that grab TNF, the alarm signal behind a lot of inflammation, out of the
+          blood and let it go once they carry it inside a cell, where it turns acidic. Letting go is the
+          point: it means one protein can come back and grab another. The twist is that the design that did
+          this best in people did the opposite in mice, so I measured the switch in both, one design at a time.
         </p>
         <p class="byline">
           <span>J&nbsp;Vijayavallabh</span><span>Computational study</span><span>October&nbsp;2026</span><span>Challenge&nbsp;2 / Track&nbsp;3</span>
@@ -127,21 +127,19 @@
         <div class="sec-head"><span class="n">The target</span><h2>An alarm worth switching off</h2></div>
         <div class="prose">
           <p class="opener">
-            TNF is a small protein that cells release to raise the alarm. In short bursts it runs a normal
-            immune response. When it will not stand down, it drives rheumatoid arthritis, Crohn&rsquo;s disease
-            and psoriasis.
+            TNF is a tiny protein your cells fire off to raise an alarm. A short burst is normal defense. When
+            it will not switch off, it drives diseases like rheumatoid arthritis, Crohn&rsquo;s and psoriasis.
           </p>
           <p>
-            The best-selling drugs against it, adalimumab and infliximab, work by mopping TNF up, which is
-            strong proof the target is a good one. Nearly all of those drugs are antibodies, large and all
-            built the same way; the one exception, etanercept, is a piece of the natural receptor rather than
-            a new shape. No small, newly designed protein had managed to stick to TNF at all. Its surface is
-            smooth and water-loving, the kind of face that de-novo binders slide off.
+            The best-selling drugs against it work by soaking it up, which tells me the target is a good one.
+            Almost all of them are antibodies: big molecules, all built the same way. (The one exception,
+            etanercept, is a piece of the body&rsquo;s own receptor, not a new shape.) I wanted to see whether
+            something much smaller and brand new could do the same job. The hard part is that TNF is smooth and
+            water-loving, the kind of surface small designed proteins usually just slide off.
           </p>
           <p>
-            So the task set by the challenge is pointed: draw a small protein that grabs this slippery target,
-            releases it on cue, and does both in human and mouse. Everything below is computational. There is
-            no lab result yet; the point of the work is to name the designs worth putting on a bench first.
+            Everything here is done on a computer. There is no lab result yet. The point is to pick the designs
+            most worth testing on a bench, and to be honest about how sure I am of each one.
           </p>
           <ul class="stats">
             <li><b>3</b><span>diseases driven by TNF that stays on: rheumatoid arthritis, Crohn&rsquo;s, psoriasis</span></li>
@@ -157,18 +155,16 @@
         <div class="sec-head"><span class="n">What was built</span><h2>A protein that never existed</h2></div>
         <div class="prose">
           <p>
-            Each binder was drawn from scratch rather than borrowed from nature. Three tools, one job each.
-            <strong>RFdiffusion</strong> sketches a backbone shaped to reach the groove on TNF.
-            <strong>ProteinMPNN</strong> picks the amino acids, with no cysteines, which makes the protein
-            easier to make. <strong>AlphaFold2</strong> then folds each sequence back against TNF and keeps
-            only the ones that fold cleanly and land where they should.
+            I didn&rsquo;t copy anything from nature. I drew each protein from scratch with a few AI tools,
+            each doing one job. One sketches a shape that can reach TNF. One fills in what the shape is made
+            of. One checks that it actually folds up and lands in the right spot. Most shapes slide off TNF,
+            so that last check throws almost everything away.
           </p>
           <p>
-            Because TNF is flat and water-loving, most drawn backbones slide off, so that folding filter does
-            most of the cutting. What survives is a single chain of about <span class="data">80</span> amino
-            acids, far smaller than an antibody, carrying <span class="data">no cysteines</span>. Every design
-            is genuinely new: all of them clear the challenge&rsquo;s novelty gate, which checks each one against
-            the whole known record of protein structures and needs a pass of at least three of four.
+            What is left is a single strand about <span class="data">80</span> building blocks long, far
+            smaller than an antibody, with <span class="data">none</span> of the sticky parts (cysteines) that
+            make proteins hard to manufacture. And every design is genuinely new: each one passes the
+            contest&rsquo;s originality check against every protein structure on record.
           </p>
         </div>
       </div>
@@ -177,10 +173,10 @@
           <div class="prose col">
             <div class="sec-head"><span class="n">One of the real ones</span><h2>des_6025, as predicted</h2></div>
             <p>
-              The hero above is a cartoon. This is a real one: the predicted fold of design des_6025, drawn in
-              blue, clamped onto a patch of human TNF in grey. The three histidines that carry the switch are
-              the thick sticks. Drag to turn it. This is a prediction, not a solved structure, and the colour
-              follows the page&rsquo;s rule, not the atoms: the binder is the charged actor, so it is blue.
+              The picture up top is a cartoon. This is a real one: the shape my computer predicts for design
+              des_6025 (blue), latched onto a patch of human TNF (grey). The three spots that do the switching
+              are drawn as thick sticks. Spin it with your mouse. It is a prediction, not a solved structure,
+              and the blue just follows this page&rsquo;s colour rule, not the real colour of any atom.
             </p>
             <div class="mol-legend">
               <span><span class="sw" style="background:#4f86ff"></span>designed binder</span>
@@ -201,15 +197,15 @@
         <div class="sec-head"><span class="n" style="color:#8aa0d8">Why a switch at all</span>
           <h2 style="color:#fff;">Letting go is the whole point</h2></div>
         <p style="font-family:var(--serif); max-width:40ch; color:#cdd8f2; margin:.4rem 0 0;">
-          An ordinary binder catches one TNF and holds it forever, spent after a single grab. A binder that
-          releases can ride into the cell, drop its cargo to be destroyed, and come back empty for the next one.
-          That reuse is the reason to build a switch at all.
+          A normal grabber catches one TNF and never lets go, so it is used up after a single catch. A grabber
+          that can release does something better: it carries TNF into the cell, drops it where the cell
+          destroys it, and comes back empty for the next one. That reuse is the whole reason I built a switch.
         </p>
         <ol class="loop" aria-label="The recycling loop">
-          <li class="step"><span class="ph">blood &middot; pH 7.4</span><h4>Grab</h4><p>The binder grips TNF in the bloodstream.</p></li>
-          <li class="step"><span class="ph">cell entry</span><h4>Carry in</h4><p>The pair is taken into the cell&rsquo;s sorting bubble.</p></li>
-          <li class="step acid"><span class="ph">endosome &middot; pH 6.0</span><h4>Release</h4><p>The acid flips the switch; TNF is let go and destroyed.</p></li>
-          <li class="step"><span class="ph">back to blood</span><h4>Reuse</h4><p>The empty binder returns to grab another.</p></li>
+          <li class="step"><span class="ph">blood &middot; pH 7.4</span><h4>Grab</h4><p>My protein grips TNF in the bloodstream.</p></li>
+          <li class="step"><span class="ph">cell entry</span><h4>Carry in</h4><p>The pair is taken into the cell&rsquo;s recycling bin.</p></li>
+          <li class="step acid"><span class="ph">inside the cell &middot; pH 6.0</span><h4>Release</h4><p>The acid flips the switch; TNF is let go and destroyed.</p></li>
+          <li class="step"><span class="ph">back to blood</span><h4>Reuse</h4><p>The empty protein goes back for another.</p></li>
         </ol>
       </div>
     </section>
@@ -220,15 +216,15 @@
         <div class="sec-head"><span class="n">The signal</span><h2>Acid is an address</h2></div>
         <div class="prose">
           <p>
-            The binder has no idea where it is in the body. It can only read the acidity of the water around
-            it, the way a thermostat reads temperature. That one reading is enough. Blood is held at a steady
-            <span class="data">pH 7.4</span>, which counts as neutral. Inside the cell, the sorting bubble that
-            breaks things down runs acidic, close to <span class="data">pH 6.0</span>.
+            My protein has no idea where it is in the body. The one thing it can sense is how acidic the water
+            around it is, the way a thermostat senses temperature. That turns out to be enough. Blood is mild,
+            a steady <span class="data">pH 7.4</span>. The little pocket inside a cell that breaks things down
+            is more acidic, close to <span class="data">pH 6.0</span>.
           </p>
-          <p class="pull">A drop of about one pH unit is a dependable &ldquo;you are now inside the cell&rdquo; signal.</p>
+          <p class="pull">That small change is a reliable sign that I have gone from the blood into a cell.</p>
           <p>
-            So the job is narrow and physical: build a protein that grips at 7.4 and releases at 6.0. The whole
-            design turns on reading half a pH unit and acting on it.
+            So the job is simple to state: hold on at 7.4, let go at 6.0. The whole design comes down to
+            reading half a step of acidity and acting on it.
           </p>
         </div>
       </div>
@@ -240,29 +236,29 @@
         <div class="sec-head"><span class="n">The mechanism</span><h2>The switch works backward</h2></div>
         <div class="prose">
           <p>
-            Of the twenty amino acids, histidine is the only one that changes its charge right in the window
-            between blood and endosome. Near 7.4 it is neutral. Near 6.0 it picks up a positive charge. The
-            other nineteen sit still across this range.
+            Proteins are built from twenty kinds of building block. Exactly one of them, histidine, flips from
+            neutral to positively charged right in the gap between blood and cell. Near 7.4 it is neutral. Near
+            6.0 it turns positive. The other nineteen do not budge across this range.
           </p>
           <p>
-            Here is the part that runs against intuition. Each switch histidine is placed next to a
-            <strong>lysine on TNF that is positive the whole time</strong>. At pH 7.4 the histidine is neutral
-            and the binder grips. At pH 6.0 the histidine turns positive, and now two like charges sit
-            together and shove apart, the way the same poles of two magnets refuse to meet. The push pries the
-            grip open. Acid makes this binder <em>let go</em>, the opposite of the usual &ldquo;more charge,
-            more sticky&rdquo;. The designs carry two or more of these histidines, each against its own
-            conserved lysine, so the release does not rest on a single contact.
+            Here is the part that runs against intuition. I put one of these switches right next to a spot on
+            TNF (a <strong>lysine</strong>) that is positively charged the whole time. At pH 7.4 the switch is
+            neutral and my protein grips. At pH 6.0 the switch turns positive too, and now two positives sit
+            side by side and shove apart, the way two magnets refuse to meet if you flip one around. That push
+            pops the grip open. Acid makes my protein <em>let go</em>, the opposite of the usual &ldquo;more
+            charge, more sticky&rdquo;. I use two or more of these switches, each against its own positive
+            spot, so the release never hangs on a single contact.
           </p>
           <div class="lanes" style="margin-top:1.4rem;">
             <div class="lane human" style="background:color-mix(in srgb,var(--pos) 7%,var(--bg));">
               <span class="tag" style="color:var(--pos-live)">this page &middot; TNF</span>
               <h4>Repel, then release</h4>
-              <p>His&#8314; meets a positive lysine. Like charges push apart, so acid opens the grip.</p>
+              <p>Two positives meet. They push apart, so acid opens the grip and my protein lets go.</p>
             </div>
             <div class="lane mouse" style="background:color-mix(in srgb,var(--mouse) 7%,var(--bg)); border-right:0;">
-              <span class="tag" style="color:var(--tx2)">the sibling &middot; EGFR</span>
+              <span class="tag" style="color:var(--tx2)">a cousin project &middot; EGFR</span>
               <h4>Attract, then grab</h4>
-              <p>There His&#8314; meets a negative partner and snaps together, so acid makes the binder stick. Same residue, opposite wiring.</p>
+              <p>There the two charges are opposite, so they snap together and acid makes it stick. Same part, wired the other way.</p>
             </div>
           </div>
         </div>
@@ -275,17 +271,16 @@
         <div class="sec-head"><span class="n">Cross-reactivity</span><h2>It has to work in a mouse</h2></div>
         <div class="prose">
           <p>
-            No binder reaches patients without an animal test first, and that test comes before any human
-            trial. So the same protein has to grab mouse TNF as well. The switch was placed with this in mind,
-            on a patch that both species share: human and mouse TNF are
-            <span class="data">89&ndash;95%</span> identical across the contact patch, and the target lysines
-            are present in both.
+            No drug gets near people without being tested in animals first. So my protein also has to grab
+            mouse TNF. I picked the switch spot with that in mind. Across the patch my protein grabs, human
+            and mouse TNF are almost the same, <span class="data">89&ndash;95%</span> identical, and the
+            positive spots it pushes against are there in both.
           </p>
           <p>
-            That makes a strong case that the binder should still <em>grab</em> mouse TNF. But that is a
-            look-alike argument about shape. Whether the pH switch still <em>fires</em> in a mouse is a
-            separate question, and the honest answer is that a matching shape does not settle it. The next two
-            sections are how that question got measured instead of assumed.
+            That is a good reason to expect it to <em>grab</em> mouse TNF too. But matching shape only tells me
+            it should grab. Whether the switch still <em>fires</em> in a mouse is a separate question, and
+            looking similar does not answer it. The next two sections are how I measured that instead of
+            assuming it.
           </p>
         </div>
       </div>
@@ -297,24 +292,23 @@
         <div class="sec-head"><span class="n">The measurement</span><h2>Weighing a switch before it exists</h2></div>
         <div class="prose">
           <p>
-            Folding tools say nothing about pH. They tell you a binder docks, not whether it grips harder in
-            blood than in acid, which is the entire point. So the switch is checked on its own, three ways that
-            have to agree on direction, and then it is measured.
+            The folding tools tell me a protein sticks to TNF, but nothing about acidity, not whether it
+            sticks harder in blood than in acid, which is the whole point. So I check the switch on its own.
+            Three quick methods have to agree on which way it leans, and then I measure it properly.
           </p>
           <p>
-            The measurement is a free-energy calculation. It charges the switch histidine from neutral to
-            positive <strong>twice</strong>: once while the binder grips TNF, once while the binder floats
-            free. Then it takes the difference of the two energy costs. If charging the histidine costs
-            <em>more</em> while gripping than while free, the new charge is fighting the grip, so the binder
-            releases in acid. That is reported as a positive number.
+            The measurement is the interesting part. I charge up that one switch spot from neutral to positive
+            <strong>twice</strong>: once while my protein is gripping TNF, and once while it is floating free
+            on its own. Then I subtract. If charging it up costs more energy while gripping, the new charge is
+            fighting the grip, so my protein lets go in acid. I report that as a positive number.
           </p>
           <p>
-            Taking the difference is the trick. It cancels the messy terms that both runs share and leaves only
-            the part that depends on gripping. That is why the <strong>direction</strong> of the switch can be
-            trusted even though the exact <strong>size</strong> cannot: the slow part of the simulation never
-            fully settles, so size is left to the lab. The direction was read at 6 independent runs, then 12,
-            then 24 where a close call needed it. That discipline mattered: it caught two designs whose switch
-            runs the wrong way, binding tighter in acid, and both were cut.
+            Subtracting is what makes it trustworthy. The messy stuff that is the same in both cases cancels
+            out, leaving only the part that depends on gripping. That is why I trust which <strong>way</strong>
+            the switch goes even when I cannot trust exactly how <strong>strong</strong> it is: the slow part
+            of the simulation never fully settles, so I leave the size to the lab. I read the direction over 6
+            runs, then 12, then 24 where it was a close call. That care paid off: it caught two designs whose
+            switch ran the wrong way, gripping tighter in acid, and I cut both.
           </p>
           <p class="pull">Weigh a backpack by standing on a scale with it, then without it, and subtract.</p>
         </div>
@@ -327,16 +321,16 @@
         <div class="sec-head col"><span class="n">The result</span><h2>A strong human switch ran backward in mouse</h2></div>
         <div class="prose lanes-intro">
           <p>
-            Running that free-energy test against mouse TNF was the first time the switch was checked by energy
-            in a second species, rather than argued from a shared patch: 18 designs, both species,
-            <span class="data">216</span> simulations. The result reordered the shortlist instead of confirming
-            it. How strong a switch is in human turns out to say almost nothing about mouse.
+            I had argued before that these should work in mice because the shapes match. This was the first
+            time I actually measured the switch, by energy rather than by matching shapes, against mouse TNF:
+            18 designs, both species, <span class="data">216</span> runs. The answer reshuffled my shortlist
+            instead of just confirming it. How well a switch works in human barely predicts how it does in mouse.
           </p>
           <p>
             Each line below runs from a design&rsquo;s human result on the left to its mouse result on the
-            right. Above the zero line, the binder releases in acid, the way it should; below, the switch has
-            reversed. Five lines hold in the blue band on both sides. One line that starts high on the human
-            side, des_4098, plunges straight through zero into red: a top-ranked human switcher that grips
+            right. Above the line in the middle, my protein lets go in acid, the way I want; below it, the
+            switch has flipped. Five lines stay up in the blue on both sides. One that starts high on the human
+            side, des_4098, drops straight through into the red: a design that is great in people but grips
             <em>harder</em> in acid against mouse TNF.
           </p>
         </div>
@@ -355,11 +349,10 @@
 
         <div class="prose lanes-intro" style="margin-top:1.4rem;">
           <p>
-            Five designs release in both human and mouse: <span class="data">des_6025, des_820, b4m2,
-            des_4082a</span> and <span class="data">des_732</span>. Those are the safest first choices to put
-            into an animal, and the submission leads with them. The lesson underneath is the useful part: the
-            mouse number carried information the human number could not, so it was worth paying for one design
-            at a time.
+            Five designs let go in both human and mouse: <span class="data">des_6025, des_820, b4m2,
+            des_4082a</span> and <span class="data">des_732</span>. Those are my safest first picks to try in an
+            animal, and I put them at the front of what I am submitting. The real lesson is underneath: the
+            mouse number told me something the human number could not, so it was worth paying for each one.
           </p>
         </div>
       </div>
@@ -371,18 +364,18 @@
         <div class="sec-head"><span class="n">What this is, and isn&rsquo;t</span><h2>The honest part</h2></div>
         <div class="honest">
           <p style="font-family:var(--serif); margin:0 0 .4rem;">
-            This is computational evidence, and it is worth being exact about what it can and cannot carry.
+            This is all computer work, so let me be straight about what it can and cannot tell you.
           </p>
           <ul class="ladder">
-            <li><span class="lv hi">trust it</span><span><strong>Which way the switch goes.</strong> Checked three ways and then measured by free energy. Reliable for direction.</span></li>
-            <li><span class="lv hi">trust it</span><span><strong>Which five designs carry the switch into mouse.</strong> From the energy test in both species.</span></li>
-            <li><span class="lv mid">hold lightly</span><span><strong>The mouse pose.</strong> It is a predicted shape for how the binder sits on mouse TNF, screened against the human design that was actually drawn. There is no lab structure, and no test proves a predicted pose is exactly right.</span></li>
-            <li><span class="lv lab">lab only</span><span><strong>How big the switch is, and the final grip strength.</strong> The simulation will not settle the size, and binding strength on this target is close to a coin flip in software. These are bench numbers.</span></li>
+            <li><span class="lv hi">trust it</span><span><strong>Which way each switch leans.</strong> I checked it three ways and then measured it. I trust this.</span></li>
+            <li><span class="lv hi">trust it</span><span><strong>Which five designs keep the switch working in mouse.</strong> From the energy test in both species.</span></li>
+            <li><span class="lv mid">hold lightly</span><span><strong>How my protein sits on mouse TNF.</strong> That is a predicted shape, lined up against the human design I actually drew. There is no lab structure, and nothing proves a predicted shape is exactly right.</span></li>
+            <li><span class="lv lab">lab only</span><span><strong>How strong the switch is, and how tightly it finally grips.</strong> The simulation will not pin the size down, and grip strength is close to a guess in software. Those are bench numbers.</span></li>
           </ul>
           <p style="font-family:var(--serif); margin:1.2rem 0 0;">
-            No one has yet shown a designed single-chain switch of this kind flipping on a bench. So this is the
-            strongest evidence available before the lab, and its job is to name the few designs worth testing
-            first, not to call the result in.
+            Nobody has shown a small designed switch like this flipping in a real experiment yet. So this is the
+            best evidence I can give before the lab, and its job is to point at the few designs worth testing
+            first, not to call the result.
           </p>
         </div>
       </div>
@@ -393,24 +386,24 @@
       <div class="wrap">
         <div class="sec-head col"><span class="n">The set</span><h2>The 18 designs</h2>
           <p style="font-family:var(--serif); color:var(--tx2); max-width:52ch; margin:.6rem 0 0;">
-            Ordered by how well the switch carries from human to mouse, the five dual-species releasers first.
-            &Delta;&Delta;G is the free-energy number from the measurement; positive means it releases in acid.
-            z is how firm that sign is across the runs. This table is also the accessible version of the chart above.
+            Here is the whole set, ordered by how well the switch carries from human to mouse, with the five
+            that work in both at the top. The score is the number from the energy test; positive means it lets
+            go in acid. The z beside it is just how sure I am of the direction. This table is also the
+            plain-text version of the chart above.
           </p>
         </div>
         <div class="table-wrap">
           <table class="designs">
             <thead>
-              <tr><th>#</th><th>Design</th><th>Human &Delta;&Delta;G</th><th>Mouse &Delta;&Delta;G</th><th>In mouse</th></tr>
+              <tr><th>#</th><th>Design</th><th>Human score</th><th>Mouse score</th><th>In mouse</th></tr>
             </thead>
             <tbody id="designRows"><!-- filled by app.js --></tbody>
           </table>
         </div>
         <p class="table-note">
-          All 18 are predicted to bind mouse TNF; only 5 also release in mouse. The other designs grip in both
-          species but their switch goes flat or reverses in the mouse complex. des_820&rsquo;s mouse pose was
-          flagged lower-confidence than the rest, and still showed a clean release. Nothing here is a measured
-          binding curve; every number is from simulation.
+          All 18 should grab mouse TNF; only 5 also let go in mouse. The rest grab in both but their switch
+          goes quiet or flips in mouse. des_820&rsquo;s mouse shape was a bit shakier than the others and still
+          let go cleanly. None of these are lab measurements; every number comes from a simulation.
         </p>
       </div>
     </section>
