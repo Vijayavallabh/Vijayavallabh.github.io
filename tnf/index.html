@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>A gripper that lets go</title>
+  <meta name="description" content="Designed mini-proteins that grab human TNF in the blood and release it in the acid inside the cell, so one copy can be reused. The switch was measured by free energy in both human and mouse, where the strongest human design ran backward. A plain-language write-up." />
+  <meta name="author" content="J Vijayavallabh" />
+  <link rel="canonical" href="https://vijayavallabh.github.io/tnf/" />
+
+  <meta name="theme-color" content="#F5F7FB" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0D1526" media="(prefers-color-scheme: dark)" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://vijayavallabh.github.io/tnf/" />
+  <meta property="og:title" content="A gripper that lets go" />
+  <meta property="og:description" content="De-novo TNF binders that grip in blood and release in acid, with the switch measured by free energy in human and mouse." />
+  <meta property="og:image" content="https://vijayavallabh.github.io/assets/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="../assets/og.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <a class="topbar-name" href="../"><span class="arrow" aria-hidden="true">&larr;</span>J&nbsp;Vijayavallabh</a>
+    <nav class="topbar-nav" aria-label="Sections">
+      <a href="#switch">The switch</a>
+      <a href="#method">The measurement</a>
+      <a href="#surprise">The mouse result</a>
+      <a href="#designs">The 18 designs</a>
+    </nav>
+    <a class="topbar-code" href="https://github.com/Vijayavallabh/anthropic-adaptyv-2026-tnf" target="_blank" rel="noopener noreferrer">Code</a>
+    <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch colour theme">theme</button>
+  </header>
+
+  <main id="main">
+
+    <!-- ========================= HERO ========================= -->
+    <section class="hero">
+      <div class="wrap">
+        <p class="kicker-line"><a href="../">Work</a> &nbsp;/&nbsp; Adaptyv TNF&#8209;&alpha; Challenge 2026</p>
+        <h1>A gripper that lets go.</h1>
+        <p class="lede">
+          These designed mini-proteins grab human TNF out of the bloodstream and release it in the acid
+          inside the cell, so one copy can come back for another. One of the firmest human switches did the
+          reverse against mouse TNF, which is why the switch was measured, one design at a time, in both
+          species.
+        </p>
+        <p class="byline">
+          <span>J&nbsp;Vijayavallabh</span><span>Computational study</span><span>October&nbsp;2026</span><span>Challenge&nbsp;2 / Track&nbsp;3</span>
+        </p>
+
+        <figure class="stage" aria-labelledby="stage-h">
+          <div class="stage-top">
+            <span class="what" id="stage-h">The moment the grip releases</span>
+            <span class="readout" aria-live="polite"><b id="stateWord">bound</b> &middot; <span class="env" id="envWord">blood, pH 7.4</span></span>
+          </div>
+
+          <div class="scene-host">
+            <svg class="scene" id="scene" viewBox="0 0 760 300" role="img"
+              aria-label="A designed binder clamped onto a patch of TNF. One histidine on the binder sits beside a lysine on TNF. When the acidity rises to pH 6, the histidine gains a positive charge; both charges are now positive, they repel like the same poles of two magnets, and the binder lifts away and releases TNF.">
+              <defs>
+                <radialGradient id="acidGlow" cx="62%" cy="50%" r="45%">
+                  <stop offset="0%" stop-color="#DB2777" stop-opacity="0.26"/>
+                  <stop offset="100%" stop-color="#DB2777" stop-opacity="0"/>
+                </radialGradient>
+              </defs>
+              <rect id="glow" x="0" y="0" width="760" height="300" fill="url(#acidGlow)" opacity="0"></rect>
+
+              <!-- TNF target (fixed, right) -->
+              <g>
+                <path id="tnf" d="M470 42 q190 0 190 108 0 108 -190 108 -70 0 -70 -108 0 -108 70 -108z" fill="#20314f" stroke="#33436a" stroke-width="1.5"/>
+                <text x="585" y="276" text-anchor="middle" font-family="IBM Plex Sans" font-size="15" fill="#9fb0d8">TNF &#8209; the target</text>
+                <!-- lysine on TNF (always +) -->
+                <circle cx="452" cy="150" r="15" fill="#13203c" stroke="#1D4ED8" stroke-width="2"/>
+                <text id="lysPlus" x="452" y="128" text-anchor="middle" font-family="IBM Plex Mono" font-weight="600" font-size="17" fill="#6ea0ff">+</text>
+                <text x="452" y="186" text-anchor="middle" font-family="IBM Plex Mono" font-size="13" fill="#c9d6f3">Lys</text>
+              </g>
+
+              <!-- repel vector (fires once) -->
+              <g id="repel" opacity="0">
+                <line x1="360" y1="150" x2="432" y2="150" stroke="#DB2777" stroke-width="3" stroke-linecap="round"/>
+                <polygon points="356,150 372,143 372,157" fill="#DB2777"/>
+                <polygon points="436,150 420,143 420,157" fill="#DB2777"/>
+                <text x="396" y="120" text-anchor="middle" font-family="IBM Plex Sans" font-weight="600" font-size="13" fill="#DB2777">repel</text>
+              </g>
+
+              <!-- binder (moves left on release) -->
+              <g id="binder" transform="translate(0,0)">
+                <path d="M110 58 q-48 0 -48 92 0 92 48 92 150 0 150 -92 0 -92 -150 -92z" fill="#13224a" stroke="#2f55b0" stroke-width="1.5"/>
+                <path d="M120 100 q46 50 0 100 M165 108 q40 42 0 84 M210 116 q30 34 0 68" fill="none" stroke="#3a62c4" stroke-width="1.3" opacity=".55"/>
+                <text x="150" y="276" text-anchor="middle" font-family="IBM Plex Sans" font-size="15" fill="#9fb0d8">designed binder</text>
+                <!-- histidine on binder -->
+                <polygon points="300,132 316,141 316,159 300,168 284,159 284,141" fill="#13224a" stroke="#2f55b0" stroke-width="2"/>
+                <text id="hisPlus" x="300" y="122" text-anchor="middle" font-family="IBM Plex Mono" font-weight="600" font-size="17" fill="#6ea0ff" opacity="0">+</text>
+                <text x="300" y="186" text-anchor="middle" font-family="IBM Plex Mono" font-size="13" fill="#c9d6f3">His</text>
+              </g>
+            </svg>
+          </div>
+
+          <div class="stage-controls">
+            <button class="btn" id="replayBtn" type="button">&#8635; replay</button>
+            <span class="ph-toggle" role="group" aria-label="Set the acidity">
+              <button id="ph74" type="button" aria-pressed="true">pH 7.4 blood</button>
+              <button id="ph60" type="button" aria-pressed="false">pH 6.0 acid</button>
+            </span>
+          </div>
+          <figcaption class="stage-cap">
+            A schematic, not a structure. Histidine is neutral near pH 7.4 and turns positive near pH 6.
+            The lysine on TNF is positive the whole time. Two positives push apart, so acid is what breaks the grip.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ===================== 2 · THE TARGET ===================== -->
+    <section class="section first" id="target">
+      <div class="wrap col">
+        <div class="sec-head"><span class="n">The target</span><h2>An alarm worth switching off</h2></div>
+        <div class="prose">
+          <p class="opener">
+            TNF is a small protein that cells release to raise the alarm. In short bursts it runs a normal
+            immune response. When it will not stand down, it drives rheumatoid arthritis, Crohn&rsquo;s disease
+            and psoriasis.
+          </p>
+          <p>
+            The best-selling drugs against it, adalimumab and infliximab, work by mopping TNF up, which is
+            strong proof the target is a good one. Nearly all of those drugs are antibodies, large and all
+            built the same way; the one exception, etanercept, is a piece of the natural receptor rather than
+            a new shape. No small, newly designed protein had managed to stick to TNF at all. Its surface is
+            smooth and water-loving, the kind of face that de-novo binders slide off.
+          </p>
+          <p>
+            So the task set by the challenge is pointed: draw a small protein that grabs this slippery target,
+            releases it on cue, and does both in human and mouse. Everything below is computational. There is
+            no lab result yet; the point of the work is to name the designs worth putting on a bench first.
+          </p>
+          <ul class="stats">
+            <li><b>3</b><span>diseases driven by TNF that stays on: rheumatoid arthritis, Crohn&rsquo;s, psoriasis</span></li>
+            <li><b>2</b><span>top-selling anti-TNF antibody drugs, proof the target is right</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 3 · THE PROTEIN ===================== -->
+    <section class="section" id="build">
+      <div class="wrap col">
+        <div class="sec-head"><span class="n">What was built</span><h2>A protein that never existed</h2></div>
+        <div class="prose">
+          <p>
+            Each binder was drawn from scratch rather than borrowed from nature. Three tools, one job each.
+            <strong>RFdiffusion</strong> sketches a backbone shaped to reach the groove on TNF.
+            <strong>ProteinMPNN</strong> picks the amino acids, with no cysteines, which makes the protein
+            easier to make. <strong>AlphaFold2</strong> then folds each sequence back against TNF and keeps
+            only the ones that fold cleanly and land where they should.
+          </p>
+          <p>
+            Because TNF is flat and water-loving, most drawn backbones slide off, so that folding filter does
+            most of the cutting. What survives is a single chain of about <span class="data">80</span> amino
+            acids, far smaller than an antibody, carrying <span class="data">no cysteines</span>. Every design
+            is genuinely new: all of them clear the challenge&rsquo;s novelty gate, which checks each one against
+            the whole known record of protein structures and needs a pass of at least three of four.
+          </p>
+        </div>
+      </div>
+      <div class="wrap mol-sec" style="margin-top:2rem;">
+        <div class="split">
+          <div class="prose col">
+            <div class="sec-head"><span class="n">One of the real ones</span><h2>des_6025, as predicted</h2></div>
+            <p>
+              The hero above is a cartoon. This is a real one: the predicted fold of design des_6025, drawn in
+              blue, clamped onto a patch of human TNF in grey. The three histidines that carry the switch are
+              the thick sticks. Drag to turn it. This is a prediction, not a solved structure, and the colour
+              follows the page&rsquo;s rule, not the atoms: the binder is the charged actor, so it is blue.
+            </p>
+            <div class="mol-legend">
+              <span><span class="sw" style="background:#4f86ff"></span>designed binder</span>
+              <span><span class="sw" style="background:#8a93a6"></span>human TNF</span>
+              <span><span class="sw" style="background:#DB2777"></span>switch histidines</span>
+            </div>
+          </div>
+          <figure style="margin:0;">
+            <div class="mol-host" id="viewer"><p class="mol-fallback">A 3D view of design des_6025 on TNF loads here. It needs a browser with WebGL.</p></div>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 4 · RECYCLING LOOP ===================== -->
+    <section class="loop-band" id="why">
+      <div class="wrap">
+        <div class="sec-head"><span class="n" style="color:#8aa0d8">Why a switch at all</span>
+          <h2 style="color:#fff;">Letting go is the whole point</h2></div>
+        <p style="font-family:var(--serif); max-width:40ch; color:#cdd8f2; margin:.4rem 0 0;">
+          An ordinary binder catches one TNF and holds it forever, spent after a single grab. A binder that
+          releases can ride into the cell, drop its cargo to be destroyed, and come back empty for the next one.
+          That reuse is the reason to build a switch at all.
+        </p>
+        <ol class="loop" aria-label="The recycling loop">
+          <li class="step"><span class="ph">blood &middot; pH 7.4</span><h4>Grab</h4><p>The binder grips TNF in the bloodstream.</p></li>
+          <li class="step"><span class="ph">cell entry</span><h4>Carry in</h4><p>The pair is taken into the cell&rsquo;s sorting bubble.</p></li>
+          <li class="step acid"><span class="ph">endosome &middot; pH 6.0</span><h4>Release</h4><p>The acid flips the switch; TNF is let go and destroyed.</p></li>
+          <li class="step"><span class="ph">back to blood</span><h4>Reuse</h4><p>The empty binder returns to grab another.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===================== 5 · ACID IS AN ADDRESS ===================== -->
+    <section class="section" id="address">
+      <div class="wrap col">
+        <div class="sec-head"><span class="n">The signal</span><h2>Acid is an address</h2></div>
+        <div class="prose">
+          <p>
+            The binder has no idea where it is in the body. It can only read the acidity of the water around
+            it, the way a thermostat reads temperature. That one reading is enough. Blood is held at a steady
+            <span class="data">pH 7.4</span>, which counts as neutral. Inside the cell, the sorting bubble that
+            breaks things down runs acidic, close to <span class="data">pH 6.0</span>.
+          </p>
+          <p class="pull">A drop of about one pH unit is a dependable &ldquo;you are now inside the cell&rdquo; signal.</p>
+          <p>
+            So the job is narrow and physical: build a protein that grips at 7.4 and releases at 6.0. The whole
+            design turns on reading half a pH unit and acting on it.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 6 · THE SWITCH ===================== -->
+    <section class="section" id="switch">
+      <div class="wrap col">
+        <div class="sec-head"><span class="n">The mechanism</span><h2>The switch works backward</h2></div>
+        <div class="prose">
+          <p>
+            Of the twenty amino acids, histidine is the only one that changes its charge right in the window
+            between blood and endosome. Near 7.4 it is neutral. Near 6.0 it picks up a positive charge. The
+            other nineteen sit still across this range.
+          </p>
+          <p>
+            Here is the part that runs against intuition. Each switch histidine is placed next to a
+            <strong>lysine on TNF that is positive the whole time</strong>. At pH 7.4 the histidine is neutral
+            and the binder grips. At pH 6.0 the histidine turns positive, and now two like charges sit
+            together and shove apart, the way the same poles of two magnets refuse to meet. The push pries the
+            grip open. Acid makes this binder <em>let go</em>, the opposite of the usual &ldquo;more charge,
+            more sticky&rdquo;. The designs carry two or more of these histidines, each against its own
+            conserved lysine, so the release does not rest on a single contact.
+          </p>
+          <div class="lanes" style="margin-top:1.4rem;">
+            <div class="lane human" style="background:color-mix(in srgb,var(--pos) 7%,var(--bg));">
+              <span class="tag" style="color:var(--pos-live)">this page &middot; TNF</span>
+              <h4>Repel, then release</h4>
+              <p>His&#8314; meets a positive lysine. Like charges push apart, so acid opens the grip.</p>
+            </div>
+            <div class="lane mouse" style="background:color-mix(in srgb,var(--mouse) 7%,var(--bg)); border-right:0;">
+              <span class="tag" style="color:var(--tx2)">the sibling &middot; EGFR</span>
+              <h4>Attract, then grab</h4>
+              <p>There His&#8314; meets a negative partner and snaps together, so acid makes the binder stick. Same residue, opposite wiring.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 7 · MOUSE ===================== -->
+    <section class="section" id="mouse">
+      <div class="wrap col">
+        <div class="sec-head"><span class="n">Cross-reactivity</span><h2>It has to work in a mouse</h2></div>
+        <div class="prose">
+          <p>
+            No binder reaches patients without an animal test first, and that test comes before any human
+            trial. So the same protein has to grab mouse TNF as well. The switch was placed with this in mind,
+            on a patch that both species share: human and mouse TNF are
+            <span class="data">89&ndash;95%</span> identical across the contact patch, and the target lysines
+            are present in both.
+          </p>
+          <p>
+            That makes a strong case that the binder should still <em>grab</em> mouse TNF. But that is a
+            look-alike argument about shape. Whether the pH switch still <em>fires</em> in a mouse is a
+            separate question, and the honest answer is that a matching shape does not settle it. The next two
+            sections are how that question got measured instead of assumed.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 8 · THE METHOD ===================== -->
+    <section class="section" id="method">
+      <div class="wrap col">
+        <div class="sec-head"><span class="n">The measurement</span><h2>Weighing a switch before it exists</h2></div>
+        <div class="prose">
+          <p>
+            Folding tools say nothing about pH. They tell you a binder docks, not whether it grips harder in
+            blood than in acid, which is the entire point. So the switch is checked on its own, three ways that
+            have to agree on direction, and then it is measured.
+          </p>
+          <p>
+            The measurement is a free-energy calculation. It charges the switch histidine from neutral to
+            positive <strong>twice</strong>: once while the binder grips TNF, once while the binder floats
+            free. Then it takes the difference of the two energy costs. If charging the histidine costs
+            <em>more</em> while gripping than while free, the new charge is fighting the grip, so the binder
+            releases in acid. That is reported as a positive number.
+          </p>
+          <p>
+            Taking the difference is the trick. It cancels the messy terms that both runs share and leaves only
+            the part that depends on gripping. That is why the <strong>direction</strong> of the switch can be
+            trusted even though the exact <strong>size</strong> cannot: the slow part of the simulation never
+            fully settles, so size is left to the lab. The direction was read at 6 independent runs, then 12,
+            then 24 where a close call needed it. That discipline mattered: it caught two designs whose switch
+            runs the wrong way, binding tighter in acid, and both were cut.
+          </p>
+          <p class="pull">Weigh a backpack by standing on a scale with it, then without it, and subtract.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 9 · THE SURPRISE (slopegraph) ===================== -->
+    <section class="section" id="surprise">
+      <div class="wrap">
+        <div class="sec-head col"><span class="n">The result</span><h2>A strong human switch ran backward in mouse</h2></div>
+        <div class="prose lanes-intro">
+          <p>
+            Running that free-energy test against mouse TNF was the first time the switch was checked by energy
+            in a second species, rather than argued from a shared patch: 18 designs, both species,
+            <span class="data">216</span> simulations. The result reordered the shortlist instead of confirming
+            it. How strong a switch is in human turns out to say almost nothing about mouse.
+          </p>
+          <p>
+            Each line below runs from a design&rsquo;s human result on the left to its mouse result on the
+            right. Above the zero line, the binder releases in acid, the way it should; below, the switch has
+            reversed. Five lines hold in the blue band on both sides. One line that starts high on the human
+            side, des_4098, plunges straight through zero into red: a top-ranked human switcher that grips
+            <em>harder</em> in acid against mouse TNF.
+          </p>
+        </div>
+
+        <div class="slope-wrap wrap">
+          <svg class="slope" id="slope" viewBox="0 0 760 460" role="img"
+            aria-label="A slopegraph of 18 designs. Each line connects a design's human switch free energy on the left to its mouse free energy on the right, with a zero line across the middle. Five designs stay positive on both sides. des_4098 and des_1060 start positive in human and cross below zero in mouse. Full values are in the table below.">
+          </svg>
+          <div class="slope-legend">
+            <span><span class="sw" style="background:#1D4ED8"></span>releases in acid (positive)</span>
+            <span><span class="sw" style="background:#B91C1C"></span>runs backward (negative)</span>
+            <span><span class="sw" style="background:#64707f"></span>flat / borderline</span>
+            <span>left = human &middot; right = mouse</span>
+          </div>
+        </div>
+
+        <div class="prose lanes-intro" style="margin-top:1.4rem;">
+          <p>
+            Five designs release in both human and mouse: <span class="data">des_6025, des_820, b4m2,
+            des_4082a</span> and <span class="data">des_732</span>. Those are the safest first choices to put
+            into an animal, and the submission leads with them. The lesson underneath is the useful part: the
+            mouse number carried information the human number could not, so it was worth paying for one design
+            at a time.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 10 · HONEST ===================== -->
+    <section class="section" id="honest">
+      <div class="wrap col">
+        <div class="sec-head"><span class="n">What this is, and isn&rsquo;t</span><h2>The honest part</h2></div>
+        <div class="honest">
+          <p style="font-family:var(--serif); margin:0 0 .4rem;">
+            This is computational evidence, and it is worth being exact about what it can and cannot carry.
+          </p>
+          <ul class="ladder">
+            <li><span class="lv hi">trust it</span><span><strong>Which way the switch goes.</strong> Checked three ways and then measured by free energy. Reliable for direction.</span></li>
+            <li><span class="lv hi">trust it</span><span><strong>Which five designs carry the switch into mouse.</strong> From the energy test in both species.</span></li>
+            <li><span class="lv mid">hold lightly</span><span><strong>The mouse pose.</strong> It is a predicted shape for how the binder sits on mouse TNF, screened against the human design that was actually drawn. There is no lab structure, and no test proves a predicted pose is exactly right.</span></li>
+            <li><span class="lv lab">lab only</span><span><strong>How big the switch is, and the final grip strength.</strong> The simulation will not settle the size, and binding strength on this target is close to a coin flip in software. These are bench numbers.</span></li>
+          </ul>
+          <p style="font-family:var(--serif); margin:1.2rem 0 0;">
+            No one has yet shown a designed single-chain switch of this kind flipping on a bench. So this is the
+            strongest evidence available before the lab, and its job is to name the few designs worth testing
+            first, not to call the result in.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 11 · THE 18 DESIGNS ===================== -->
+    <section class="section" id="designs">
+      <div class="wrap">
+        <div class="sec-head col"><span class="n">The set</span><h2>The 18 designs</h2>
+          <p style="font-family:var(--serif); color:var(--tx2); max-width:52ch; margin:.6rem 0 0;">
+            Ordered by how well the switch carries from human to mouse, the five dual-species releasers first.
+            &Delta;&Delta;G is the free-energy number from the measurement; positive means it releases in acid.
+            z is how firm that sign is across the runs. This table is also the accessible version of the chart above.
+          </p>
+        </div>
+        <div class="table-wrap">
+          <table class="designs">
+            <thead>
+              <tr><th>#</th><th>Design</th><th>Human &Delta;&Delta;G</th><th>Mouse &Delta;&Delta;G</th><th>In mouse</th></tr>
+            </thead>
+            <tbody id="designRows"><!-- filled by app.js --></tbody>
+          </table>
+        </div>
+        <p class="table-note">
+          All 18 are predicted to bind mouse TNF; only 5 also release in mouse. The other designs grip in both
+          species but their switch goes flat or reverses in the mouse complex. des_820&rsquo;s mouse pose was
+          flagged lower-confidence than the rest, and still showed a clean release. Nothing here is a measured
+          binding curve; every number is from simulation.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===================== 12 · SOURCES ===================== -->
+    <section class="section" id="sources">
+      <div class="wrap col">
+        <div class="sec-head"><span class="n">Sources</span><h2>Tools and method</h2></div>
+        <ul class="refs">
+          <li><b>Design.</b> RFdiffusion for backbones, ProteinMPNN for sequences, AlphaFold2 initial-guess for the binding filter, Boltz-2 and Chai-1 for a second opinion on the pose.</li>
+          <li><b>The switch, checked.</b> Two-state molecular dynamics in OpenMM with a histidine-to-glutamine control, plus PROPKA and pKAI acid-base estimates and a GFN2-xTB charge calculation, all agreeing on direction.</li>
+          <li><b>The switch, measured.</b> Alchemical free energy of charging the histidine, bound complex versus free binder, by thermodynamic integration in OpenMM, run to 24 independent seeds where needed, in both human and mouse.</li>
+          <li><b>Honesty.</b> Everything is computational prediction and simulation. The full methods and per-design data live in the <a href="https://github.com/Vijayavallabh/anthropic-adaptyv-2026-tnf" target="_blank" rel="noopener noreferrer">project repository</a>, which opens to the public after the challenge closes.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <p>J&nbsp;Vijayavallabh &middot; <a href="../">vijayavallabh.github.io</a></p>
+      <p>Adaptyv &times; Anthropic TNF&#8209;&alpha; Challenge, October 2026 &middot; a companion to the <a href="../egfr/">EGFR write-up</a>.</p>
+    </div>
+  </footer>
+
+  <div class="sl-tip" id="tip" role="status" aria-live="off"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/3Dmol/2.4.2/3Dmol-min.js" defer></script>
+  <script src="app.js" defer></script>
+</body>
+</html>
