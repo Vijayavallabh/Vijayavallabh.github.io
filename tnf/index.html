@@ -68,25 +68,47 @@
             <svg class="scene" id="scene" viewBox="0 0 760 300" role="img"
               aria-label="A designed binder clamped onto a patch of TNF. One histidine on the binder sits beside a lysine on TNF. When the acidity rises to pH 6, the histidine gains a positive charge; both charges are now positive, they repel like the same poles of two magnets, and the binder lifts away and releases TNF.">
               <defs>
-                <radialGradient id="acidGlow" cx="62%" cy="50%" r="45%">
+                <radialGradient id="acidGlow" cx="62%" cy="50%" r="46%">
                   <stop offset="0%" stop-color="#DB2777" stop-opacity="0.26"/>
+                  <stop offset="55%" stop-color="#DB2777" stop-opacity="0.07"/>
                   <stop offset="100%" stop-color="#DB2777" stop-opacity="0"/>
                 </radialGradient>
+                <linearGradient id="binderFill" x1="0.12" y1="0.04" x2="0.9" y2="1">
+                  <stop offset="0" stop-color="#2a4c93"/>
+                  <stop offset="0.45" stop-color="#1e3a6e"/>
+                  <stop offset="1" stop-color="#15274c"/>
+                </linearGradient>
+                <linearGradient id="tnfFill" x1="0.1" y1="0.05" x2="0.95" y2="1">
+                  <stop offset="0" stop-color="#32507f"/>
+                  <stop offset="0.5" stop-color="#233a5e"/>
+                  <stop offset="1" stop-color="#1a2c48"/>
+                </linearGradient>
+                <radialGradient id="chargeGlow" cx="0.5" cy="0.5" r="0.5">
+                  <stop offset="0" stop-color="#6ea0ff" stop-opacity="0.06"/>
+                  <stop offset="0.34" stop-color="#6ea0ff" stop-opacity="0.38"/>
+                  <stop offset="0.62" stop-color="#4d82f0" stop-opacity="0.15"/>
+                  <stop offset="1" stop-color="#6ea0ff" stop-opacity="0"/>
+                </radialGradient>
+                <filter id="recoilGlow" x="-45%" y="-160%" width="190%" height="420%" color-interpolation-filters="sRGB">
+                  <feGaussianBlur stdDeviation="3.5" result="b"/>
+                  <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
               </defs>
               <rect id="glow" x="0" y="0" width="760" height="300" fill="url(#acidGlow)" opacity="0"></rect>
 
               <!-- TNF target (fixed, right) -->
               <g>
-                <path id="tnf" d="M470 42 q190 0 190 108 0 108 -190 108 -70 0 -70 -108 0 -108 70 -108z" fill="#20314f" stroke="#33436a" stroke-width="1.5"/>
+                <path id="tnf" d="M470 42 q190 0 190 108 0 108 -190 108 -70 0 -70 -108 0 -108 70 -108z" fill="url(#tnfFill)" stroke="#506892" stroke-width="1.5"/>
                 <text x="585" y="276" text-anchor="middle" font-family="IBM Plex Sans" font-size="15" fill="#9fb0d8">TNF &#8209; the target</text>
-                <!-- lysine on TNF (always +) -->
+                <!-- lysine on TNF (always +): its charge field never switches off -->
+                <ellipse cx="452" cy="150" rx="50" ry="50" fill="url(#chargeGlow)"/>
                 <circle cx="452" cy="150" r="15" fill="#13203c" stroke="#1D4ED8" stroke-width="2"/>
                 <text id="lysPlus" x="452" y="128" text-anchor="middle" font-family="IBM Plex Mono" font-weight="600" font-size="17" fill="#6ea0ff">+</text>
                 <text x="452" y="186" text-anchor="middle" font-family="IBM Plex Mono" font-size="13" fill="#c9d6f3">Lys</text>
               </g>
 
               <!-- repel vector (fires once) -->
-              <g id="repel" opacity="0">
+              <g id="repel" opacity="0" filter="url(#recoilGlow)">
                 <line x1="360" y1="150" x2="432" y2="150" stroke="#DB2777" stroke-width="3" stroke-linecap="round"/>
                 <polygon points="356,150 372,143 372,157" fill="#DB2777"/>
                 <polygon points="436,150 420,143 420,157" fill="#DB2777"/>
@@ -95,12 +117,16 @@
 
               <!-- binder (moves left on release) -->
               <g id="binder" transform="translate(0,0)">
-                <path d="M110 58 q-48 0 -48 92 0 92 48 92 150 0 150 -92 0 -92 -150 -92z" fill="#13224a" stroke="#2f55b0" stroke-width="1.5"/>
+                <path d="M110 58 q-48 0 -48 92 0 92 48 92 150 0 150 -92 0 -92 -150 -92z" fill="url(#binderFill)" stroke="#3f66c8" stroke-width="1.5"/>
                 <path d="M120 100 q46 50 0 100 M165 108 q40 42 0 84 M210 116 q30 34 0 68" fill="none" stroke="#3a62c4" stroke-width="1.3" opacity=".55"/>
                 <text x="150" y="276" text-anchor="middle" font-family="IBM Plex Sans" font-size="15" fill="#9fb0d8">designed binder</text>
                 <!-- histidine on binder -->
-                <polygon points="300,132 316,141 316,159 300,168 284,159 284,141" fill="#13224a" stroke="#2f55b0" stroke-width="2"/>
-                <text id="hisPlus" x="300" y="122" text-anchor="middle" font-family="IBM Plex Mono" font-weight="600" font-size="17" fill="#6ea0ff" opacity="0">+</text>
+                <polygon points="300,132 316,141 316,159 300,168 284,159 284,141" fill="#13224a" stroke="#3f66c8" stroke-width="2"/>
+                <!-- His charge: the "+" and its field ignite together only in acid (GSAP toggles this group's opacity) -->
+                <g id="hisField" opacity="0">
+                  <ellipse id="hisGlow" cx="300" cy="150" rx="50" ry="50" fill="url(#chargeGlow)"/>
+                  <text id="hisPlus" x="300" y="122" text-anchor="middle" font-family="IBM Plex Mono" font-weight="600" font-size="17" fill="#6ea0ff">+</text>
+                </g>
                 <text x="300" y="186" text-anchor="middle" font-family="IBM Plex Mono" font-size="13" fill="#c9d6f3">His</text>
               </g>
             </svg>

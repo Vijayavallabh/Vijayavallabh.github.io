@@ -11,6 +11,9 @@
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var $ = function (s, r) { return (r || document).querySelector(s); };
 
+  // one global ease + conflict policy so a pH toggle can never leave two tweens fighting the binder transform
+  if (typeof window.gsap !== "undefined") window.gsap.defaults({ ease: "power2.out", overwrite: "auto" });
+
   /* ---------- theme ---------- */
   (function theme() {
     var btn = $("#themeBtn");
@@ -29,7 +32,7 @@
 
   /* ---------- hero repulsion beat ---------- */
   (function hero() {
-    var binder = $("#binder"), his = $("#hisPlus"), repel = $("#repel"), glow = $("#glow");
+    var binder = $("#binder"), his = $("#hisField"), repel = $("#repel"), glow = $("#glow");
     var stateWord = $("#stateWord"), envWord = $("#envWord");
     var replay = $("#replayBtn"), b74 = $("#ph74"), b60 = $("#ph60");
     if (!binder) return;
@@ -45,35 +48,50 @@
       b60 && b60.setAttribute("aria-pressed", "true");
     }
 
+    var hasGSAP = typeof window.gsap !== "undefined";
+    var playing = false, heroTL = null;
+
+    function setBinderX(v) {
+      if (hasGSAP) window.gsap.set(binder, { x: v });
+      else binder.setAttribute("transform", "translate(" + v + ",0)");
+    }
     function staticReleased() {
-      binder.setAttribute("transform", "translate(-70,0)");
+      setBinderX(-70);
+      if (hasGSAP) window.gsap.set(repel, { scale: 1 });
       his.setAttribute("opacity", "1"); repel.setAttribute("opacity", "1"); glow.setAttribute("opacity", "1");
       setReleased();
     }
     function staticBound() {
-      binder.setAttribute("transform", "translate(0,0)");
+      setBinderX(0);
       his.setAttribute("opacity", "0"); repel.setAttribute("opacity", "0"); glow.setAttribute("opacity", "0");
       setBound();
     }
-
-    var hasGSAP = typeof window.gsap !== "undefined";
-    var playing = false;
 
     function beat() {
       if (reduce || !hasGSAP) { staticReleased(); return; }
       if (playing) return; playing = true;
       staticBound();
-      var tl = window.gsap.timeline({ onComplete: function () { playing = false; } });
-      tl.to(glow, { attr: { opacity: 0.9 }, duration: 0.5 }, 0)
-        .to(his, { attr: { opacity: 1 }, duration: 0.35, ease: "power1.out" }, 0.25)
-        .call(setReleased, null, 0.45)
-        .fromTo(repel, { attr: { opacity: 0 } }, { attr: { opacity: 1 }, duration: 0.18, ease: "power2.out" }, 0.55)
-        .to(repel, { attr: { opacity: 0.0 }, duration: 0.5, ease: "power1.in" }, 0.95)
-        .to(binder, { attr: { transform: "translate(-70,0)" }, duration: 0.7, ease: "power2.inOut" }, 0.6);
+      heroTL = window.gsap.timeline({ onComplete: function () { playing = false; } });
+      heroTL
+        .to(glow, { attr: { opacity: 0.9 }, duration: 0.5, ease: "sine.inOut" }, 0)
+        .to(his, { attr: { opacity: 1 }, duration: 0.35, ease: "power1.out" }, 0.28)
+        .fromTo(repel,
+          { attr: { opacity: 0 }, scale: 0.72 },
+          { attr: { opacity: 1 }, scale: 1, transformOrigin: "50% 50%", duration: 0.22, ease: "back.out(2.4)" }, 0.85)
+        .to(binder, { x: -70, duration: 0.72, ease: "power3.out" }, 0.9)
+        .call(setReleased, null, 0.9)
+        .to(repel, { attr: { opacity: 0 }, duration: 0.5, ease: "power1.in" }, 1.34);
     }
 
     replay && replay.addEventListener("click", beat);
-    b74 && b74.addEventListener("click", function () { if (hasGSAP && !reduce) { window.gsap.to(binder, {attr:{transform:"translate(0,0)"},duration:.5}); window.gsap.to([his,repel,glow],{attr:{opacity:0},duration:.4}); } else { staticBound(); } setBound(); });
+    b74 && b74.addEventListener("click", function () {
+      if (heroTL) { heroTL.kill(); playing = false; }
+      if (hasGSAP && !reduce) {
+        window.gsap.to(binder, { x: 0, duration: 0.55, ease: "power2.inOut" });
+        window.gsap.to([his, repel, glow], { attr: { opacity: 0 }, duration: 0.4, ease: "power1.out" });
+      } else { staticBound(); }
+      setBound();
+    });
     b60 && b60.addEventListener("click", beat);
 
     // play once on scroll-into-view
@@ -173,7 +191,7 @@
       var dotH = el("circle", { cx: xL, cy: yh, class: "sl-dot " + cls });
       var dotM = el("circle", { cx: xR, cy: (reduce ? ym : yh), class: "sl-dot " + cls });
       svg.appendChild(line); svg.appendChild(dotH); svg.appendChild(dotM);
-      animTargets.push({ line: line, dotM: dotM, ym: ym });
+      animTargets.push({ line: line, dotM: dotM, ym: ym, cross: crossing });
 
       function over(e) { showTip(d, e); line.style.strokeWidth = "4"; }
       line.addEventListener("mousemove", over); line.addEventListener("mouseleave", function () { hideTip(); line.style.strokeWidth = ""; });
@@ -204,27 +222,56 @@
       window.ScrollTrigger.create({
         trigger: "#slope", start: "top 70%", once: true,
         onEnter: function () {
-          animTargets.forEach(function (a, i) {
-            window.gsap.to(a.line, { attr: { y2: a.ym }, duration: 0.9, delay: i * 0.03, ease: "power2.out" });
-            window.gsap.to(a.dotM, { attr: { cy: a.ym }, duration: 0.9, delay: i * 0.03, ease: "power2.out" });
+          var g = window.gsap;
+          var quiet = animTargets.filter(function (a) { return !a.cross; });
+          var story = animTargets.filter(function (a) { return a.cross; });
+          quiet.forEach(function (a, i) {
+            var d = i * 0.028;
+            g.to(a.line, { attr: { y2: a.ym }, duration: 0.72, delay: d, ease: "power2.out" });
+            g.to(a.dotM, { attr: { cy: a.ym }, duration: 0.72, delay: d, ease: "power2.out" });
+          });
+          var base = quiet.length * 0.028 + 0.14;
+          story.forEach(function (a, i) {
+            var d = base + i * 0.1;
+            g.to(a.line, { attr: { y2: a.ym }, duration: 1.0, delay: d, ease: "power3.inOut" });
+            g.to(a.dotM, { attr: { cy: a.ym }, duration: 1.0, delay: d, ease: "power3.inOut" });
           });
         }
       });
     }
   }
 
-  /* ---------- 3D viewer (demoted; drag-only, no spin) ---------- */
+  /* ---------- 3D viewer (demoted; drag-only, no spin; high-DPI) ---------- */
   (function mol() {
     var host = $("#viewer"); if (!host || typeof window.$3Dmol === "undefined") return;
     try {
-      var v = window.$3Dmol.createViewer(host, { backgroundColor: "0x0D1526", antialias: true });
+      var v = window.$3Dmol.createViewer(host, {
+        backgroundColor: 0x0D1526,
+        backgroundAlpha: 0,
+        antialias: true,
+        cartoonQuality: 10,
+        disableFog: true
+      });
+      if (!v) return;
       fetch("des6025_complex.pdb").then(function (r) { return r.text(); }).then(function (pdb) {
         v.addModel(pdb, "pdb");
-        v.setStyle({ chain: "B" }, { cartoon: { color: "0x8a93a6", opacity: 0.9 } });              // TNF grey
-        v.setStyle({ chain: "A" }, { cartoon: { color: "0x4f86ff" } });                             // binder blue
-        v.addStyle({ chain: "A", resi: [32, 52, 66, 74] }, { stick: { radius: 0.34, color: "0xDB2777" } }); // switch His, magenta
+        v.setStyle({ chain: "B" }, { cartoon: { color: 0x8a93a6, opacity: 0.65 } });
+        v.setStyle({ chain: "A" }, { cartoon: { color: 0x4f86ff } });
+        v.addStyle({ chain: "A", resi: [32, 52, 66, 74] }, { stick: { radius: 0.34, color: 0xDB2777 } });
         var fb = $(".mol-fallback", host); if (fb) fb.style.display = "none";
-        v.zoomTo({ chain: "A" }); v.zoom(0.85); v.render();
+        v.zoomTo({ chain: "A" }); v.zoom(0.8); v.render();
+        v.resize();
+        requestAnimationFrame(function () { try { v.resize(); } catch (e) {} });
+        try {
+          v.addSurface(window.$3Dmol.SurfaceType.SAS,
+            { opacity: 0.5, color: 0x8a93a6 },
+            { chain: "B" }, { chain: "B" }, undefined,
+            function () { try { v.render(); } catch (e) {} });
+        } catch (e) { /* surface optional; cartoon already shows */ }
+      }).catch(function () { /* leave the fallback text */ });
+      var rt;
+      window.addEventListener("resize", function () {
+        clearTimeout(rt); rt = setTimeout(function () { try { v.resize(); } catch (e) {} }, 150);
       });
     } catch (e) { /* leave the fallback text */ }
   })();
