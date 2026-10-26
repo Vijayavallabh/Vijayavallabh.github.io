@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>A key that has to turn</title>
+  <meta name="description" content="Designed brand-new proteins that switch on GLP-1R, the receptor behind Ozempic and Wegovy. The hard part is not binding it but activating it, and for this receptor no computer can tell an activator from a blocker. A plain-language write-up of how I found that out, including a test that fooled me." />
+  <meta name="author" content="J Vijayavallabh" />
+  <link rel="canonical" href="https://vijayavallabh.github.io/glp1r/" />
+
+  <meta name="theme-color" content="#F5F7FB" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0D1526" media="(prefers-color-scheme: dark)" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://vijayavallabh.github.io/glp1r/" />
+  <meta property="og:title" content="A key that has to turn" />
+  <meta property="og:description" content="De-novo proteins that try to switch GLP-1R on, not just bind it, and the honest limit: no in-silico score separates an activator from a blocker for this receptor." />
+  <meta property="og:image" content="https://vijayavallabh.github.io/assets/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="../assets/og.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <a class="topbar-name" href="../"><span class="arrow" aria-hidden="true">&larr;</span>J&nbsp;Vijayavallabh</a>
+    <nav class="topbar-nav" aria-label="Sections">
+      <a href="#hard">Bind vs. switch</a>
+      <a href="#method">How I looked</a>
+      <a href="#fooled">The test that fooled me</a>
+      <a href="#designs">The 20 designs</a>
+    </nav>
+    <a class="topbar-code" href="https://github.com/Vijayavallabh/anthropic-adaptyv-2026-glp1r" target="_blank" rel="noopener noreferrer">Code</a>
+    <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch colour theme">theme</button>
+  </header>
+
+  <main id="main">
+
+    <!-- ========================= HERO ========================= -->
+    <section class="hero">
+      <div class="wrap">
+        <p class="kicker-line"><a href="../">Work</a> &nbsp;/&nbsp; Adaptyv &times; Anthropic GLP&#8209;1R Challenge 2026</p>
+        <h1>A key that has to turn.</h1>
+        <p class="lede">
+          GLP&#8209;1R is the receptor behind the new wave of weight&#8209;loss and diabetes drugs &mdash; Ozempic,
+          Wegovy and Mounjaro all work by switching it on. I tried to design a brand&#8209;new protein, from
+          scratch, that does the same: not just stick to the receptor, but <em>turn it on</em>. That last word is
+          the whole problem. Making something that binds is doable. Knowing whether it switches the receptor on,
+          before any lab test, turns out to be something no computer can tell you &mdash; and I watched my own
+          best test for it get fooled by random sequences. So I did the honest thing: I stopped guessing
+          activation, picked a wide, diverse set of strong binders, and left the verdict to the one judge that
+          can give it.
+        </p>
+        <p class="byline">
+          <span>J&nbsp;Vijayavallabh</span><span>Computational study</span><span>October&nbsp;2026</span><span>Challenge&nbsp;3 / Track&nbsp;3</span>
+        </p>
+
+        <figure class="stage" aria-labelledby="stage-h">
+          <div class="stage-top">
+            <span class="what" id="stage-h">Binding is not the same as switching on</span>
+            <span class="readout" aria-live="polite"><b id="stateWord">bound</b> &middot; <span class="env" id="envWord">receptor off</span></span>
+          </div>
+
+          <div class="scene-host">
+            <svg class="scene" id="scene" viewBox="0 0 760 320" role="img"
+              aria-label="A schematic of GLP-1R in a cell membrane: a seven-helix bundle with an opening at the top, the vestibule. A designed peptide is shown in two situations. In 'surface binder' it rests on the top of the receptor and the receptor stays off. In 'message inserted' the peptide's tip threads down into the vestibule, one inner helix swings out, and the receptor is marked on — but a label notes that no computer can tell which of these a given design actually does.">
+              <defs>
+                <linearGradient id="memGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#C9A227" stop-opacity="0.16"/>
+                  <stop offset="1" stop-color="#C9A227" stop-opacity="0.06"/>
+                </linearGradient>
+                <linearGradient id="recFill" x1="0.1" y1="0" x2="0.9" y2="1">
+                  <stop offset="0" stop-color="#32507f"/><stop offset="0.5" stop-color="#233a5e"/><stop offset="1" stop-color="#1a2c48"/>
+                </linearGradient>
+                <linearGradient id="tm6Fill" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#2a4c93"/><stop offset="1" stop-color="#15274c"/>
+                </linearGradient>
+                <linearGradient id="pepFill" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#2a9d8f"/><stop offset="1" stop-color="#1e6f66"/>
+                </linearGradient>
+                <radialGradient id="onGlow" cx="0.5" cy="0.5" r="0.5">
+                  <stop offset="0" stop-color="#34d399" stop-opacity="0.5"/><stop offset="0.6" stop-color="#34d399" stop-opacity="0.12"/><stop offset="1" stop-color="#34d399" stop-opacity="0"/>
+                </radialGradient>
+              </defs>
+
+              <!-- membrane band -->
+              <rect x="0" y="150" width="760" height="120" fill="url(#memGrad)"/>
+              <line x1="0" y1="150" x2="760" y2="150" stroke="#C9A227" stroke-width="1.2" stroke-opacity="0.5"/>
+              <line x1="0" y1="270" x2="760" y2="270" stroke="#C9A227" stroke-width="1.2" stroke-opacity="0.5"/>
+              <text x="748" y="144" text-anchor="end" font-family="IBM Plex Sans" font-size="12" fill="#9a8a4a">outside the cell</text>
+              <text x="748" y="286" text-anchor="end" font-family="IBM Plex Sans" font-size="12" fill="#9a8a4a">inside the cell</text>
+
+              <!-- activation glow (ON only) -->
+              <ellipse id="onField" cx="384" cy="250" rx="70" ry="70" fill="url(#onGlow)" opacity="0"/>
+
+              <!-- receptor: 7TM bundle (6 fixed helices + TM6 that swings) -->
+              <g stroke="#506892" stroke-width="1.4">
+                <rect x="300" y="150" width="20" height="112" rx="10" fill="url(#recFill)"/>
+                <rect x="330" y="150" width="20" height="112" rx="10" fill="url(#recFill)"/>
+                <rect x="362" y="150" width="20" height="112" rx="10" fill="url(#recFill)"/>
+                <rect x="418" y="150" width="20" height="112" rx="10" fill="url(#recFill)"/>
+                <rect x="448" y="150" width="20" height="112" rx="10" fill="url(#recFill)"/>
+                <!-- the inner "switch" marker (R190 / TM6 hinge), lights up on -->
+                <circle id="switchDot" cx="384" cy="238" r="8" fill="#13203c" stroke="#2a9d8f" stroke-width="2"/>
+              </g>
+              <!-- TM6: swings outward when activated -->
+              <g id="tm6" style="transform-box:fill-box; transform-origin:50% 100%;">
+                <rect x="392" y="150" width="20" height="112" rx="10" fill="url(#tm6Fill)" stroke="#3f66c8" stroke-width="1.4"/>
+              </g>
+              <!-- ECD lobe (the "address" domain), up top -->
+              <path d="M300 150 q-26 -46 26 -66 q52 -16 70 26 q10 24 -8 40z" fill="url(#recFill)" stroke="#506892" stroke-width="1.3" opacity="0.92"/>
+              <text x="332" y="112" text-anchor="middle" font-family="IBM Plex Sans" font-size="12" fill="#9fb0d8">ECD</text>
+              <text x="384" y="300" text-anchor="middle" font-family="IBM Plex Sans" font-size="14" fill="#9fb0d8">GLP&#8209;1R &middot; seven&#8209;helix bundle</text>
+
+              <!-- the designed peptide (moves/threads between states) -->
+              <g id="pep" transform="translate(0,0)">
+                <path d="M150 96 q70 -20 128 0 q22 8 0 20 q-70 16 -128 2 q-20 -8 0 -22z" fill="url(#pepFill)" stroke="#2a9d8f" stroke-width="1.4"/>
+                <circle id="pepTip" cx="278" cy="106" r="7" fill="#0f3b36" stroke="#34d399" stroke-width="2"/>
+                <text x="206" y="150" text-anchor="middle" font-family="IBM Plex Sans" font-size="13" fill="#7fd8c9">designed peptide</text>
+                <text x="278" y="88" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#34d399">N</text>
+              </g>
+            </svg>
+          </div>
+
+          <div class="stage-controls">
+            <span class="ph-toggle" role="group" aria-label="Choose what the peptide does">
+              <button id="stBind" type="button" aria-pressed="true">surface binder</button>
+              <button id="stAct" type="button" aria-pressed="false">message inserted</button>
+            </span>
+          </div>
+          <figcaption class="stage-cap">
+            A schematic, not a structure. A peptide that only rests on the surface or the outer domain blocks or
+            does nothing &mdash; it is an antagonist by default. To <em>activate</em> GLP&#8209;1R, a peptide has to push
+            its front end down into the seven&#8209;helix core and nudge one inner helix (TM6) open. The honest catch:
+            from a computer, the two pictures look almost identical &mdash; nothing I can run tells an activator from a
+            blocker for this receptor.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ===================== THE TARGET ===================== -->
+    <section class="section first" id="target">
+      <div class="wrap col">
+        <div class="sec-head"><span class="n">The target</span><h2>An on&#8209;switch worth copying</h2></div>
+        <div class="prose">
+          <p class="opener">
+            GLP&#8209;1R sits on cells in your gut, pancreas and brain. When the natural hormone GLP&#8209;1 docks into
+            it, it switches on a signal that helps control blood sugar and appetite. The best&#8209;selling drugs of the
+            last few years &mdash; semaglutide, tirzepatide &mdash; are peptides that do exactly this.
+          </p>
+          <p>
+            Every one of those drugs is a modified copy of the natural hormone. I wanted to see whether something
+            <em>genuinely new</em> &mdash; not copied from GLP&#8209;1 or any of its relatives &mdash; could switch the
+            same receptor on. That rules out the easy route of starting from the hormone and tweaking it; the contest
+            requires the design to be invented from scratch.
+          </p>
+          <p>
+            Everything here is done on a computer. There is no lab result yet. The job is to pick the designs most
+            worth making on a bench, and to be honest about how sure I am of each one.
+          </p>
+          <ul class="stats">
+            <li><b>1 of the<br>biggest</b><span>drug targets in the world &mdash; the GLP&#8209;1 receptor behind Ozempic, Wegovy and Mounjaro</span></li>
+            <li><b>0</b><span>standalone designed proteins have ever been shown to switch on a receptor of this class</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== WHAT'S HARD ===================== -->
+    <section class="section" id="hard">
+      <div class="wrap col">
+        <div class="sec-head"><span class="n">The hard part</span><h2>Binding is the easy half</h2></div>
+        <div class="prose">
+          <p>
+            A protein that sticks to the <em>outside</em> of this receptor is, by default, a blocker &mdash; it gets in
+            the way without turning anything on. Activation is a mechanical act: the front end of the ligand has to
+            reach down into a pocket inside the seven&#8209;helix bundle (the vestibule) and shove one inner helix,
+            TM6, outward. That motion is what flips the switch on the inside of the cell.
+          </p>
+          <p>
+            That is a tall order for a small, made&#8209;from&#8209;scratch protein. When others have designed new
+            binders to receptors of this family, the ones that worked came out as blockers, not activators. No
+            standalone designed protein has been reported to switch on a receptor of this class at all. So this is a
+            frontier bet, and I treated it like one: not a single confident winner, but a spread of credible
+            attempts.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== HOW I LOOKED + 3D ===================== -->
+    <section class="section" id="method">
+      <div class="wrap col">
+        <div class="sec-head"><span class="n">How I looked</span><h2>Drawing proteins that reach the pocket</h2></div>
+        <div class="prose">
+          <p>
+            I didn&rsquo;t copy anything from nature. Each design was drawn from scratch by several different AI
+            generators &mdash; on purpose, so they don&rsquo;t all share the same blind spot. Then every design was
+            folded <em>against the real receptor</em> by <span class="data">two</span> independent structure
+            predictors (Boltz&#8209;2 and Chai). A design only counted as reaching the pocket if <em>both</em>
+            predictors agreed, across several random seeds &mdash; a guard against one model fooling itself. Every
+            metric was calibrated against real controls: the natural agonists GLP&#8209;1 and exendin&#8209;4, and the
+            known blocker exendin(9&#8209;39).
+          </p>
+        </div>
+      </div>
+      <div class="wrap mol-sec" style="margin-top:2rem;">
+        <div class="split">
+          <div class="prose col">
+            <div class="sec-head"><span class="n">One of the real ones</span><h2>glp1r_25, as predicted</h2></div>
+            <p>
+              This is the shape my computer predicts for my top&#8209;ranked design (teal) sitting on human
+              GLP&#8209;1R (grey). It is a 30&#8209;residue peptide that reaches the receptor&rsquo;s vestibule in
+              both predictors and folds confidently. Spin it with your mouse. It is a prediction, not a solved
+              structure, and the teal just follows this page&rsquo;s colour rule, not the real colour of any atom.
+            </p>
+            <div class="mol-legend">
+              <span><span class="sw" style="background:#2a9d8f"></span>designed peptide (glp1r_25)</span>
+              <span><span class="sw" style="background:#8a93a6"></span>human GLP&#8209;1R (24&ndash;432)</span>
+            </div>
+          </div>
+          <figure style="margin:0;">
+            <div class="mol-host" id="viewer"><p class="mol-fallback">A 3D view of design glp1r_25 on GLP&#8209;1R loads here. It needs a browser with WebGL.</p></div>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== THE TEST THAT FOOLED ME ===================== -->
+    <section class="loop-band" id="fooled">
+      <div class="wrap">
+        <div class="sec-head"><span class="n" style="color:#8aa0d8">The honest centre of this project</span>
+          <h2 style="color:#fff;">When my own test lied to me</h2></div>
+        <p style="font-family:var(--serif); max-width:46ch; color:#cdd8f2; margin:.4rem 0 0;">
+          I built a score for the one thing that matters &mdash; whether a design reaches deep enough to work the
+          activation switch &mdash; and then I generated designs aimed straight at it. The fraction that engaged the
+          switch jumped from <b style="color:#fff">3%</b> to <b style="color:#fff">24%</b>. For an afternoon it
+          looked like a breakthrough.
+        </p>
+        <p style="font-family:var(--serif); max-width:46ch; color:#cdd8f2; margin:1rem 0 0;">
+          Then I ran the same score on the controls I should never skip: scrambled, meaningless versions of
+          GLP&#8209;1, and the known blocker. They passed it just as well as the real agonists. The &ldquo;24%&rdquo;
+          was an artifact of how I had set up the search, not a signal of activation. The score could not tell a
+          switch&#8209;flipper from random junk.
+        </p>
+        <p style="font-family:var(--serif); max-width:46ch; color:#eef2fb; margin:1rem 0 0;">
+          So I deleted it. For this receptor, no in&#8209;silico score I have &mdash; or that exists &mdash; separates
+          an activator from a blocker. I rebuilt the whole selection on what I <em>can</em> measure honestly, and let
+          a cold outside review tear down the version that leaned on the fake signal. That reversal is the most
+          important result in this project.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===================== THE HONEST PART (ladder) ===================== -->
+    <section class="section" id="honest">
+      <div class="wrap col">
+        <div class="sec-head"><span class="n">What this is, and isn&rsquo;t</span><h2>The honest part</h2></div>
+        <div class="honest">
+          <p style="font-family:var(--serif); margin:0 0 .4rem;">
+            This is all computer work, so let me be straight about what it can and cannot tell you.
+          </p>
+          <ul class="ladder">
+            <li><span class="lv hi">trust it</span><span><strong>Which designs bind and fold.</strong> Two independent predictors agree they reach the receptor&rsquo;s vestibule and that the protein folds up cleanly. I trust the direction of this.</span></li>
+            <li><span class="lv mid">hold lightly</span><span><strong>Exactly how each one sits on the receptor.</strong> That is a predicted pose, not a solved structure, and the interface scores rise with length, so I compare like with like and don&rsquo;t over&#8209;read them.</span></li>
+            <li><span class="lv lab">lab only</span><span><strong>Whether any of them actually switches the receptor on.</strong> This is the whole prize, and nothing I can run decides it &mdash; the controls prove that. Only the cell&#8209;based activation assay can call it.</span></li>
+          </ul>
+          <p style="font-family:var(--serif); margin:1.2rem 0 0;">
+            Nobody has shown a small designed protein switching on a receptor of this class in a real experiment. So
+            this is the best evidence I can give before the lab, and its job is to point at a diverse set worth
+            testing &mdash; not to claim any of them is an agonist.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== THE 20 DESIGNS ===================== -->
+    <section class="section" id="designs">
+      <div class="wrap">
+        <div class="sec-head col"><span class="n">The set</span><h2>Twenty shots, not one bet</h2>
+          <p style="font-family:var(--serif); color:var(--tx2); max-width:54ch; margin:.6rem 0 0;">
+            Since I can&rsquo;t pick the activator, I maximise the chance that at least one of a diverse set turns
+            out to work. The twenty are spread across seven independent generators, capped so no single method
+            dominates, all free of the sticky cysteines that make proteins hard to make, all genuinely new. They are
+            ordered best&#8209;first by measured binding, with the ten most likely to be tested at the top.
+          </p>
+        </div>
+        <div class="table-wrap">
+          <table class="designs">
+            <thead>
+              <tr><th>#</th><th>Design</th><th>Generator</th><th>Length</th><th>Reaches pocket</th><th>Set</th></tr>
+            </thead>
+            <tbody id="designRows"><!-- filled by app.js --></tbody>
+          </table>
+        </div>
+        <p class="table-note">
+          &ldquo;Both folds&rdquo; means the two predictors agree the design reaches the vestibule across seeds;
+          &ldquo;one fold&rdquo; means only one does; &ldquo;ECD site&rdquo; means it binds the outer domain, a
+          different spot kept as a hedge. None of these are lab measurements &mdash; every value comes from a
+          prediction. Reaching the pocket is a necessary condition for activation, never a proof of it.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===================== SOURCES ===================== -->
+    <section class="section" id="sources">
+      <div class="wrap col">
+        <div class="sec-head"><span class="n">Sources</span><h2>Tools and method</h2></div>
+        <ul class="refs">
+          <li><b>Design (de novo).</b> Seven independent generators so biases don&rsquo;t line up: BoltzGen, RFD4&#8209;Proteina, RFdiffusion (with a structure&#8209;conditioned motif run and extracellular&#8209;domain scaffolds), DiffPepBuilder, PepGLAD, and a protein language model (PepMLM). Natural amino acids only, single chain, 10&ndash;250 residues, no meaningful overlap with GLP&#8209;1, exendin&#8209;4, glucagon or GIP.</li>
+          <li><b>The binding check.</b> Each bare design co&#8209;folded against wild&#8209;type GLP&#8209;1R (residues 24&ndash;432) with two predictors, Boltz&#8209;2 and Chai, scored on interface confidence (ipSAE, ipTM), fold confidence (ESMFold2 pLDDT) and vestibule reach, with a two&#8209;predictor agreement gate and native agonist / antagonist controls.</li>
+          <li><b>The honesty.</b> The agonism signal was discarded after it failed its own scrambled and antagonist controls; a cold adversarial review was used to kill the version that relied on it. Everything is computational prediction. The full method and per&#8209;design data live in the <a href="https://github.com/Vijayavallabh/anthropic-adaptyv-2026-glp1r" target="_blank" rel="noopener noreferrer">project repository</a>, which opens to the public after the challenge closes.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <p>J&nbsp;Vijayavallabh &middot; <a href="../">vijayavallabh.github.io</a></p>
+      <p>Adaptyv &times; Anthropic GLP&#8209;1R Challenge, October 2026 &middot; a companion to the <a href="../tnf/">TNF&#8209;&alpha;</a> and <a href="../egfr/">EGFR</a> write&#8209;ups.</p>
+    </div>
+  </footer>
+
+  <div class="sl-tip" id="tip" role="status" aria-live="off"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/3Dmol/2.4.2/3Dmol-min.js" defer></script>
+  <script src="app.js" defer></script>
+</body>
+</html>
