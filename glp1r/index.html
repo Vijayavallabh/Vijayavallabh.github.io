@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>A key that has to turn</title>
-  <meta name="description" content="Designed brand-new proteins that switch on GLP-1R, the receptor behind Ozempic and Wegovy. The hard part is not binding it but activating it, and for this receptor no computer can tell an activator from a blocker. A plain-language write-up of how I found that out, including a test that fooled me." />
+  <meta name="description" content="I designed new proteins to switch on GLP-1R, the receptor behind Ozempic and Wegovy. Binding it is the easy part; switching it on is the hard part, and for this receptor no computer can tell the two apart. A plain-language write-up, including the test that fooled me." />
   <meta name="author" content="J Vijayavallabh" />
   <link rel="canonical" href="https://vijayavallabh.github.io/glp1r/" />
 
@@ -14,7 +14,7 @@
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://vijayavallabh.github.io/glp1r/" />
   <meta property="og:title" content="A key that has to turn" />
-  <meta property="og:description" content="De-novo proteins that try to switch GLP-1R on, not just bind it, and the honest limit: no in-silico score separates an activator from a blocker for this receptor." />
+  <meta property="og:description" content="New proteins designed to switch GLP-1R on, and the honest limit: no computer score separates a switch from a blocker for this receptor." />
   <meta property="og:image" content="https://vijayavallabh.github.io/assets/og.png" />
   <meta name="twitter:card" content="summary_large_image" />
 
@@ -49,14 +49,12 @@
         <p class="kicker-line"><a href="../">Work</a> &nbsp;/&nbsp; Adaptyv &times; Anthropic GLP&#8209;1R Challenge 2026</p>
         <h1>A key that has to turn.</h1>
         <p class="lede">
-          GLP&#8209;1R is the receptor behind the new wave of weight&#8209;loss and diabetes drugs &mdash; Ozempic,
-          Wegovy and Mounjaro all work by switching it on. I tried to design a brand&#8209;new protein, from
-          scratch, that does the same: not just stick to the receptor, but <em>turn it on</em>. That last word is
-          the whole problem. Making something that binds is doable. Knowing whether it switches the receptor on,
-          before any lab test, turns out to be something no computer can tell you &mdash; and I watched my own
-          best test for it get fooled by random sequences. So I did the honest thing: I stopped guessing
-          activation, picked a wide, diverse set of strong binders, and left the verdict to the one judge that
-          can give it.
+          GLP&#8209;1R is the receptor that drugs like Ozempic and Wegovy act on: they work by switching it
+          on. I wanted to design a brand&#8209;new protein, from scratch, that does the same job. Making a protein
+          that sticks to the receptor is doable. Telling whether it actually switches the receptor on, before
+          anyone tests it in a dish, is the hard part, and for this receptor no computer can do it. I even watched
+          my own best test for switching get fooled by scrambled sequences. So I stopped guessing which design
+          works, picked a wide set of strong binders instead, and left that call to a lab.
         </p>
         <p class="byline">
           <span>J&nbsp;Vijayavallabh</span><span>Computational study</span><span>October&nbsp;2026</span><span>Challenge&nbsp;3 / Track&nbsp;3</span>
@@ -70,7 +68,7 @@
 
           <div class="scene-host">
             <svg class="scene" id="scene" viewBox="0 0 760 320" role="img"
-              aria-label="A schematic of GLP-1R in a cell membrane: a seven-helix bundle with an opening at the top, the vestibule. A designed peptide is shown in two situations. In 'surface binder' it rests on the top of the receptor and the receptor stays off. In 'message inserted' the peptide's tip threads down into the vestibule, one inner helix swings out, and the receptor is marked on — but a label notes that no computer can tell which of these a given design actually does.">
+              aria-label="A schematic of GLP-1R in a cell membrane: a seven-helix bundle with an opening at the top, the vestibule. A designed peptide is shown in two situations. In 'rests on the surface' it sits on top of the receptor and the receptor stays off. In 'reaches the pocket' the peptide's tip threads down into the vestibule, one helix swings out, and the receptor is marked on, but a label notes that no computer can tell which of these a given design actually does.">
               <defs>
                 <linearGradient id="memGrad" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="0" stop-color="#C9A227" stop-opacity="0.16"/>
@@ -131,16 +129,16 @@
 
           <div class="stage-controls">
             <span class="ph-toggle" role="group" aria-label="Choose what the peptide does">
-              <button id="stBind" type="button" aria-pressed="true">surface binder</button>
-              <button id="stAct" type="button" aria-pressed="false">message inserted</button>
+              <button id="stBind" type="button" aria-pressed="true">rests on the surface</button>
+              <button id="stAct" type="button" aria-pressed="false">reaches the pocket</button>
             </span>
           </div>
           <figcaption class="stage-cap">
-            A schematic, not a structure. A peptide that only rests on the surface or the outer domain blocks or
-            does nothing &mdash; it is an antagonist by default. To <em>activate</em> GLP&#8209;1R, a peptide has to push
-            its front end down into the seven&#8209;helix core and nudge one inner helix (TM6) open. The honest catch:
-            from a computer, the two pictures look almost identical &mdash; nothing I can run tells an activator from a
-            blocker for this receptor.
+            A schematic, not a real structure. A peptide that only rests on the surface or the outer domain does
+            nothing useful, so it counts as a blocker. To <em>switch GLP&#8209;1R on</em>, a peptide has to push its
+            front end down into the receptor&rsquo;s seven&#8209;helix core and nudge one of those helices, TM6,
+            outward. From a computer the two situations look almost the same, and nothing I can run tells a switch
+            from a blocker for this receptor.
           </figcaption>
         </figure>
       </div>
@@ -152,22 +150,22 @@
         <div class="sec-head"><span class="n">The target</span><h2>An on&#8209;switch worth copying</h2></div>
         <div class="prose">
           <p class="opener">
-            GLP&#8209;1R sits on cells in your gut, pancreas and brain. When the natural hormone GLP&#8209;1 docks into
-            it, it switches on a signal that helps control blood sugar and appetite. The best&#8209;selling drugs of the
-            last few years &mdash; semaglutide, tirzepatide &mdash; are peptides that do exactly this.
+            GLP&#8209;1R sits on cells in your gut and pancreas. When the natural hormone GLP&#8209;1 docks into it,
+            the receptor switches on a signal that helps control blood sugar and appetite. The drugs people know,
+            semaglutide and tirzepatide, are peptides that do the same thing.
           </p>
           <p>
             Every one of those drugs is a modified copy of the natural hormone. I wanted to see whether something
-            <em>genuinely new</em> &mdash; not copied from GLP&#8209;1 or any of its relatives &mdash; could switch the
-            same receptor on. That rules out the easy route of starting from the hormone and tweaking it; the contest
-            requires the design to be invented from scratch.
+            <em>new</em>, not copied from GLP&#8209;1 or any of its relatives, could switch the same receptor on.
+            The contest requires exactly that: the design has to be invented from scratch, not tweaked from a
+            hormone that already works.
           </p>
           <p>
-            Everything here is done on a computer. There is no lab result yet. The job is to pick the designs most
-            worth making on a bench, and to be honest about how sure I am of each one.
+            Everything here was done on a computer. There is no lab result yet. The job is to pick the designs most
+            worth making at a bench, and to say honestly how sure I am of each one.
           </p>
           <ul class="stats">
-            <li><b>1 of the<br>biggest</b><span>drug targets in the world &mdash; the GLP&#8209;1 receptor behind Ozempic, Wegovy and Mounjaro</span></li>
+            <li><b>1 of the<br>biggest</b><span>drug targets in medicine; GLP&#8209;1R is the receptor the new weight&#8209;loss drugs act on</span></li>
             <li><b>0</b><span>standalone designed proteins have ever been shown to switch on a receptor of this class</span></li>
           </ul>
         </div>
@@ -180,17 +178,16 @@
         <div class="sec-head"><span class="n">The hard part</span><h2>Binding is the easy half</h2></div>
         <div class="prose">
           <p>
-            A protein that sticks to the <em>outside</em> of this receptor is, by default, a blocker &mdash; it gets in
-            the way without turning anything on. Activation is a mechanical act: the front end of the ligand has to
-            reach down into a pocket inside the seven&#8209;helix bundle (the vestibule) and shove one inner helix,
-            TM6, outward. That motion is what flips the switch on the inside of the cell.
+            A protein that sticks to the <em>outside</em> of this receptor is a blocker by default: it gets in the
+            way without turning anything on. Switching the receptor on is a physical act. The front of the peptide
+            has to reach down into a pocket inside the seven&#8209;helix bundle (biologists call it the vestibule)
+            and shove one helix, TM6, outward. That shove is what flips the switch on the inside of the cell.
           </p>
           <p>
-            That is a tall order for a small, made&#8209;from&#8209;scratch protein. When others have designed new
-            binders to receptors of this family, the ones that worked came out as blockers, not activators. No
-            standalone designed protein has been reported to switch on a receptor of this class at all. So this is a
-            frontier bet, and I treated it like one: not a single confident winner, but a spread of credible
-            attempts.
+            That is a tall order for a small protein built from scratch. When other groups designed new binders to
+            receptors in this family, the ones that worked came out as blockers rather than switches. No standalone
+            designed protein has been reported to switch on a receptor of this class at all. So I treated it as a
+            long shot and spread my bets across many credible attempts instead of backing just one.
           </p>
         </div>
       </div>
@@ -202,13 +199,13 @@
         <div class="sec-head"><span class="n">How I looked</span><h2>Drawing proteins that reach the pocket</h2></div>
         <div class="prose">
           <p>
-            I didn&rsquo;t copy anything from nature. Each design was drawn from scratch by several different AI
-            generators &mdash; on purpose, so they don&rsquo;t all share the same blind spot. Then every design was
-            folded <em>against the real receptor</em> by <span class="data">two</span> independent structure
-            predictors (Boltz&#8209;2 and Chai). A design only counted as reaching the pocket if <em>both</em>
-            predictors agreed, across several random seeds &mdash; a guard against one model fooling itself. Every
-            metric was calibrated against real controls: the natural agonists GLP&#8209;1 and exendin&#8209;4, and the
-            known blocker exendin(9&#8209;39).
+            I didn&rsquo;t copy anything from nature. Several different AI generators drew each design from
+            scratch, and I used more than one on purpose, so they would not all share the same blind spot. Then
+            <span class="data">two</span> independent structure predictors (Boltz&#8209;2 and Chai) folded every
+            design <em>against the real receptor</em>. A design only counted as reaching the pocket if
+            <em>both</em> predictors agreed, across several random starting points; that is a guard against any one
+            model fooling itself. I checked every score against known controls: the natural switches GLP&#8209;1 and
+            exendin&#8209;4, and the known blocker exendin(9&#8209;39).
           </p>
         </div>
       </div>
@@ -218,13 +215,14 @@
             <div class="sec-head"><span class="n">One of the real ones</span><h2>glp1r_25, as predicted</h2></div>
             <p>
               This is the shape my computer predicts for my top&#8209;ranked design (teal) sitting on human
-              GLP&#8209;1R (grey). It is a 30&#8209;residue peptide that reaches the receptor&rsquo;s vestibule in
-              both predictors and folds confidently. Spin it with your mouse. It is a prediction, not a solved
-              structure, and the teal just follows this page&rsquo;s colour rule, not the real colour of any atom.
+              GLP&#8209;1R (grey). It is a 30&#8209;residue peptide that reaches the receptor&rsquo;s pocket in
+              both predictors and folds into a confident shape. Spin it with your mouse. Remember that it is a
+              prediction, not a solved structure, and the teal is this page&rsquo;s colour, not the real colour of
+              any atom.
             </p>
             <div class="mol-legend">
               <span><span class="sw" style="background:#2a9d8f"></span>designed peptide (glp1r_25)</span>
-              <span><span class="sw" style="background:#8a93a6"></span>human GLP&#8209;1R (24&ndash;432)</span>
+              <span><span class="sw" style="background:#8a93a6"></span>human GLP&#8209;1R (residues 24 to 432)</span>
             </div>
           </div>
           <figure style="margin:0;">
@@ -237,25 +235,25 @@
     <!-- ===================== THE TEST THAT FOOLED ME ===================== -->
     <section class="loop-band" id="fooled">
       <div class="wrap">
-        <div class="sec-head"><span class="n" style="color:#8aa0d8">The honest centre of this project</span>
+        <div class="sec-head"><span class="n" style="color:#8aa0d8">Where I nearly fooled myself</span>
           <h2 style="color:#fff;">When my own test lied to me</h2></div>
         <p style="font-family:var(--serif); max-width:46ch; color:#cdd8f2; margin:.4rem 0 0;">
-          I built a score for the one thing that matters &mdash; whether a design reaches deep enough to work the
-          activation switch &mdash; and then I generated designs aimed straight at it. The fraction that engaged the
-          switch jumped from <b style="color:#fff">3%</b> to <b style="color:#fff">24%</b>. For an afternoon it
-          looked like a breakthrough.
+          I built a score for the thing that actually matters: whether a design reaches deep enough to work the
+          switch. Then I generated designs aimed straight at that score. The fraction that engaged the switch
+          jumped from <b style="color:#fff">3%</b> to <b style="color:#fff">24%</b>. For an afternoon it looked
+          like a breakthrough.
         </p>
         <p style="font-family:var(--serif); max-width:46ch; color:#cdd8f2; margin:1rem 0 0;">
           Then I ran the same score on the controls I should never skip: scrambled, meaningless versions of
-          GLP&#8209;1, and the known blocker. They passed it just as well as the real agonists. The &ldquo;24%&rdquo;
-          was an artifact of how I had set up the search, not a signal of activation. The score could not tell a
-          switch&#8209;flipper from random junk.
+          GLP&#8209;1, and the known blocker. They passed just as well as the real switches. The &ldquo;24%&rdquo;
+          was an artifact of how I had set up the search, not a sign of switching. The score could not tell a real
+          switch from random junk.
         </p>
         <p style="font-family:var(--serif); max-width:46ch; color:#eef2fb; margin:1rem 0 0;">
-          So I deleted it. For this receptor, no in&#8209;silico score I have &mdash; or that exists &mdash; separates
-          an activator from a blocker. I rebuilt the whole selection on what I <em>can</em> measure honestly, and let
-          a cold outside review tear down the version that leaned on the fake signal. That reversal is the most
-          important result in this project.
+          So I deleted it. For this receptor, no computer score I have, or that exists, separates a switch from a
+          blocker. I rebuilt the selection on what I <em>can</em> measure honestly: how well a design binds and
+          folds. I also had a cold outside reviewer try to tear down the version that had leaned on the fake
+          signal, and it did not survive. Catching that is the result I care about most here.
         </p>
       </div>
     </section>
@@ -271,12 +269,12 @@
           <ul class="ladder">
             <li><span class="lv hi">trust it</span><span><strong>Which designs bind and fold.</strong> Two independent predictors agree they reach the receptor&rsquo;s vestibule and that the protein folds up cleanly. I trust the direction of this.</span></li>
             <li><span class="lv mid">hold lightly</span><span><strong>Exactly how each one sits on the receptor.</strong> That is a predicted pose, not a solved structure, and the interface scores rise with length, so I compare like with like and don&rsquo;t over&#8209;read them.</span></li>
-            <li><span class="lv lab">lab only</span><span><strong>Whether any of them actually switches the receptor on.</strong> This is the whole prize, and nothing I can run decides it &mdash; the controls prove that. Only the cell&#8209;based activation assay can call it.</span></li>
+            <li><span class="lv lab">lab only</span><span><strong>Whether any of them actually switches the receptor on.</strong> This is the real goal, and nothing I can run decides it. The controls prove that. Only a test in living cells can call it.</span></li>
           </ul>
           <p style="font-family:var(--serif); margin:1.2rem 0 0;">
-            Nobody has shown a small designed protein switching on a receptor of this class in a real experiment. So
-            this is the best evidence I can give before the lab, and its job is to point at a diverse set worth
-            testing &mdash; not to claim any of them is an agonist.
+            Nobody has shown a small designed protein switching on a receptor of this class in a real experiment.
+            This is the best evidence I can give before the lab. Its job is to point at a varied set worth testing,
+            and it makes no claim that any one design is a switch.
           </p>
         </div>
       </div>
@@ -287,10 +285,11 @@
       <div class="wrap">
         <div class="sec-head col"><span class="n">The set</span><h2>Twenty shots, not one bet</h2>
           <p style="font-family:var(--serif); color:var(--tx2); max-width:54ch; margin:.6rem 0 0;">
-            Since I can&rsquo;t pick the activator, I maximise the chance that at least one of a diverse set turns
-            out to work. The twenty are spread across seven independent generators, capped so no single method
-            dominates, all free of the sticky cysteines that make proteins hard to make, all genuinely new. They are
-            ordered best&#8209;first by measured binding, with the ten most likely to be tested at the top.
+            Since I can&rsquo;t pick the switch, I try to raise the odds that at least one design in a varied set
+            turns out to work. The twenty come from seven different generators, with a cap so no single method
+            dominates. None of them contain cysteine, the sticky amino acid that makes a protein hard to
+            manufacture, and all are new. They run best&#8209;first by measured binding, with the ten most likely to
+            be tested at the top.
           </p>
         </div>
         <div class="table-wrap">
@@ -302,10 +301,11 @@
           </table>
         </div>
         <p class="table-note">
-          &ldquo;Both folds&rdquo; means the two predictors agree the design reaches the vestibule across seeds;
-          &ldquo;one fold&rdquo; means only one does; &ldquo;ECD site&rdquo; means it binds the outer domain, a
-          different spot kept as a hedge. None of these are lab measurements &mdash; every value comes from a
-          prediction. Reaching the pocket is a necessary condition for activation, never a proof of it.
+          &ldquo;Both folds&rdquo; means both predictors agree the design reaches the pocket across repeated runs.
+          &ldquo;One fold&rdquo; means only one does. &ldquo;ECD site&rdquo; means it binds the receptor&rsquo;s
+          outer domain, a different spot I kept as a hedge. None of these are lab measurements; every value is a
+          prediction. And reaching the pocket is only a requirement for switching the receptor on, not proof that
+          it happens.
         </p>
       </div>
     </section>
@@ -315,9 +315,9 @@
       <div class="wrap col">
         <div class="sec-head"><span class="n">Sources</span><h2>Tools and method</h2></div>
         <ul class="refs">
-          <li><b>Design (de novo).</b> Seven independent generators so biases don&rsquo;t line up: BoltzGen, RFD4&#8209;Proteina, RFdiffusion (with a structure&#8209;conditioned motif run and extracellular&#8209;domain scaffolds), DiffPepBuilder, PepGLAD, and a protein language model (PepMLM). Natural amino acids only, single chain, 10&ndash;250 residues, no meaningful overlap with GLP&#8209;1, exendin&#8209;4, glucagon or GIP.</li>
-          <li><b>The binding check.</b> Each bare design co&#8209;folded against wild&#8209;type GLP&#8209;1R (residues 24&ndash;432) with two predictors, Boltz&#8209;2 and Chai, scored on interface confidence (ipSAE, ipTM), fold confidence (ESMFold2 pLDDT) and vestibule reach, with a two&#8209;predictor agreement gate and native agonist / antagonist controls.</li>
-          <li><b>The honesty.</b> The agonism signal was discarded after it failed its own scrambled and antagonist controls; a cold adversarial review was used to kill the version that relied on it. Everything is computational prediction. The full method and per&#8209;design data live in the <a href="https://github.com/Vijayavallabh/anthropic-adaptyv-2026-glp1r" target="_blank" rel="noopener noreferrer">project repository</a>, which opens to the public after the challenge closes.</li>
+          <li><b>Design (de novo).</b> Seven independent generators, so their biases don&rsquo;t line up: BoltzGen, RFD4&#8209;Proteina, RFdiffusion (with a structure&#8209;conditioned motif run and extracellular&#8209;domain scaffolds), DiffPepBuilder, PepGLAD, and a protein language model (PepMLM). Natural amino acids only, single chain, 10 to 250 residues, no meaningful overlap with GLP&#8209;1, exendin&#8209;4, glucagon or GIP.</li>
+          <li><b>The binding check.</b> Each bare design was co&#8209;folded against wild&#8209;type GLP&#8209;1R (residues 24 to 432) with two predictors, Boltz&#8209;2 and Chai, scored on interface confidence (ipSAE, ipTM), fold confidence (ESMFold2 pLDDT) and vestibule reach, with a two&#8209;predictor agreement gate and native agonist and antagonist controls.</li>
+          <li><b>The honesty.</b> I discarded the agonism signal after it failed its own scrambled and antagonist controls, and a cold adversarial review killed the version that had relied on it. Everything here is computational prediction. The full method and per&#8209;design data live in the <a href="https://github.com/Vijayavallabh/anthropic-adaptyv-2026-glp1r" target="_blank" rel="noopener noreferrer">project repository</a>, which opens to the public after the challenge closes.</li>
         </ul>
       </div>
     </section>
