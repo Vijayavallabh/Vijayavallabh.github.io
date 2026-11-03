@@ -57,12 +57,13 @@
           release switch, and meant to work on both human and mouse TfR1.
         </p>
         <p class="lede">
-          Everything here is computational; there is no lab result yet. One finding shaped the whole project. On the
-          human target, the usual test for <em>where</em> a protein lands scores a real, lab&#8209;proven binder
-          <em>below</em> random scrambled decoys. So I can show a design is not random, but not that it grabs the
-          exact spot. I leaned on the parts I could still trust: the mouse version of the target, where the same test
-          does work, a known binder as a control, and a separate docking check. That combination caught two of my
-          own designs faking it.
+          Everything here is computational; there is no wet&#8209;lab result yet. The project turned on one problem
+          with the measurement itself. On the human target, the usual test for <em>where</em> a protein lands scores
+          a real, crystal&#8209;proven binder <em>below</em> random scrambled decoys. Folding can tell me a design
+          beats random noise. It cannot tell me the design hits the apical patch. So I rebuilt the selection on what
+          still held up: the mouse version of the target, where that same test works; a known binder to calibrate
+          against; and a docking run that forces the protein onto the patch. That combination caught two of my own
+          designs faking it.
         </p>
         <p class="byline">
           <span>J&nbsp;Vijayavallabh</span><span>Computational study</span><span>November&nbsp;2026</span><span>Challenge&nbsp;4 / Track&nbsp;2</span>
@@ -210,12 +211,11 @@
             multi&#8209;state version that writes one sequence against the human and mouse surfaces at the same time.
           </p>
           <p>
-            Every design was folded against the real receptor by a blind structure predictor (ESMFold2 with
-            Protenix), the same setup the contest uses to judge. I calibrated every run with controls: a
-            crystal&#8209;proven apical binder as the positive, and scrambled sequences as the negatives. A design
-            had to beat the scrambles to count at all. Then, because of the problem in the next section, I confirmed
-            the real ones a second way: a docking check that forces the protein onto the apical patch and measures
-            how well it actually sits there.
+            A blind structure predictor (ESMFold2 with Protenix) folded every design against the real receptor, the
+            same setup the contest uses to judge. I calibrated every run with controls: a crystal&#8209;proven apical
+            binder as the positive, and scrambled sequences as the negatives. A design had to beat the scrambles to
+            count at all. Then, because of the problem in the next section, I confirmed the real ones a second way: a
+            docking check that forces the protein onto the apical patch and measures how well it actually sits there.
           </p>
         </div>
       </div>
@@ -299,12 +299,11 @@
       <div class="wrap">
         <div class="sec-head col"><span class="n">The set</span><h2>Twenty, built to release</h2>
           <p style="font-family:var(--serif); color:var(--tx2); max-width:54ch; margin:.6rem 0 0;">
-            All twenty carry a validated pH switch (at least two histidines that flip in the 5.5 to 6.0&#8211;7.4
-            window), none contain cysteine, and all are new. They come from several Genie3 runs plus a couple of
-            multi&#8209;state designs built for both species. The &ldquo;binds&rdquo; column shows where the folding
-            evidence holds: human only, or human and mouse. They run best&#8209;first, with the ten most likely to
-            be picked for the lab at the top. The whole set passed the contest portal, 20 of 20, with no novelty
-            flags.
+            All twenty carry a validated pH switch (at least two histidines that flip between pH 5.5 and 7.4), none
+            contain cysteine, and all are new. They come from several Genie3 runs plus a couple of multi&#8209;state
+            designs built for both species. The &ldquo;binds&rdquo; column shows where the folding evidence holds:
+            human only, or human and mouse. They run best&#8209;first, with the ten most likely to be picked for the
+            lab at the top. The whole set passed the contest portal, 20 of 20, with no novelty flags.
           </p>
         </div>
         <div class="table-wrap">
