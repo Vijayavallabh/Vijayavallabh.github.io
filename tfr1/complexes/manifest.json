@@ -1,0 +1,62 @@
+[
+ {
+  "key": "genie_w2g3_53",
+  "rank": 1,
+  "label": "genie_w2g3_53",
+  "file": "complexes/genie_w2g3_53.pdb",
+  "length": 68,
+  "species": "human",
+  "binds": "human + mouse",
+  "switchHis": [
+   13,
+   27
+  ],
+  "hisDist": 12.7,
+  "tag": "flagship"
+ },
+ {
+  "key": "resc_v25g3_80",
+  "rank": 3,
+  "label": "resc_v25g3_80",
+  "file": "complexes/resc_v25g3_80.pdb",
+  "length": 70,
+  "species": "mouse",
+  "binds": "human + mouse",
+  "switchHis": [
+   12,
+   33
+  ],
+  "hisDist": 3.6,
+  "tag": ""
+ },
+ {
+  "key": "resc_v25g3_49",
+  "rank": 6,
+  "label": "resc_v25g3_49",
+  "file": "complexes/resc_v25g3_49.pdb",
+  "length": 73,
+  "species": "mouse",
+  "binds": "human + mouse",
+  "switchHis": [
+   20,
+   26
+  ],
+  "hisDist": 9.8,
+  "tag": ""
+ },
+ {
+  "key": "resc_v25g3_130",
+  "rank": 15,
+  "label": "resc_v25g3_130",
+  "file": "complexes/resc_v25g3_130.pdb",
+  "length": 98,
+  "species": "human",
+  "binds": "human + mouse",
+  "switchHis": [
+   49,
+   80
+  ],
+  "hisDist": 6.3,
+  "tag": "audit pick"
+ }
+]

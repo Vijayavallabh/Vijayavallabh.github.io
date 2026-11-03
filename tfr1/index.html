@@ -238,26 +238,33 @@
           </p>
         </div>
       </div>
-      <div class="wrap mol-sec" style="margin-top:2rem;">
-        <div class="split">
-          <div class="prose col">
-            <div class="sec-head"><span class="n">The flagship</span><h2>The top design, as my computer sees it</h2></div>
-            <p>
-              This is the shape my computer predicts for my top&#8209;ranked design (blue), settled onto the human TfR1
-              receptor (grey). It is a small protein, 68 building blocks long, that sits on the flat target patch and
-              carries its two switch spots (pink, the histidines) right where the two surfaces meet, so their charge
-              can do its job in the acid. Drag it with your mouse to turn it. Remember that this is a prediction, not a
-              solved structure, and the blue is just this page's colour, not the real colour of any atom.
-            </p>
+      <div class="wrap mol-sec" id="gallery" style="margin-top:2.4rem;">
+        <div class="sec-head col"><span class="n">The designs, in 3D</span><h2>Our proteins, bound to the receptor</h2></div>
+        <p class="mol-intro">
+          Four of the twenty designs, each shown the way my computer predicts it sitting on TfR1. The grey shape is the
+          receptor; the blue ribbon is the designed protein; the pink sticks are the switch histidines it carries. Pick
+          a design, drag to rotate, and use the buttons to pause the spin, drop the surface, or recentre the view.
+          Every pose here is a prediction, not a solved structure, and the colours are this page's, not the real
+          colour of any atom.
+        </p>
+        <div class="mol-tabs" id="molTabs" role="tablist" aria-label="Choose a design to view"></div>
+        <div class="mol-wrap">
+          <figure class="mol-figure">
+            <div class="mol-host" id="viewer"><p class="mol-fallback">A 3D view of the designs on TfR1 loads here. It needs a browser with WebGL.</p></div>
+          </figure>
+          <div class="mol-side">
+            <div class="mol-info" id="molInfo"></div>
+            <div class="mol-controls">
+              <button id="molSpin" type="button" aria-pressed="true">pause spin</button>
+              <button id="molSurf" type="button" aria-pressed="true">hide surface</button>
+              <button id="molReset" type="button">recentre</button>
+            </div>
             <div class="mol-legend">
-              <span><span class="sw" style="background:#1d4ed8"></span>designed protein (genie_w2g3_53)</span>
-              <span><span class="sw" style="background:#8a93a6"></span>human TfR1 apical domain</span>
+              <span><span class="sw" style="background:#1d4ed8"></span>designed protein</span>
+              <span><span class="sw" style="background:#8a93a6"></span>TfR1 receptor surface</span>
               <span><span class="sw" style="background:#db2777"></span>switch histidines</span>
             </div>
           </div>
-          <figure style="margin:0;">
-            <div class="mol-host" id="viewer"><p class="mol-fallback">A 3D view of the flagship design on TfR1 loads here. It needs a browser with WebGL.</p></div>
-          </figure>
         </div>
       </div>
     </section>

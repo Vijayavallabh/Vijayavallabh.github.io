@@ -97,29 +97,103 @@
     tb.innerHTML = html;
   })();
 
-  /* ---------- 3D: the flagship design on the TfR1 apical domain ---------- */
-  (function viewer() {
+  /* ---------- 3D: a gallery of designs bound to TfR1 ---------- */
+  (function gallery() {
     var host = $("#viewer"); if (!host || typeof window.$3Dmol === "undefined") return;
-    fetch("tfr1_top_complex.pdb").then(function (r) { return r.ok ? r.text() : Promise.reject(); }).then(function (data) {
+    var tabsEl = $("#molTabs"), infoEl = $("#molInfo");
+    var spinBtn = $("#molSpin"), surfBtn = $("#molSurf"), resetBtn = $("#molReset");
+    var GREY = 0x8a93a6, BLUE = 0x1d4ed8, PINK = 0xdb2777;
+    var v = null, data = [], curIdx = 0, spinning = !reduce, surfOn = true;
+
+    function ensure() {
+      if (v) return v;
       host.innerHTML = "";
-      var v = window.$3Dmol.createViewer(host, { backgroundColor: "0x00000000" });
-      v.addModel(data, "pdb");
-      // target apical = the long chain (grey, translucent); binder = the short chain (electrostatic blue)
-      var atoms = v.getModel().selectedAtoms({});
-      var counts = {};
-      for (var i = 0; i < atoms.length; i++) { counts[atoms[i].chain] = (counts[atoms[i].chain] || 0) + 1; }
-      var chains = Object.keys(counts).sort(function (a, b) { return counts[b] - counts[a]; });
-      var target = chains[0], binder = chains[1] || chains[0];
-      v.setStyle({ chain: target }, { cartoon: { color: 0x8a93a6, opacity: 0.58 } });
-      v.setStyle({ chain: binder }, { cartoon: { color: 0x1d4ed8 }, stick: { color: 0x1d4ed8, radius: 0.17 } });
-      // the two switch histidines, drawn as spheres
-      v.setStyle({ chain: binder, resn: "HIS" }, { cartoon: { color: 0x1d4ed8 }, stick: { color: 0xdb2777, radius: 0.22 }, sphere: { color: 0xdb2777, radius: 0.9 } });
-      v.zoomTo({ chain: binder });
-      v.zoom(0.72);
-      v.render();
-      if (!reduce) v.spin("y", 0.4);
+      v = window.$3Dmol.createViewer(host, { backgroundColor: "0x00000000", antialias: true });
+      return v;
+    }
+    function draw(entry) {
+      var vv = ensure();
+      vv.removeAllModels(); vv.removeAllSurfaces(); vv.removeAllLabels();
+      vv.addModel(entry._pdb, "pdb");
+      vv.setStyle({ chain: "B" }, { cartoon: { color: GREY, opacity: 0.9 } });
+      vv.setStyle({ chain: "A" }, { cartoon: { color: BLUE } });
+      (entry.switchHis || []).forEach(function (rn) {
+        vv.addStyle({ chain: "A", resi: rn }, { stick: { color: PINK, radius: 0.3 } });
+        vv.addStyle({ chain: "A", resi: rn }, { sphere: { color: PINK, radius: 1.05 } });
+      });
+      if (surfOn) {
+        vv.addSurface(window.$3Dmol.SurfaceType.VDW, { opacity: 0.4, color: GREY }, { chain: "B" });
+      }
+      vv.zoomTo({ chain: "A" });
+      vv.zoom(0.68);
+      vv.render();
+      vv.spin(spinning ? "y" : false, spinning ? 0.3 : 0);
+    }
+    function markTabs() {
+      Array.prototype.forEach.call(tabsEl.children, function (b, i) {
+        b.setAttribute("aria-selected", String(i === curIdx));
+      });
+    }
+    function renderInfo(e) {
+      if (!infoEl) return;
+      var hd = (e.hisDist != null) ? (e.hisDist + " Å from the receptor in this pose") : "built into the binder";
+      var tag = e.tag ? " <span class='rowtag'>" + e.tag + "</span>" : "";
+      infoEl.innerHTML =
+        "<h3>" + e.label + tag + "</h3>" +
+        "<dl>" +
+        "<dt>rank</dt><dd>#" + e.rank + " of 20</dd>" +
+        "<dt>length</dt><dd>" + e.length + " building blocks</dd>" +
+        "<dt>shown on</dt><dd>" + e.species + " TfR1</dd>" +
+        "<dt>binds</dt><dd>" + e.binds + "</dd>" +
+        "<dt>switch His</dt><dd>" + (e.switchHis || []).join(", ") + "</dd>" +
+        "</dl>" +
+        "<p class='note'>Predicted pose, not a solved structure. The switch histidines sit " + hd + ". " +
+        (e.species === "mouse"
+          ? "Shown on the mouse receptor, the channel where the placement check can be trusted."
+          : "Shown on the human receptor, from the docking check that holds the protein on the apical patch.") +
+        "</p>";
+    }
+    function load(i) {
+      curIdx = i; var entry = data[i];
+      markTabs(); renderInfo(entry);
+      if (entry._pdb) { draw(entry); return; }
+      fetch(entry.file).then(function (r) { return r.ok ? r.text() : Promise.reject(); }).then(function (txt) {
+        entry._pdb = txt; if (data[curIdx] === entry) draw(entry);
+      }).catch(function () {
+        host.innerHTML = '<p class="mol-fallback">Could not load this structure. The files are in the project repository.</p>';
+      });
+    }
+    function buildTabs() {
+      tabsEl.innerHTML = "";
+      data.forEach(function (e, i) {
+        var b = document.createElement("button");
+        b.className = "mol-tab"; b.type = "button"; b.setAttribute("role", "tab");
+        b.innerHTML = "<span class='rk'>#" + e.rank + "</span> " + e.label +
+          " <span class='sp " + e.species + "'>" + e.species + "</span>";
+        b.addEventListener("click", function () { load(i); });
+        tabsEl.appendChild(b);
+      });
+    }
+    if (spinBtn) spinBtn.addEventListener("click", function () {
+      spinning = !spinning; spinBtn.setAttribute("aria-pressed", String(spinning));
+      spinBtn.textContent = spinning ? "pause spin" : "spin";
+      if (v) v.spin(spinning ? "y" : false, spinning ? 0.3 : 0);
+    });
+    if (surfBtn) surfBtn.addEventListener("click", function () {
+      surfOn = !surfOn; surfBtn.setAttribute("aria-pressed", String(surfOn));
+      surfBtn.textContent = surfOn ? "hide surface" : "show surface";
+      if (data[curIdx] && data[curIdx]._pdb) draw(data[curIdx]);
+    });
+    if (resetBtn) resetBtn.addEventListener("click", function () {
+      if (v) { v.zoomTo({ chain: "A" }); v.zoom(0.68); v.render(); }
+    });
+
+    fetch("complexes/manifest.json").then(function (r) { return r.ok ? r.json() : Promise.reject(); }).then(function (m) {
+      data = m; if (!data.length) return;
+      if (reduce && spinBtn) { spinBtn.setAttribute("aria-pressed", "false"); spinBtn.textContent = "spin"; }
+      buildTabs(); load(0);
     }).catch(function () {
-      host.innerHTML = '<p class="mol-fallback">The 3D view could not load. The structure file is in the project repository.</p>';
+      host.innerHTML = '<p class="mol-fallback">The 3D views could not load. The structures are in the project repository.</p>';
     });
   })();
 })();
