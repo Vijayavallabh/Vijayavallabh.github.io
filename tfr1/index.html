@@ -49,21 +49,28 @@
         <p class="kicker-line"><a href="../">Work</a> &nbsp;/&nbsp; Adaptyv &times; Anthropic TfR1 Challenge 2026</p>
         <h1>Built to let go.</h1>
         <p class="lede">
-          TfR1 is the receptor that carries iron into cells, and the handle drug developers use to haul large
-          molecules across the blood&#8209;brain barrier. A binder is only useful here if it knows when to release:
-          it has to hold on at the cell surface, where the blood sits at pH&nbsp;7.4, and let go once the receptor
-          pulls it into the acidic endosome at pH&nbsp;6.0. Hold on too long and the whole thing gets dragged off to
-          be destroyed instead of recycled. I designed twenty new proteins from scratch, each built around that
-          release switch, and meant to work on both human and mouse TfR1.
+          Nearly every cell in your body carries a tiny grabber on its surface that pulls iron inside. It is called
+          TfR1. Because it ferries cargo from the bloodstream into the cell, drug makers treat it as a side door:
+          hook a medicine onto something TfR1 carries, and you can reach places that are otherwise sealed off,
+          the brain most of all. The hard part is the timing. A small protein that latches onto TfR1 is only useful
+          if it holds tight out in the blood, where the acidity is mild (pH&nbsp;7.4), and then lets go the instant
+          the cell swallows it into an acid pocket inside (pH&nbsp;6.0). Hold on too long and the cell hauls the whole
+          bundle off to be destroyed, instead of handing it back out to work again. I designed twenty of these small
+          proteins from scratch, each built around that let&#8209;go&#8209;on&#8209;cue switch, and each meant to work
+          on the human and the mouse versions of TfR1.
         </p>
         <p class="lede">
-          Everything here is computational; there is no wet&#8209;lab result yet. The project turned on one problem
-          with the measurement itself. On the human target, the usual test for <em>where</em> a protein lands scores
-          a real, crystal&#8209;proven binder <em>below</em> random scrambled decoys. Folding can tell me a design
-          beats random noise. It cannot tell me the design hits the apical patch. So I rebuilt the selection on what
-          still held up: the mouse version of the target, where that same test works; a known binder to calibrate
-          against; and a docking run that forces the protein onto the patch. That combination caught two of my own
-          designs faking it.
+          All of this is done on a computer. Nothing has been tested at a lab bench yet, so the whole project hinges
+          on one honest problem: the main way I check my work quietly breaks on this particular target. The check is
+          meant to tell me <em>where</em> on the receptor a design lands. To trust it, I first ran it on a protein
+          that is already known, from a real solved structure, to grab the right spot. On the human receptor, that
+          known&#8209;good protein scored <em>worse</em> than shuffled, meaningless sequences. If the test ranks a
+          real binder below gibberish, it cannot tell me where anything lands. It can still tell me that a design
+          grabs the receptor better than random, and nothing finer than that. So I rebuilt the whole selection on the
+          parts that did still work: the mouse version of the receptor, where the same check does tell real from
+          nonsense; the known&#8209;good protein as a yardstick; and a second test that forces each design onto the
+          right spot and measures how well it actually sits there. That combination caught two of my own designs
+          faking it, scoring high while never really touching the target.
         </p>
         <p class="byline">
           <span>J&nbsp;Vijayavallabh</span><span>Computational study</span><span>November&nbsp;2026</span><span>Challenge&nbsp;4 / Track&nbsp;2</span>
@@ -77,7 +84,7 @@
 
           <div class="scene-host">
             <svg class="scene" id="scene" viewBox="0 0 760 320" role="img"
-              aria-label="A schematic of a designed protein on the TfR1 apical domain. At serum pH 7.4 the designed protein sits docked against the receptor, and three histidine residues at the interface are neutral. Switch to endosome pH 6.0 and those histidines pick up a positive charge, repel the receptor surface, and the designed protein swings away and releases.">
+              aria-label="A cartoon of a designed protein on the TfR1 receptor. In the blood (pH 7.4) the designed protein sits stuck to the receptor, and three special spots where the two surfaces meet are switched off. Switch to the cell's acid pocket (pH 6.0) and those spots turn positive, push against the receptor surface, and the designed protein swings away and releases.">
               <defs>
                 <linearGradient id="serumGrad" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="0" stop-color="#1D4ED8" stop-opacity="0.12"/>
@@ -107,7 +114,7 @@
                 <path d="M470 60 q120 -22 170 70 q40 86 -18 150 q-60 56 -150 34 q-70 -18 -70 -94 l0 -96 q0 -74 68 -64z"
                       fill="url(#recFill)" opacity="0.95"/>
               </g>
-              <text x="560" y="300" text-anchor="middle" font-family="IBM Plex Sans" font-size="13" fill="#8792a6">TfR1 apical domain</text>
+              <text x="560" y="300" text-anchor="middle" font-family="IBM Plex Sans" font-size="13" fill="#8792a6">the TfR1 receptor</text>
 
               <!-- release glow (appears at pH 6.0) -->
               <ellipse id="releaseField" cx="300" cy="150" rx="92" ry="92" fill="url(#releaseGlow)" opacity="0"/>
@@ -128,15 +135,16 @@
 
           <div class="stage-controls">
             <span class="ph-toggle" role="group" aria-label="Choose the environment">
-              <button id="phHigh" type="button" aria-pressed="true">serum &middot; pH&nbsp;7.4</button>
-              <button id="phLow" type="button" aria-pressed="false">endosome &middot; pH&nbsp;6.0</button>
+              <button id="phHigh" type="button" aria-pressed="true">blood &middot; pH&nbsp;7.4</button>
+              <button id="phLow" type="button" aria-pressed="false">acid pocket &middot; pH&nbsp;6.0</button>
             </span>
           </div>
           <figcaption class="stage-cap">
-            A schematic, not a real structure. At blood pH the histidines sit neutral and the protein stays docked.
-            Drop to endosome pH and the same histidines pick up a positive charge; they push against the receptor
-            surface, and the protein lets go. The whole design problem is tuning those histidines so the push
-            happens between 7.4 and 6.0, and not a step too early or too late.
+            A cartoon, not a real structure. Out in the blood, a few special spots on the designed protein (marked
+            His) are switched off, and it stays stuck to the receptor. Inside the cell's acid pocket, those same spots
+            switch on, turn slightly positive, and push against the receptor until the protein pops off. The whole
+            design problem is tuning those spots so the push happens right in the gap between blood and acid, not a
+            step too early or too late.
           </figcaption>
         </figure>
       </div>
@@ -148,27 +156,31 @@
         <div class="sec-head"><span class="n">The target</span><h2>A doorway into the cell</h2></div>
         <div class="prose">
           <p class="opener">
-            TfR1, also called CD71, sits on the surface of almost every dividing cell and pulls iron inside. It does
-            this by grabbing cargo, folding into the cell in a little bubble, dropping the cargo in the acid, and
-            then carrying the empty receptor back out to do it again. That round trip is why drug developers love it:
-            attach your drug to something that rides TfR1, and you can reach places that are otherwise walled off,
-            including the brain.
+            TfR1 (doctors also call it CD71) sits on the surface of almost every growing cell and pulls iron inside.
+            It works like a tiny ferry: it grabs its cargo out in the blood, folds inward carrying the cargo in a
+            little bubble, drops the cargo once that bubble turns acidic, and then rides back out empty to do it all
+            again. That round trip is why drug developers love it. Attach your medicine to something that hitches onto
+            TfR1, and you can reach places that are otherwise walled off from the bloodstream, the brain most of all.
           </p>
           <p>
-            The catch is the acid step. A binder that holds on too tightly never gets dropped; it rides the receptor
-            into the cell's disposal system and both get degraded. A useful binder has to do the opposite of what
-            most binders are selected for. It has to <em>release</em> on cue, when the pH falls from 7.4 in the
-            blood to about 6.0 in the endosome.
+            The catch is that acid step. A protein that clings on too tightly never gets dropped off; it stays stuck
+            to the ferry, rides it into the cell's garbage system, and both get shredded. So a useful design has to do
+            the opposite of what protein binders are usually built for. Most are built to hold on as hard as they can.
+            This one has to hold on in the blood and then deliberately <em>let go</em> the moment its surroundings turn
+            acidic, as the acidity climbs from mild (pH&nbsp;7.4) to clearly acidic (pH&nbsp;6.0).
           </p>
           <p>
-            The contest asks for a protein invented from scratch that does three things, in order of priority:
-            holds on at 7.4 and lets go at 6.0; works on both human and mouse TfR1, so it can be tested in animals;
-            and binds the functional apical part of the receptor. Novelty is a hard requirement. Everything here is
-            a computational prediction whose job is to pick the designs most worth making at a bench.
+            The contest sets the bar. It asks for a protein invented from scratch, not copied from anything in nature
+            or in a database, that does three things in order of importance. First, it has to hold on in the blood and
+            let go in the acid. Second, it should work on both the human and the mouse receptor, so it can be tried in
+            animals before people. Third, it has to grab the part of the receptor that actually matters, the bit that
+            sticks out and does the ferrying. Being genuinely new is non&#8209;negotiable. Everything I report is a
+            computer's best guess; the point of all of it is to pick the handful of designs most worth actually making
+            and testing.
           </p>
           <ul class="stats">
-            <li><b>pH&nbsp;7.4<br>&rarr;&nbsp;6.0</b><span>the drop from blood to endosome that has to flip the switch off</span></li>
-            <li><b>20</b><span>new proteins, from seven generation runs, none sharing a backbone family with more than one other</span></li>
+            <li><b>pH&nbsp;7.4<br>&rarr;&nbsp;6.0</b><span>the drop from blood to acid pocket that has to flip the switch off</span></li>
+            <li><b>20</b><span>brand&#8209;new proteins, from seven design runs, spread across different shapes so they do not all rise or fall together</span></li>
           </ul>
         </div>
       </div>
@@ -177,21 +189,25 @@
     <!-- ===================== WHY IT LETS GO ===================== -->
     <section class="section" id="release">
       <div class="wrap col">
-        <div class="sec-head"><span class="n">The mechanism</span><h2>Histidine is the only pH sensor that fits</h2></div>
+        <div class="sec-head"><span class="n">The mechanism</span><h2>The one building block that feels the acid</h2></div>
         <div class="prose">
           <p>
-            The move from pH 7.4 to 6.0 is tiny in chemical terms. Only one of the twenty amino acids changes its
-            charge across that exact window: histidine. Below about pH 6.5 it tends to pick up a proton and go
-            positive; above it, it sits neutral. So the switch is built from histidines placed right at the contact
-            between the designed protein and the receptor. At blood pH they are quiet and the protein binds. In the
-            endosome they charge up and shove, and the protein comes off.
+            Proteins are built from a kit of twenty small parts called amino acids. The jump from blood to acid pocket
+            is a small change, and out of all twenty parts only one noticeably reacts to it: histidine. In the acid it
+            grabs a stray positive charge and turns slightly positive; back in the blood it falls quiet and neutral.
+            Its flip happens right in the gap between the two, which makes histidine the only built&#8209;in acid sensor
+            I have to work with. So the switch is simply a few histidines placed exactly where the designed protein
+            touches the receptor. In the blood they sit quiet and the protein holds on. In the acid they light up, turn
+            positive, and shove the two surfaces apart until the protein falls off.
           </p>
           <p>
-            Getting the direction right is the whole game, and it is easy to get backwards. Put a histidine in the
-            wrong spot and the charge can <em>tighten</em> the grip in acid instead of loosening it, which is the
-            opposite of useful. I used a dedicated histidine&#8209;pKa predictor to keep only designs with at least
-            two histidines that actually flip inside the 5.5 to 7.4 window, then scored the two states (bound at 7.4,
-            charged at 6.0) against each other to check the push ran the right way.
+            Getting the direction right is the hard part, and it is easy to get backwards. Drop a histidine in the
+            wrong place and its charge <em>pulls</em> the two surfaces together in the acid instead of pushing them
+            apart, which is exactly the opposite of what I want. So I leaned on a tool that predicts, for each
+            histidine, the precise acidity at which it flips. I kept only designs with at least two histidines that
+            flip inside the narrow range between blood and acid (about pH&nbsp;5.5 to 7.4), then compared each design
+            in both situations, stuck on in the blood and charged up in the acid, to make sure the push really ran the
+            right way.
           </p>
         </div>
       </div>
@@ -203,32 +219,35 @@
         <div class="sec-head"><span class="n">How I looked</span><h2>Drawing proteins for a flat, slippery patch</h2></div>
         <div class="prose">
           <p>
-            The useful part of TfR1 is a flat, polar surface with no deep pocket to grip. That shape defeats the
-            popular de&#8209;novo methods, which like to drop a helix into a groove; here there is no groove. The
-            generator that worked was Genie3, steered at the small part of the surface that is shared between human
-            and mouse. Sequences came from a solubility&#8209;tuned version of ProteinMPNN with no cysteines, the
-            sticky residue that makes proteins hard to manufacture. For the cross&#8209;reactive designs I used a
-            multi&#8209;state version that writes one sequence against the human and mouse surfaces at the same time.
+            The part of TfR1 I need to grab is a problem in itself: it is flat and smooth, with no deep pocket or
+            groove to get a grip on. Most of the popular design methods work by dropping a little protein coil into a
+            groove, and here there simply is no groove. The approach that worked builds the protein's shape first,
+            aimed at the small scrap of that flat surface that human and mouse have in common. A second program then
+            chooses the sequence of building blocks to fit each shape. I set it to avoid one sticky building block
+            (cysteine) that tends to make proteins clump and hard to manufacture. For the designs that had to work on
+            both species, I used a version that writes a single sequence to fit the human and mouse surfaces at once.
           </p>
           <p>
-            A blind structure predictor (ESMFold2 with Protenix) folded every design against the real receptor, the
-            same setup the contest uses to judge. I calibrated every run with controls: a crystal&#8209;proven apical
-            binder as the positive, and scrambled sequences as the negatives. A design had to beat the scrambles to
-            count at all. Then, because of the problem in the next section, I confirmed the real ones a second way: a
-            docking check that forces the protein onto the apical patch and measures how well it actually sits there.
+            To check a design without a lab, I fed each one, paired with the real receptor, to a program that predicts
+            how two proteins fold together and fit, working only from their sequences and nothing it has seen before.
+            This is the same kind of program the contest uses to score entries. Every time I ran it, I slipped in two
+            reference points: a protein already proven to grab the right spot (from a real solved structure), and
+            shuffled, meaningless sequences standing in as fakes. A design had to beat the fakes to count at all. Then,
+            for the reason in the next section, I confirmed the survivors a second way, with a test that forces the
+            protein onto the correct patch and measures how snugly it actually sits.
           </p>
         </div>
       </div>
       <div class="wrap mol-sec" style="margin-top:2rem;">
         <div class="split">
           <div class="prose col">
-            <div class="sec-head"><span class="n">The flagship</span><h2>genie_w2g3_53, as predicted</h2></div>
+            <div class="sec-head"><span class="n">The flagship</span><h2>The top design, as my computer sees it</h2></div>
             <p>
-              This is the shape my computer predicts for my top&#8209;ranked design (blue) sitting on the human TfR1
-              apical domain (grey). It is a 68&#8209;residue protein that docks on the apical patch and carries the
-              two switch histidines (pink) right at the interface, where their charge can do the work. Spin it with
-              your mouse. It is a prediction, not a solved structure, and the blue is this page's colour, not the
-              real colour of any atom.
+              This is the shape my computer predicts for my top&#8209;ranked design (blue), settled onto the human TfR1
+              receptor (grey). It is a small protein, 68 building blocks long, that sits on the flat target patch and
+              carries its two switch spots (pink, the histidines) right where the two surfaces meet, so their charge
+              can do its job in the acid. Drag it with your mouse to turn it. Remember that this is a prediction, not a
+              solved structure, and the blue is just this page's colour, not the real colour of any atom.
             </p>
             <div class="mol-legend">
               <span><span class="sw" style="background:#1d4ed8"></span>designed protein (genie_w2g3_53)</span>
@@ -249,25 +268,27 @@
         <div class="sec-head"><span class="n" style="color:#8aa0d8">Where the measurement broke</span>
           <h2 style="color:#fff;">The ruler that couldn't see</h2></div>
         <p style="font-family:var(--serif); max-width:46ch; color:#cdd8f2; margin:.4rem 0 0;">
-          To grade a design you want two things: does it bind, and does it bind the <b style="color:#fff">right
-          spot</b>. For the second one I used the standard check, how much of the apical patch the protein covers.
-          Then I ran it on the controls. On the human target, the scrambled decoys covered the patch <em>as well as
-          or better than</em> the real, crystal&#8209;proven binder.
+          To judge a design you want to know two things: does it grab the receptor at all, and does it grab the
+          <b style="color:#fff">right spot</b>. For that second question I used the standard measure, which is roughly
+          how much of the correct patch the protein ends up covering. Then I checked that measure against my reference
+          points. On the human receptor, the shuffled nonsense sequences covered the patch <em>just as well as, or
+          better than</em>, the protein that is actually known to bind it.
         </p>
         <p style="font-family:var(--serif); max-width:46ch; color:#cdd8f2; margin:1rem 0 0;">
-          That means the spot&#8209;check is blind here. The receptor surface is so flat that the predictor slides
-          every protein, real or scrambled, across it the same way. On the human target I can honestly say only one
-          thing from folding: a design binds better than random. I cannot say it binds the apical patch. A gate that
-          flags its own positive control is measuring noise, so I threw that gate out.
+          So on the human receptor, that spot&#8209;check is blind. The surface is so flat and featureless that the
+          program slides every protein across it the same way, real or nonsense, and cannot tell where any of them
+          truly land. The one honest thing this kind of test can say is that a design grabs the receptor better than
+          random. It cannot say the design grabs the right spot. A measure that rejects the very protein I know to be
+          correct is measuring noise, so I threw it out.
         </p>
         <p style="font-family:var(--serif); max-width:46ch; color:#eef2fb; margin:1rem 0 0;">
-          Two things still worked. The <b style="color:#fff">mouse</b> version of the surface is just bumpy enough
-          that the same check <em>does</em> separate the real binder from the scrambles. And a separate docking run
-          that forces the protein onto the apical patch, graded against the same controls, tells me whether it can
-          sit there at all. I rebuilt the selection on those. When I re&#8209;folded all twenty designs together
-          with the controls and had a cold reviewer attack the result, the mouse channel caught
-          <b style="color:#fff">two designs</b> that scored high but never actually touched the patch. I replaced
-          both. Catching that is the result I care about most here.
+          Two things still worked. The <b style="color:#fff">mouse</b> version of the same surface is just bumpy
+          enough that the test <em>does</em> tell the real binder apart from the fakes. And the second test, the one
+          that forces a protein onto the correct patch and scores how well it sits, holds up against my reference
+          points too. I rebuilt the whole selection on those two. Then I ran every one of the twenty designs again,
+          side by side with the reference points, and had a fresh, skeptical reviewer try to tear the result apart.
+          The mouse side caught <b style="color:#fff">two designs</b> that scored high but never really landed on the
+          patch. I swapped both out. Catching that is the result I am proudest of here.
         </p>
       </div>
     </section>
@@ -278,17 +299,17 @@
         <div class="sec-head"><span class="n">What this is, and isn&rsquo;t</span><h2>The honest part</h2></div>
         <div class="honest">
           <p style="font-family:var(--serif); margin:0 0 .4rem;">
-            This is all computer work, so here is what it can and cannot tell you.
+            This is all computer work, so here is what it can and cannot honestly tell you.
           </p>
           <ul class="ladder">
-            <li><span class="lv hi">trust it</span><span><strong>Each design binds better than random, and folds cleanly.</strong> The blind predictor clears every design over scrambled controls, and a forced&#8209;docking check confirms the real ones can sit on the apical patch. I trust the direction of this.</span></li>
-            <li><span class="lv mid">hold lightly</span><span><strong>The cross&#8209;reactivity and the exact pose.</strong> The mouse signal is real but noisy, and the predicted pose is not a solved structure. I compare like with like and pick for a spread rather than over&#8209;reading any one number.</span></li>
-            <li><span class="lv lab">lab only</span><span><strong>Whether a design truly lands on the human apical patch, and how big the pH switch is.</strong> The flat surface makes the first unmeasurable in silico, and switch size is finer than any pKa predictor. Only a bench test settles both.</span></li>
+            <li><span class="lv hi">trust it</span><span><strong>Each design grabs the receptor better than random, and holds together as a real, foldable protein.</strong> Every design beat the shuffled fakes, and the forcing test confirms the real ones can sit on the correct patch. I trust this much.</span></li>
+            <li><span class="lv mid">hold lightly</span><span><strong>How well it works on mouse, and the exact way it sits.</strong> The mouse signal is real but noisy, and the predicted pose is a guess, not a solved structure. I compare designs on equal terms and pick for variety, rather than reading too much into any single number.</span></li>
+            <li><span class="lv lab">lab only</span><span><strong>Whether a design truly lands on the human patch, and how strong the let&#8209;go switch really is.</strong> The flat surface makes the first impossible to measure on a computer, and the switch's exact strength is finer than any prediction tool can call. Only a real lab test settles either one.</span></li>
           </ul>
           <p style="font-family:var(--serif); margin:1.2rem 0 0;">
-            This limit is the same for every version I could have submitted; it comes from the target, not the
-            design. The set's job is to point at a varied group worth testing, with an honest label on how sure I am
-            of each part.
+            This limit is the same no matter which set I had sent; it comes from the receptor itself, not from any one
+            design. The job of these twenty is to point a lab at a varied, promising group to try, each with an honest
+            label on how sure I am of it.
           </p>
         </div>
       </div>
@@ -299,11 +320,12 @@
       <div class="wrap">
         <div class="sec-head col"><span class="n">The set</span><h2>Twenty, built to release</h2>
           <p style="font-family:var(--serif); color:var(--tx2); max-width:54ch; margin:.6rem 0 0;">
-            All twenty carry a validated pH switch (at least two histidines that flip between pH 5.5 and 7.4), none
-            contain cysteine, and all are new. They come from several Genie3 runs plus a couple of multi&#8209;state
-            designs built for both species. The &ldquo;binds&rdquo; column shows where the folding evidence holds:
-            human only, or human and mouse. They run best&#8209;first, with the ten most likely to be picked for the
-            lab at the top. The whole set passed the contest portal, 20 of 20, with no novelty flags.
+            All twenty carry a working let&#8209;go switch (at least two acid&#8209;sensing histidines that flip in the
+            right range), none contain the sticky building block that hurts manufacturing, and all are genuinely new.
+            Most come from the shape&#8209;first design runs, plus a couple built to fit human and mouse at once. The
+            &ldquo;binds&rdquo; column says where the evidence holds up: human only, or human and mouse. They are listed
+            best first, with the ten most likely to be chosen for the lab at the top. The whole set passed the contest's
+            automatic checks, 20 out of 20, with nothing flagged as too similar to anything already known.
           </p>
         </div>
         <div class="table-wrap">
@@ -315,10 +337,11 @@
           </table>
         </div>
         <p class="table-note">
-          &ldquo;Human + mouse&rdquo; means the folding evidence for landing on the apical patch holds on both
-          species, read on the mouse surface where the check is trustworthy. &ldquo;Human&rdquo; means it clears the
-          binding bar on the human target, which is all that surface can show. &ldquo;Audit pick&rdquo; marks the two
-          designs that replaced the two I caught faking it. Every value is a prediction, not a lab measurement.
+          &ldquo;Human + mouse&rdquo; means the evidence for landing on the right patch holds for both species, read on
+          the mouse surface, where the check can be trusted. &ldquo;Human&rdquo; means it clears the
+          grabs&#8209;better&#8209;than&#8209;random bar on the human receptor, which is all that flat surface can show.
+          &ldquo;Audit pick&rdquo; marks the two designs that replaced the two I caught faking it. Every value here is a
+          prediction, not a lab measurement.
         </p>
       </div>
     </section>
@@ -328,10 +351,10 @@
       <div class="wrap col">
         <div class="sec-head"><span class="n">Sources</span><h2>Tools and method</h2></div>
         <ul class="refs">
-          <li><b>Design (de novo).</b> Backbones from Genie3, conditioned on the conserved apical sub&#8209;site, with RFdiffusion4/Proteina for fold diversity; sequences from a solubility&#8209;tuned, cysteine&#8209;free ProteinMPNN; cross&#8209;reactive designs from a multi&#8209;state tied ProteinMPNN written against the human and mouse apical surfaces together. Natural amino acids, single chain, new structures.</li>
-          <li><b>The binding check.</b> Each design was co&#8209;folded against the apical target with a blind predictor (ESMFold2 + Protenix, no evolutionary input), calibrated every run with a crystal&#8209;proven apical binder and scrambled negatives. On the human surface the epitope&#8209;overlap check fails its own positive control, so binding is read only as &ldquo;above scramble&rdquo;; apical landing is confirmed separately by a pocket&#8209;restrained Boltz&#8209;2 docking run against the same controls, and cross&#8209;reactivity is read on the mouse surface where the check holds.</li>
-          <li><b>The switch.</b> A histidine&#8209;pKa predictor kept only designs with at least two histidines flipping in the physiological window, with a two&#8209;state check that the charge loosens the grip in acid rather than tightening it.</li>
-          <li><b>The honesty.</b> I discarded the human spot&#8209;check after it failed its scrambled controls, re&#8209;folded all twenty with controls in one calibrated run, and had a cold adversarial review attack the result; it caught two designs that scored high on the mouse channel without touching the patch, and I replaced both. Everything here is computational prediction. The full method and per&#8209;design data live in the <a href="https://github.com/Vijayavallabh/anthropic-adaptyv-2026-tfr1" target="_blank" rel="noopener noreferrer">project repository</a>, public after the challenge closes.</li>
+          <li><b>How the proteins were designed.</b> The shapes come first, aimed at the small patch human and mouse share; a program then chooses a sequence of building blocks to fit each shape. For the record: backbones from Genie3, conditioned on the conserved apical sub&#8209;site, with RFdiffusion4/Proteina for fold diversity; sequences from a solubility&#8209;tuned, cysteine&#8209;free ProteinMPNN; the both&#8209;species designs from a multi&#8209;state tied ProteinMPNN written against the human and mouse apical surfaces together. Natural amino acids, single chain, new structures.</li>
+          <li><b>How I checked binding.</b> Each design was folded together with the target by a structure predictor given no related examples (ESMFold2 + Protenix), with a known binder and shuffled sequences as controls on every run. On the human surface the where&#8209;does&#8209;it&#8209;land measure fails its own known&#8209;good control, so there I read binding only as &ldquo;beats the shuffled fakes&rdquo;; landing on the right patch is confirmed separately by a docking run that holds the protein on the patch (pocket&#8209;restrained Boltz&#8209;2) against the same controls, and human/mouse cross&#8209;reactivity is read on the mouse surface, where the measure still works.</li>
+          <li><b>How I checked the switch.</b> A tool that predicts each histidine's flip point kept only designs with at least two histidines flipping in the right acidity range, plus a two&#8209;state check that the charge loosens the grip in acid rather than tightening it.</li>
+          <li><b>How I kept myself honest.</b> I threw out the human where&#8209;does&#8209;it&#8209;land measure once it failed its own controls, re&#8209;folded all twenty with controls in one run, and had a cold, adversarial review attack the result; it caught two designs that scored high on the mouse side without touching the patch, and I replaced both. Everything here is a computer prediction. The full method and per&#8209;design data live in the <a href="https://github.com/Vijayavallabh/anthropic-adaptyv-2026-tfr1" target="_blank" rel="noopener noreferrer">project repository</a>, public after the challenge closes.</li>
         </ul>
       </div>
     </section>
