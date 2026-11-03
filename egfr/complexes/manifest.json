@@ -1,8 +1,6 @@
 [
   {"key":"egfr_phsw_23","file":"complexes/egfr_phsw_23.pdb","rank":1,"label":"phsw 23","length":108,"strength":0.96,"wiring":"fwd","highlightA":[66],"partnerB":100,"switchDist":1.8,"lowConf":false,"tag":"flagship"},
   {"key":"egfr_phsw_inv02","file":"complexes/egfr_phsw_inv02.pdb","rank":3,"label":"phsw inv02","length":80,"strength":0.87,"wiring":"inv","highlightA":[41],"partnerB":127,"switchDist":4.9,"lowConf":false},
-  {"key":"egfr_phsw_27","file":"complexes/egfr_phsw_27.pdb","rank":4,"label":"phsw 27","length":104,"strength":0.98,"wiring":"fwd","highlightA":[15],"partnerB":100,"switchDist":2.32,"lowConf":true},
-  {"key":"egfr_phsw_inv01","file":"complexes/egfr_phsw_inv01.pdb","rank":5,"label":"phsw inv01","length":88,"strength":0.52,"wiring":"inv","highlightA":[49],"partnerB":127,"switchDist":9.8,"lowConf":false},
   {"key":"egfr_phsw_29","file":"complexes/egfr_phsw_29.pdb","rank":6,"label":"phsw 29","length":56,"strength":0.93,"wiring":"fwd","highlightA":[3],"partnerB":100,"switchDist":3.7,"lowConf":false},
   {"key":"egfr_phsw_33","file":"complexes/egfr_phsw_33.pdb","rank":7,"label":"phsw 33","length":92,"strength":0.93,"wiring":"fwd","highlightA":[81],"partnerB":100,"switchDist":3.5,"lowConf":false},
   {"key":"egfr_phsw_22","file":"complexes/egfr_phsw_22.pdb","rank":8,"label":"phsw 22","length":56,"strength":0.96,"wiring":"fwd","highlightA":[46],"partnerB":100,"switchDist":3.8,"lowConf":false}
