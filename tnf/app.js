@@ -241,38 +241,105 @@
     }
   }
 
-  /* ---------- 3D viewer (demoted; drag-only, no spin; high-DPI) ---------- */
-  (function mol() {
+  /* ---------- 3D: a gallery of binders on TNF ---------- */
+  (function gallery() {
     var host = $("#viewer"); if (!host || typeof window.$3Dmol === "undefined") return;
-    try {
-      var v = window.$3Dmol.createViewer(host, {
-        backgroundColor: 0x0D1526,
-        backgroundAlpha: 0,
-        antialias: true,
-        cartoonQuality: 10,
-        disableFog: true
+    var tabsEl = $("#molTabs"), infoEl = $("#molInfo");
+    var spinBtn = $("#molSpin"), surfBtn = $("#molSurf"), resetBtn = $("#molReset");
+    var GREY = 0x8a93a6, BLUE = 0x4f86ff, PINK = 0xdb2777;
+    var v = null, data = [], curIdx = 0, spinning = !reduce, surfOn = true;
+
+    function sgn(x) { return (x >= 0 ? "+" : "−") + Math.abs(x).toFixed(1); }
+    function ensure() {
+      if (v) return v;
+      host.innerHTML = "";
+      v = window.$3Dmol.createViewer(host, { backgroundColor: "0x00000000", antialias: true, cartoonQuality: 8 });
+      return v;
+    }
+    function draw(entry) {
+      var vv = ensure();
+      vv.removeAllModels(); vv.removeAllSurfaces(); vv.removeAllLabels();
+      vv.addModel(entry._pdb, "pdb");
+      vv.setStyle({ chain: "B" }, { cartoon: { color: GREY, opacity: 0.85 } });
+      vv.setStyle({ chain: "A" }, { cartoon: { color: BLUE } });
+      (entry.switchHis || []).forEach(function (rn) {
+        vv.addStyle({ chain: "A", resi: rn }, { stick: { color: PINK, radius: 0.3 } });
+        vv.addStyle({ chain: "A", resi: rn }, { sphere: { color: PINK, radius: 1.0 } });
       });
-      if (!v) return;
-      fetch("des6025_complex.pdb").then(function (r) { return r.text(); }).then(function (pdb) {
-        v.addModel(pdb, "pdb");
-        v.setStyle({ chain: "B" }, { cartoon: { color: 0x8a93a6, opacity: 0.65 } });
-        v.setStyle({ chain: "A" }, { cartoon: { color: 0x4f86ff } });
-        v.addStyle({ chain: "A", resi: [32, 52, 66, 74] }, { stick: { radius: 0.34, color: 0xDB2777 } });
-        var fb = $(".mol-fallback", host); if (fb) fb.style.display = "none";
-        v.zoomTo({ chain: "A" }); v.zoom(0.8); v.render();
-        v.resize();
-        requestAnimationFrame(function () { try { v.resize(); } catch (e) {} });
-        try {
-          v.addSurface(window.$3Dmol.SurfaceType.SAS,
-            { opacity: 0.5, color: 0x8a93a6 },
-            { chain: "B" }, { chain: "B" }, undefined,
-            function () { try { v.render(); } catch (e) {} });
-        } catch (e) { /* surface optional; cartoon already shows */ }
-      }).catch(function () { /* leave the fallback text */ });
-      var rt;
-      window.addEventListener("resize", function () {
-        clearTimeout(rt); rt = setTimeout(function () { try { v.resize(); } catch (e) {} }, 150);
+      if (surfOn) {
+        vv.addSurface(window.$3Dmol.SurfaceType.VDW, { opacity: 0.4, color: GREY }, { chain: "B" });
+      }
+      vv.zoomTo({ chain: "A" });
+      vv.zoom(0.72);
+      vv.render();
+      vv.spin(spinning ? "y" : false, spinning ? 0.3 : 0);
+    }
+    function markTabs() {
+      Array.prototype.forEach.call(tabsEl.children, function (b, i) {
+        b.setAttribute("aria-selected", String(i === curIdx));
       });
-    } catch (e) { /* leave the fallback text */ }
+    }
+    function renderInfo(e) {
+      if (!infoEl) return;
+      var hd = (e.hisDist != null) ? (e.hisDist + " Å from TNF in this pose") : "built into the binder";
+      var tag = e.tag ? " <span class='rowtag'>" + e.tag + "</span>" : "";
+      var mouseWord = e.tier === "anti" ? "runs backward (holds on in acid)" : (e.tier === "dual" ? "lets go as well" : "barely moves");
+      infoEl.innerHTML =
+        "<h3>" + e.label + tag + "</h3>" +
+        "<dl>" +
+        "<dt>rank</dt><dd>#" + e.rank + " of 18</dd>" +
+        "<dt>length</dt><dd>" + e.length + " building blocks</dd>" +
+        "<dt>human switch</dt><dd>" + sgn(e.human) + " kcal/mol</dd>" +
+        "<dt>mouse switch</dt><dd>" + sgn(e.mouse) + " kcal/mol</dd>" +
+        "<dt>switch His</dt><dd>" + (e.switchHis || []).join(", ") + "</dd>" +
+        "</dl>" +
+        "<p class='note'>Predicted pose, not a solved structure. The switch histidines sit " + hd + ". " +
+        "A positive number means it lets go of TNF when the surroundings turn acidic. On human TNF this one " +
+        (e.human > 0 ? "releases" : "does not release") + "; on mouse TNF it " + mouseWord + ". " +
+        "The blue follows this page's colour rule, not the real colour of any atom.</p>";
+    }
+    function load(i) {
+      curIdx = i; var entry = data[i];
+      markTabs(); renderInfo(entry);
+      if (entry._pdb) { draw(entry); return; }
+      fetch(entry.file).then(function (r) { return r.ok ? r.text() : Promise.reject(); }).then(function (txt) {
+        entry._pdb = txt; if (data[curIdx] === entry) draw(entry);
+      }).catch(function () {
+        host.innerHTML = '<p class="mol-fallback">Could not load this structure. The files are in the project repository.</p>';
+      });
+    }
+    function buildTabs() {
+      tabsEl.innerHTML = "";
+      data.forEach(function (e, i) {
+        var b = document.createElement("button");
+        b.className = "mol-tab"; b.type = "button"; b.setAttribute("role", "tab");
+        var chip = e.tier === "dual" ? "releases both" : (e.tier === "anti" ? "reverses in mouse" : "flat");
+        b.innerHTML = "<span class='rk'>#" + e.rank + "</span> " + e.label +
+          " <span class='sp " + e.tier + "'>" + chip + "</span>";
+        b.addEventListener("click", function () { load(i); });
+        tabsEl.appendChild(b);
+      });
+    }
+    if (spinBtn) spinBtn.addEventListener("click", function () {
+      spinning = !spinning; spinBtn.setAttribute("aria-pressed", String(spinning));
+      spinBtn.textContent = spinning ? "pause spin" : "spin";
+      if (v) v.spin(spinning ? "y" : false, spinning ? 0.3 : 0);
+    });
+    if (surfBtn) surfBtn.addEventListener("click", function () {
+      surfOn = !surfOn; surfBtn.setAttribute("aria-pressed", String(surfOn));
+      surfBtn.textContent = surfOn ? "hide surface" : "show surface";
+      if (data[curIdx] && data[curIdx]._pdb) draw(data[curIdx]);
+    });
+    if (resetBtn) resetBtn.addEventListener("click", function () {
+      if (v) { v.zoomTo({ chain: "A" }); v.zoom(0.72); v.render(); }
+    });
+
+    fetch("complexes/manifest.json").then(function (r) { return r.ok ? r.json() : Promise.reject(); }).then(function (m) {
+      data = m; if (!data.length) return;
+      if (reduce && spinBtn) { spinBtn.setAttribute("aria-pressed", "false"); spinBtn.textContent = "spin"; }
+      buildTabs(); load(0);
+    }).catch(function () {
+      host.innerHTML = '<p class="mol-fallback">The 3D views could not load. The structures are in the project repository.</p>';
+    });
   })();
 })();

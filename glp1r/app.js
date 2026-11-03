@@ -96,27 +96,108 @@
     tb.innerHTML = html;
   })();
 
-  /* ---------- 3D: the top design on GLP-1R ---------- */
-  (function viewer() {
+  /* ---------- 3D: a gallery of designs on GLP-1R ---------- */
+  (function gallery() {
     var host = $("#viewer"); if (!host || typeof window.$3Dmol === "undefined") return;
-    fetch("glp1r_25_complex.cif").then(function (r) { return r.ok ? r.text() : Promise.reject(); }).then(function (data) {
+    var tabsEl = $("#molTabs"), infoEl = $("#molInfo");
+    var spinBtn = $("#molSpin"), surfBtn = $("#molSurf"), resetBtn = $("#molReset");
+    var GREY = 0x8a93a6, TEAL = 0x2a9d8f, GOLD = 0xe0a100;
+    var READER_B = 276; // chain-B residue number of the R299 "reader" (UniProt 299 = construct 276)
+    var v = null, data = [], curIdx = 0, spinning = !reduce, surfOn = false;
+
+    function ensure() {
+      if (v) return v;
       host.innerHTML = "";
-      var v = window.$3Dmol.createViewer(host, { backgroundColor: "0x00000000" });
-      v.addModel(data, "cif");
-      // receptor = the long chain (grey, translucent); design = the short chain (teal)
-      var atoms = v.getModel().selectedAtoms({});
-      var counts = {};
-      for (var i = 0; i < atoms.length; i++) { counts[atoms[i].chain] = (counts[atoms[i].chain] || 0) + 1; }
-      var chains = Object.keys(counts).sort(function (a, b) { return counts[b] - counts[a]; });
-      var receptor = chains[0], design = chains[1] || chains[0];
-      v.setStyle({ chain: receptor }, { cartoon: { color: 0x8a93a6, opacity: 0.6 } });
-      v.setStyle({ chain: design }, { cartoon: { color: 0x2a9d8f }, stick: { color: 0x2a9d8f, radius: 0.18 } });
-      v.zoomTo({ chain: design });
-      v.zoom(0.75);
-      v.render();
-      if (!reduce) v.spin("y", 0.4);
+      v = window.$3Dmol.createViewer(host, { backgroundColor: "0x00000000", antialias: true });
+      return v;
+    }
+    function draw(entry) {
+      var vv = ensure();
+      vv.removeAllModels(); vv.removeAllSurfaces(); vv.removeAllLabels();
+      vv.addModel(entry._pdb, "pdb");
+      vv.setStyle({ chain: "B" }, { cartoon: { color: GREY, opacity: 0.55 } });
+      vv.setStyle({ chain: "A" }, { cartoon: { color: TEAL }, stick: { color: TEAL, radius: 0.16 } });
+      // the design residues that touch the pocket (N-terminus + the one nearest the reader)
+      (entry.highlightA || []).forEach(function (rn) {
+        vv.addStyle({ chain: "A", resi: rn }, { stick: { color: TEAL, radius: 0.34 } });
+        vv.addStyle({ chain: "A", resi: rn }, { sphere: { color: TEAL, radius: 0.95 } });
+      });
+      // the R299 reader on the receptor, in gold: the residue a real agonist must touch
+      vv.addStyle({ chain: "B", resi: READER_B }, { stick: { color: GOLD, radius: 0.34 } });
+      vv.addStyle({ chain: "B", resi: READER_B }, { sphere: { color: GOLD, radius: 1.0 } });
+      if (surfOn) {
+        vv.addSurface(window.$3Dmol.SurfaceType.VDW, { opacity: 0.45, color: GREY }, { chain: "B" });
+      }
+      vv.zoomTo({ chain: "A" });
+      vv.zoom(entry.readsReader ? 0.62 : 0.5);
+      vv.render();
+      vv.spin(spinning ? "y" : false, spinning ? 0.3 : 0);
+    }
+    function markTabs() {
+      Array.prototype.forEach.call(tabsEl.children, function (b, i) {
+        b.setAttribute("aria-selected", String(i === curIdx));
+      });
+    }
+    function renderInfo(e) {
+      if (!infoEl) return;
+      var tag = e.tag ? " <span class='rowtag'>" + e.tag + "</span>" : "";
+      var reach = e.readsReader
+        ? "Its chain reaches the R299 reader, closest atom about " + e.readerDist + " Å away in this pose."
+        : "It settles on the receptor's outer domain, about " + e.readerDist + " Å from the R299 reader: it never enters the pocket.";
+      var lc = e.lowConf ? " In this co-fold the computer is less certain of the exact pose." : "";
+      infoEl.innerHTML =
+        "<h3>" + e.label + tag + "</h3>" +
+        "<dl>" +
+        "<dt>rank</dt><dd>#" + e.rank + " of 20</dd>" +
+        "<dt>length</dt><dd>" + e.length + " building blocks</dd>" +
+        "<dt>built by</dt><dd>" + e.gen + "</dd>" +
+        "<dt>the reader</dt><dd>" + (e.readsReader ? "reached" : "not reached") + "</dd>" +
+        "</dl>" +
+        "<p class='note'>Predicted pose, not a solved structure. " + reach + lc + " Reaching the reader is a necessary sign of a real agonist, not a guarantee of one: a few known blockers reach it too. The gold stick is R299; the teal spheres are the design's own contact points.</p>";
+    }
+    function load(i) {
+      curIdx = i; var entry = data[i];
+      markTabs(); renderInfo(entry);
+      if (entry._pdb) { draw(entry); return; }
+      fetch(entry.file).then(function (r) { return r.ok ? r.text() : Promise.reject(); }).then(function (txt) {
+        entry._pdb = txt; if (data[curIdx] === entry) draw(entry);
+      }).catch(function () {
+        host.innerHTML = '<p class="mol-fallback">Could not load this structure. The files are in the project repository.</p>';
+      });
+    }
+    function buildTabs() {
+      tabsEl.innerHTML = "";
+      data.forEach(function (e, i) {
+        var b = document.createElement("button");
+        b.className = "mol-tab"; b.type = "button"; b.setAttribute("role", "tab");
+        var chip = e.kind === "reader" ? "reaches reader" : "ECD perch";
+        b.innerHTML = "<span class='rk'>#" + e.rank + "</span> " + e.label +
+          " <span class='sp " + e.kind + "'>" + chip + "</span>";
+        b.addEventListener("click", function () { load(i); });
+        tabsEl.appendChild(b);
+      });
+    }
+    if (spinBtn) spinBtn.addEventListener("click", function () {
+      spinning = !spinning; spinBtn.setAttribute("aria-pressed", String(spinning));
+      spinBtn.textContent = spinning ? "pause spin" : "spin";
+      if (v) v.spin(spinning ? "y" : false, spinning ? 0.3 : 0);
+    });
+    if (surfBtn) surfBtn.addEventListener("click", function () {
+      surfOn = !surfOn; surfBtn.setAttribute("aria-pressed", String(surfOn));
+      surfBtn.textContent = surfOn ? "hide surface" : "show surface";
+      if (data[curIdx] && data[curIdx]._pdb) draw(data[curIdx]);
+    });
+    if (resetBtn) resetBtn.addEventListener("click", function () {
+      if (v && data[curIdx]) { v.zoomTo({ chain: "A" }); v.zoom(data[curIdx].readsReader ? 0.62 : 0.5); v.render(); }
+    });
+
+    fetch("complexes/manifest.json").then(function (r) { return r.ok ? r.json() : Promise.reject(); }).then(function (m) {
+      data = m; if (!data.length) return;
+      if (reduce && spinBtn) { spinBtn.setAttribute("aria-pressed", "false"); spinBtn.textContent = "spin"; }
+      if (surfBtn) { surfBtn.setAttribute("aria-pressed", "false"); surfBtn.textContent = "show surface"; }
+      buildTabs(); load(0);
     }).catch(function () {
-      host.innerHTML = '<p class="mol-fallback">The 3D view could not load. The structure file is in the project repository.</p>';
+      host.innerHTML = '<p class="mol-fallback">The 3D views could not load. The structures are in the project repository.</p>';
     });
   })();
 })();

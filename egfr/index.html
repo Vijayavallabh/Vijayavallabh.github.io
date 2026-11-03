@@ -263,40 +263,39 @@
       </div>
     </section>
 
-    <!-- ── the real molecule ─────────────────────────────────── -->
+    <!-- ── the real molecules ────────────────────────────────── -->
     <section class="section shell" id="molecule">
-      <div class="split">
-        <div>
-          <div class="band-head">
-            <p class="label">The real molecule</p>
-            <h2>This is design 23</h2>
-          </div>
-          <div class="prose">
-            <p>
-              The switch above is a cartoon. This is the real thing: the predicted fold
-              of design 23, the 108-residue protein that tops the panel and anchors the
-              bench test. It folds into a tight bundle of helices that holds the switch
-              acid, Glu66, out on the face that meets EGFR.
-            </p>
-            <p>
-              Turn it with the mouse. The amino acid drawn as thick sticks is Glu66, the
-              one that reaches across to EGFR's histidine and forms the pH-sensitive grip.
-              Change that single residue and you get design 32, the broken twin from the
-              bench test.
-            </p>
-          </div>
-          <ul class="figures">
-            <li><b>108</b><span>amino acids, a single chain</span></li>
-            <li><b>0</b><span>cysteines, simpler to make</span></li>
-            <li><b class="u">0.96</b><span>switch strength, among the panel's strongest</span></li>
-          </ul>
-        </div>
-        <figure class="mol">
-          <div id="viewer" class="mol-view">
-            <p class="mol-fallback">A 3D view of design 23 loads here. It needs a browser with WebGL.</p>
-          </div>
-          <figcaption>Design 23, predicted fold. Glu66 is the magenta sticks. Drag to rotate.</figcaption>
+      <div class="band-head">
+        <p class="label">The designs, in 3D</p>
+        <h2>Our binders, gripping EGFR</h2>
+      </div>
+      <p class="mol-intro">
+        Seven of the twenty designs, each shown the way my computer predicts it gripping EGFR. The grey shape is
+        EGFR's third domain; the blue ribbon is the designed binder; the red stick is the binder's switch residue and
+        the gold stick is EGFR's own histidine, His433, the one that picks up a proton in the tumour's acid. Pick a
+        design, drag to rotate, and use the buttons to pause the spin, drop the surface, or recentre. Every pose is a
+        prediction, not a solved structure. The two inverted designs flip the wiring and carry the switch histidine on
+        the binder instead.
+      </p>
+      <div class="mol-tabs" id="molTabs" role="tablist" aria-label="Choose a design to view"></div>
+      <div class="mol-wrap">
+        <figure class="mol-figure">
+          <div id="viewer" class="mol-view"><p class="mol-fallback">A 3D view of the designs on EGFR loads here. It needs a browser with WebGL.</p></div>
         </figure>
+        <div class="mol-side">
+          <div class="mol-info" id="molInfo"></div>
+          <div class="mol-controls">
+            <button id="molSpin" type="button" aria-pressed="true">pause spin</button>
+            <button id="molSurf" type="button" aria-pressed="true">hide surface</button>
+            <button id="molReset" type="button">recentre</button>
+          </div>
+          <div class="mol-legend">
+            <span><span class="sw" style="background:#2a6fae"></span>designed binder</span>
+            <span><span class="sw" style="background:#8a93a6"></span>EGFR domain III</span>
+            <span><span class="sw" style="background:#c22f4e"></span>binder switch residue</span>
+            <span><span class="sw" style="background:#d9a400"></span>EGFR His433</span>
+          </div>
+        </div>
       </div>
     </section>
 

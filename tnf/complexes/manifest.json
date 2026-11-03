@@ -1,0 +1,9 @@
+[
+  {"key":"des_6025","file":"complexes/des_6025.pdb","rank":1,"label":"des_6025","length":80,"human":7.71,"mouse":3.57,"tier":"dual","switchHis":[32,52,66,74],"hisDist":2.3,"tag":"flagship"},
+  {"key":"des_820","file":"complexes/des_820.pdb","rank":2,"label":"des_820","length":80,"human":6.83,"mouse":6.83,"tier":"dual","switchHis":[27,33,47],"hisDist":2.5},
+  {"key":"b4m2","file":"complexes/b4m2.pdb","rank":3,"label":"b4m2","length":90,"human":6.7,"mouse":3.26,"tier":"dual","switchHis":[37,52,83],"hisDist":3.0},
+  {"key":"des_4082a","file":"complexes/des_4082a.pdb","rank":4,"label":"des_4082a","length":80,"human":6.22,"mouse":5.59,"tier":"dual","switchHis":[51,71,79],"hisDist":2.7},
+  {"key":"des_732","file":"complexes/des_732.pdb","rank":5,"label":"des_732","length":80,"human":3.16,"mouse":2.25,"tier":"dual","switchHis":[31,38,59],"hisDist":2.8},
+  {"key":"des_4098","file":"complexes/des_4098.pdb","rank":12,"label":"des_4098","length":80,"human":7.21,"mouse":-2.79,"tier":"anti","switchHis":[2,6,10,63,66,74],"hisDist":2.3,"tag":"reverser"},
+  {"key":"des_1060","file":"complexes/des_1060.pdb","rank":14,"label":"des_1060","length":80,"human":1.81,"mouse":-8.01,"tier":"anti","switchHis":[46,68,74],"hisDist":2.4,"tag":"reverser"}
+]

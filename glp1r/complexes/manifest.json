@@ -1,0 +1,9 @@
+[
+  {"key":"glp1r_25_ago","file":"complexes/glp1r_25_ago.pdb","rank":1,"label":"glp1r_25","gen":"BoltzGen","length":30,"readerDist":2.0,"readsReader":true,"highlightA":[1,16],"kind":"reader","lowConf":false,"tag":"flagship"},
+  {"key":"glp1r_28_ago","file":"complexes/glp1r_28_ago.pdb","rank":2,"label":"glp1r_28","gen":"BoltzGen","length":30,"readerDist":2.8,"readsReader":true,"highlightA":[1,21],"kind":"reader","lowConf":false},
+  {"key":"glp1r_29_ago","file":"complexes/glp1r_29_ago.pdb","rank":3,"label":"glp1r_29","gen":"BoltzGen","length":23,"readerDist":2.2,"readsReader":true,"highlightA":[1,12],"kind":"reader","lowConf":false},
+  {"key":"glp1r_30_mini","file":"complexes/glp1r_30_mini.pdb","rank":4,"label":"glp1r_30_mini","gen":"RFD4-Proteina","length":80,"readerDist":2.2,"readsReader":true,"highlightA":[1,11],"kind":"reader","lowConf":false},
+  {"key":"glp1r_31_mini","file":"complexes/glp1r_31_mini.pdb","rank":5,"label":"glp1r_31_mini","gen":"RFD4-Proteina","length":79,"readerDist":2.0,"readsReader":true,"highlightA":[1,13],"kind":"reader","lowConf":false},
+  {"key":"glp1r_32_mini","file":"complexes/glp1r_32_mini.pdb","rank":6,"label":"glp1r_32_mini","gen":"RFD4-Proteina","length":86,"readerDist":4.1,"readsReader":true,"highlightA":[1,30],"kind":"reader","lowConf":true},
+  {"key":"glp1r_19_bind","file":"complexes/glp1r_19_bind.pdb","rank":19,"label":"glp1r_19_bind","gen":"RFdiffusion (ECD)","length":74,"readerDist":37.5,"readsReader":false,"highlightA":[1],"kind":"ecd","lowConf":false,"tag":"contrast"}
+]

@@ -194,25 +194,33 @@
           </p>
         </div>
       </div>
-      <div class="wrap mol-sec" style="margin-top:2rem;">
-        <div class="split">
-          <div class="prose col">
-            <div class="sec-head"><span class="n">One of the real ones</span><h2>des_6025, as predicted</h2></div>
-            <p>
-              The picture up top is a cartoon. This is a real one: the shape my computer predicts for design
-              des_6025 (blue), latched onto a patch of human TNF (grey). The three spots that do the switching
-              are drawn as thick sticks. Spin it with your mouse. It is a prediction, not a solved structure,
-              and the blue just follows this page&rsquo;s colour rule, not the real colour of any atom.
-            </p>
+      <div class="wrap mol-sec" id="gallery" style="margin-top:2rem;">
+        <div class="sec-head"><span class="n">The designs, in 3D</span><h2>Our binders, latched onto TNF</h2></div>
+        <p class="mol-intro">
+          Several of the eighteen designs, each shown the way my computer predicts it latching onto human TNF. The grey
+          shape is TNF; the blue ribbon is the designed binder; the pink sticks are the switch histidines that make it
+          let go in acid. Pick a design, drag to rotate, and use the buttons to pause the spin, drop the surface, or
+          recentre. Every pose is a prediction, not a solved structure. The first group lets go of TNF in both human and
+          mouse; the last two reverse in mouse, holding on when they should let go.
+        </p>
+        <div class="mol-tabs" id="molTabs" role="tablist" aria-label="Choose a design to view"></div>
+        <div class="mol-wrap">
+          <figure class="mol-figure">
+            <div class="mol-host" id="viewer"><p class="mol-fallback">A 3D view of the designs on TNF loads here. It needs a browser with WebGL.</p></div>
+          </figure>
+          <div class="mol-side">
+            <div class="mol-info" id="molInfo"></div>
+            <div class="mol-controls">
+              <button id="molSpin" type="button" aria-pressed="true">pause spin</button>
+              <button id="molSurf" type="button" aria-pressed="true">hide surface</button>
+              <button id="molReset" type="button">recentre</button>
+            </div>
             <div class="mol-legend">
               <span><span class="sw" style="background:#4f86ff"></span>designed binder</span>
               <span><span class="sw" style="background:#8a93a6"></span>human TNF</span>
               <span><span class="sw" style="background:#DB2777"></span>switch histidines</span>
             </div>
           </div>
-          <figure style="margin:0;">
-            <div class="mol-host" id="viewer"><p class="mol-fallback">A 3D view of design des_6025 on TNF loads here. It needs a browser with WebGL.</p></div>
-          </figure>
         </div>
       </div>
     </section>

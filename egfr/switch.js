@@ -110,29 +110,108 @@
            Math.round(v * 100) + '%"></i></span><span class="val">' + v.toFixed(2) + '</span></span>';
   }
 
-  /* ── 3D structure of design 23 ──────────────────────────── */
-  var viewerEl = document.getElementById('viewer');
-  if (viewerEl && window.$3Dmol) {
-    try {
-      var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      var binderCol = dark ? '#8fbdf0' : '#2a6fae';
-      var acidCol   = dark ? '#f2688a' : '#c22f4e';
-      // opaque, theme-matched background: WebGL transparency is unreliable across browsers
-      var v = $3Dmol.createViewer(viewerEl, { backgroundColor: dark ? 0x0e1219 : 0xf4f5f9 });
-      fetch('phsw23.pdb').then(function (r) { return r.text(); }).then(function (pdb) {
-        var fb = viewerEl.querySelector('.mol-fallback');
-        if (fb) fb.remove();
-        v.addModel(pdb, 'pdb');
-        v.setStyle({}, { cartoon: { color: binderCol, opacity: 0.96, thickness: 0.5 } });
-        v.setStyle({ resi: 66 }, { cartoon: { color: acidCol } });
-        v.addStyle({ resi: 66 }, { stick: { color: acidCol, radius: 0.3 } });
-        v.zoomTo();
-        v.zoom(1.3);
-        v.render();
-        if (!reduce) v.spin('y', 0.35);
-      }).catch(function () {});
-    } catch (e) { /* leave the fallback message in place */ }
-  }
+  /* ── 3D gallery: designs bound to EGFR ───────────────────── */
+  (function gallery() {
+    var host = document.getElementById('viewer');
+    if (!host || !window.$3Dmol) return;
+    var tabsEl = document.getElementById('molTabs'), infoEl = document.getElementById('molInfo');
+    var spinBtn = document.getElementById('molSpin'), surfBtn = document.getElementById('molSurf'), resetBtn = document.getElementById('molReset');
+    var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var GREY = 0x8a93a6;
+    var BINDER = dark ? 0x8fbdf0 : 0x2a6fae;   // designed binder
+    var ACID   = dark ? 0xf2688a : 0xc22f4e;   // the binder's switch carboxylate (or His, inverted)
+    var GOLD   = 0xd9a400;                       // EGFR's titratable partner (His433 / Asp460)
+    var BG = dark ? 0x161b24 : 0xffffff;        // opaque, theme-matched (WebGL transparency is unreliable)
+    var v = null, data = [], curIdx = 0, spinning = !reduce, surfOn = true;
+
+    function ensure() {
+      if (v) return v;
+      host.innerHTML = '';
+      v = $3Dmol.createViewer(host, { backgroundColor: BG, antialias: true });
+      return v;
+    }
+    function draw(e) {
+      var vv = ensure();
+      vv.removeAllModels(); vv.removeAllSurfaces(); vv.removeAllLabels();
+      vv.addModel(e._pdb, 'pdb');
+      vv.setStyle({ chain: 'B' }, { cartoon: { color: GREY, opacity: 0.5 } });
+      vv.setStyle({ chain: 'A' }, { cartoon: { color: BINDER } });
+      (e.highlightA || []).forEach(function (rn) {
+        vv.addStyle({ chain: 'A', resi: rn }, { stick: { color: ACID, radius: 0.32 } });
+        vv.addStyle({ chain: 'A', resi: rn }, { sphere: { color: ACID, radius: 1.0 } });
+      });
+      if (e.partnerB != null) {
+        vv.addStyle({ chain: 'B', resi: e.partnerB }, { stick: { color: GOLD, radius: 0.32 } });
+        vv.addStyle({ chain: 'B', resi: e.partnerB }, { sphere: { color: GOLD, radius: 1.0 } });
+      }
+      if (surfOn) vv.addSurface($3Dmol.SurfaceType.VDW, { opacity: 0.4, color: GREY }, { chain: 'B' });
+      vv.zoomTo({ chain: 'A' });
+      vv.zoom(0.62);
+      vv.render();
+      vv.spin(spinning ? 'y' : false, spinning ? 0.3 : 0);
+    }
+    function markTabs() {
+      Array.prototype.forEach.call(tabsEl.children, function (b, i) { b.setAttribute('aria-selected', String(i === curIdx)); });
+    }
+    function renderInfo(e) {
+      if (!infoEl) return;
+      var tag = e.tag ? " <span class='rowtag'>" + e.tag + "</span>" : '';
+      var fwd = e.wiring === 'fwd';
+      var pair = fwd
+        ? "The binder holds out an acid (" + (e.highlightA || []).join(', ') + "); in the tumour's acid, EGFR's own His433 picks up a proton and grips it, about " + e.switchDist + " Å apart in this pose."
+        : "The binder carries the switch histidine (" + (e.highlightA || []).join(', ') + "); it pairs EGFR's Asp460, about " + e.switchDist + " Å apart in this pose.";
+      var lc = e.lowConf ? " In this co-fold the computer is less certain of the exact pose." : "";
+      var far = (e.switchDist != null && e.switchDist > 6) ? " Here the two land further apart than a salt bridge, so this blind pose does not capture the designed contact." : "";
+      infoEl.innerHTML =
+        "<h3>" + e.label + tag + "</h3>" +
+        "<dl>" +
+        "<dt>rank</dt><dd>#" + e.rank + " of 20</dd>" +
+        "<dt>length</dt><dd>" + e.length + " building blocks</dd>" +
+        "<dt>switch strength</dt><dd>" + (e.strength != null ? e.strength.toFixed(2) : "n/a") + "</dd>" +
+        "<dt>wiring</dt><dd>" + (fwd ? "forward" : "inverted") + "</dd>" +
+        "</dl>" +
+        "<p class='note'>Predicted pose, not a solved structure. " + pair + far + lc +
+        " The red is the binder's switch residue; the gold is EGFR's titratable partner. Colours are this page's, not the real colour of any atom.</p>";
+    }
+    function load(i) {
+      curIdx = i; var e = data[i];
+      markTabs(); renderInfo(e);
+      if (e._pdb) { draw(e); return; }
+      fetch(e.file).then(function (r) { return r.ok ? r.text() : Promise.reject(); }).then(function (txt) {
+        e._pdb = txt; if (data[curIdx] === e) draw(e);
+      }).catch(function () { host.innerHTML = '<p class="mol-fallback">Could not load this structure. The files are in the project repository.</p>'; });
+    }
+    function buildTabs() {
+      tabsEl.innerHTML = '';
+      data.forEach(function (e, i) {
+        var b = document.createElement('button');
+        b.className = 'mol-tab'; b.type = 'button'; b.setAttribute('role', 'tab');
+        b.innerHTML = "<span class='rk'>#" + e.rank + "</span> " + e.label +
+          " <span class='sp " + e.wiring + "'>" + (e.wiring === 'fwd' ? 'forward' : 'inverted') + "</span>";
+        b.addEventListener('click', function () { load(i); });
+        tabsEl.appendChild(b);
+      });
+    }
+    if (spinBtn) spinBtn.addEventListener('click', function () {
+      spinning = !spinning; spinBtn.setAttribute('aria-pressed', String(spinning));
+      spinBtn.textContent = spinning ? 'pause spin' : 'spin';
+      if (v) v.spin(spinning ? 'y' : false, spinning ? 0.3 : 0);
+    });
+    if (surfBtn) surfBtn.addEventListener('click', function () {
+      surfOn = !surfOn; surfBtn.setAttribute('aria-pressed', String(surfOn));
+      surfBtn.textContent = surfOn ? 'hide surface' : 'show surface';
+      if (data[curIdx] && data[curIdx]._pdb) draw(data[curIdx]);
+    });
+    if (resetBtn) resetBtn.addEventListener('click', function () {
+      if (v) { v.zoomTo({ chain: 'A' }); v.zoom(0.62); v.render(); }
+    });
+
+    fetch('complexes/manifest.json').then(function (r) { return r.ok ? r.json() : Promise.reject(); }).then(function (m) {
+      data = m; if (!data.length) return;
+      if (reduce && spinBtn) { spinBtn.setAttribute('aria-pressed', 'false'); spinBtn.textContent = 'spin'; }
+      buildTabs(); load(0);
+    }).catch(function () { host.innerHTML = '<p class="mol-fallback">The 3D views could not load. The structures are in the project repository.</p>'; });
+  })();
 
   var tbody = document.getElementById('designRows');
   if (tbody) {
