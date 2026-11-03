@@ -12,7 +12,8 @@
    27
   ],
   "hisDist": 12.7,
-  "tag": "flagship"
+  "tag": "flagship",
+  "method": "pocket"
  },
  {
   "key": "resc_v25g3_80",
@@ -27,7 +28,8 @@
    33
   ],
   "hisDist": 3.6,
-  "tag": ""
+  "tag": "",
+  "method": "blind"
  },
  {
   "key": "resc_v25g3_49",
@@ -42,7 +44,8 @@
    26
   ],
   "hisDist": 9.8,
-  "tag": ""
+  "tag": "",
+  "method": "blind"
  },
  {
   "key": "resc_v25g3_130",
@@ -50,13 +53,14 @@
   "label": "resc_v25g3_130",
   "file": "complexes/resc_v25g3_130.pdb",
   "length": 98,
-  "species": "human",
+  "species": "mouse",
   "binds": "human + mouse",
   "switchHis": [
    49,
    80
   ],
-  "hisDist": 6.3,
-  "tag": "audit pick"
+  "hisDist": 7.2,
+  "tag": "audit pick",
+  "method": "blind"
  }
 ]

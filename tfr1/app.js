@@ -148,9 +148,9 @@
         "<dt>switch His</dt><dd>" + (e.switchHis || []).join(", ") + "</dd>" +
         "</dl>" +
         "<p class='note'>Predicted pose, not a solved structure. The switch histidines sit " + hd + ". " +
-        (e.species === "mouse"
-          ? "Shown on the mouse receptor, the channel where the placement check can be trusted."
-          : "Shown on the human receptor, from the docking check that holds the protein on the apical patch.") +
+        (e.method === "pocket"
+          ? "Shown on the human receptor, from the docking check that holds the protein on the apical patch."
+          : "Shown as a co-fold on the mouse receptor, the channel where the placement check can be trusted.") +
         "</p>";
     }
     function load(i) {
