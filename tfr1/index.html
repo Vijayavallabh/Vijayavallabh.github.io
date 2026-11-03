@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Built to let go</title>
+  <meta name="description" content="I designed twenty new proteins that grab human TfR1 at the cell surface and let go inside the acidic endosome, the receptor used to carry drugs into the brain. The twist: on the human target, the standard test for where a protein binds scores a real, lab-proven binder below random decoys. A plain-language write-up, including the two designs I caught faking it." />
+  <meta name="author" content="J Vijayavallabh" />
+  <link rel="canonical" href="https://vijayavallabh.github.io/tfr1/" />
+
+  <meta name="theme-color" content="#F5F7FB" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0D1526" media="(prefers-color-scheme: dark)" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://vijayavallabh.github.io/tfr1/" />
+  <meta property="og:title" content="Built to let go" />
+  <meta property="og:description" content="New proteins designed to grab TfR1 at pH 7.4 and release at pH 6.0, and the honest limit: on the human target, no score tells you where a binder actually lands." />
+  <meta property="og:image" content="https://vijayavallabh.github.io/assets/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="../assets/og.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <a class="topbar-name" href="../"><span class="arrow" aria-hidden="true">&larr;</span>J&nbsp;Vijayavallabh</a>
+    <nav class="topbar-nav" aria-label="Sections">
+      <a href="#release">Why it lets go</a>
+      <a href="#method">How I looked</a>
+      <a href="#blind">The ruler that couldn't see</a>
+      <a href="#designs">The 20 designs</a>
+    </nav>
+    <a class="topbar-code" href="https://github.com/Vijayavallabh/anthropic-adaptyv-2026-tfr1" target="_blank" rel="noopener noreferrer">Code</a>
+    <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch colour theme">theme</button>
+  </header>
+
+  <main id="main">
+
+    <!-- ========================= HERO ========================= -->
+    <section class="hero">
+      <div class="wrap">
+        <p class="kicker-line"><a href="../">Work</a> &nbsp;/&nbsp; Adaptyv &times; Anthropic TfR1 Challenge 2026</p>
+        <h1>Built to let go.</h1>
+        <p class="lede">
+          TfR1 is the receptor that carries iron into cells, and the handle drug developers use to haul large
+          molecules across the blood&#8209;brain barrier. A binder is only useful here if it knows when to release:
+          it has to hold on at the cell surface, where the blood sits at pH&nbsp;7.4, and let go once the receptor
+          pulls it into the acidic endosome at pH&nbsp;6.0. Hold on too long and the whole thing gets dragged off to
+          be destroyed instead of recycled. I designed twenty new proteins from scratch, each built around that
+          release switch, and meant to work on both human and mouse TfR1.
+        </p>
+        <p class="lede">
+          Everything here is computational; there is no lab result yet. One finding shaped the whole project. On the
+          human target, the usual test for <em>where</em> a protein lands scores a real, lab&#8209;proven binder
+          <em>below</em> random scrambled decoys. So I can show a design is not random, but not that it grabs the
+          exact spot. I leaned on the parts I could still trust: the mouse version of the target, where the same test
+          does work, a known binder as a control, and a separate docking check. That combination caught two of my
+          own designs faking it.
+        </p>
+        <p class="byline">
+          <span>J&nbsp;Vijayavallabh</span><span>Computational study</span><span>November&nbsp;2026</span><span>Challenge&nbsp;4 / Track&nbsp;2</span>
+        </p>
+
+        <figure class="stage" aria-labelledby="stage-h">
+          <div class="stage-top">
+            <span class="what" id="stage-h">Grab at the surface, release in the acid</span>
+            <span class="readout" aria-live="polite"><b id="stateWord">bound</b> &middot; <span class="env" id="envWord">holds on</span></span>
+          </div>
+
+          <div class="scene-host">
+            <svg class="scene" id="scene" viewBox="0 0 760 320" role="img"
+              aria-label="A schematic of a designed protein on the TfR1 apical domain. At serum pH 7.4 the designed protein sits docked against the receptor, and three histidine residues at the interface are neutral. Switch to endosome pH 6.0 and those histidines pick up a positive charge, repel the receptor surface, and the designed protein swings away and releases.">
+              <defs>
+                <linearGradient id="serumGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#1D4ED8" stop-opacity="0.12"/>
+                  <stop offset="1" stop-color="#1D4ED8" stop-opacity="0.03"/>
+                </linearGradient>
+                <linearGradient id="endoGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#DB2777" stop-opacity="0.16"/>
+                  <stop offset="1" stop-color="#DB2777" stop-opacity="0.04"/>
+                </linearGradient>
+                <linearGradient id="recFill" x1="0.1" y1="0" x2="0.9" y2="1">
+                  <stop offset="0" stop-color="#9aa6ba"/><stop offset="0.5" stop-color="#7c899e"/><stop offset="1" stop-color="#626f84"/>
+                </linearGradient>
+                <linearGradient id="binderFill" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#2a5be0"/><stop offset="1" stop-color="#1733a0"/>
+                </linearGradient>
+                <radialGradient id="releaseGlow" cx="0.5" cy="0.5" r="0.5">
+                  <stop offset="0" stop-color="#DB2777" stop-opacity="0.42"/><stop offset="0.6" stop-color="#DB2777" stop-opacity="0.1"/><stop offset="1" stop-color="#DB2777" stop-opacity="0"/>
+                </radialGradient>
+              </defs>
+
+              <!-- pH environment band (serum vs endosome) -->
+              <rect id="envBand" x="0" y="0" width="760" height="320" fill="url(#serumGrad)"/>
+              <text x="24" y="34" font-family="IBM Plex Sans" font-size="12" fill="#8792a6">the designed protein (blue) vs the receptor surface (grey)</text>
+
+              <!-- TfR1 apical domain: a lobed surface on the right -->
+              <g stroke="#5a6678" stroke-width="1.4">
+                <path d="M470 60 q120 -22 170 70 q40 86 -18 150 q-60 56 -150 34 q-70 -18 -70 -94 l0 -96 q0 -74 68 -64z"
+                      fill="url(#recFill)" opacity="0.95"/>
+              </g>
+              <text x="560" y="300" text-anchor="middle" font-family="IBM Plex Sans" font-size="13" fill="#8792a6">TfR1 apical domain</text>
+
+              <!-- release glow (appears at pH 6.0) -->
+              <ellipse id="releaseField" cx="300" cy="150" rx="92" ry="92" fill="url(#releaseGlow)" opacity="0"/>
+
+              <!-- the designed binder (docked at 7.4, swings away at 6.0) -->
+              <g id="binder" transform="translate(0,0)">
+                <path d="M300 78 q96 -16 150 10 q24 12 0 26 q-10 90 -4 128 q4 26 -22 30 q-96 14 -150 -10 q-22 -12 -2 -26 q10 -78 6 -124 q-4 -26 22 -30z"
+                      fill="url(#binderFill)" stroke="#1733a0" stroke-width="1.5"/>
+                <text x="372" y="156" text-anchor="middle" font-family="IBM Plex Sans" font-size="13" fill="#cdd8f6">designed protein</text>
+                <!-- three interface histidines -->
+                <circle id="his1" cx="450" cy="104" r="8" fill="#64707f" stroke="#fff" stroke-width="1.4"/>
+                <circle id="his2" cx="458" cy="156" r="8" fill="#64707f" stroke="#fff" stroke-width="1.4"/>
+                <circle id="his3" cx="450" cy="206" r="8" fill="#64707f" stroke="#fff" stroke-width="1.4"/>
+                <text x="486" y="160" font-family="IBM Plex Mono" font-size="11" fill="#8792a6">His</text>
+              </g>
+            </svg>
+          </div>
+
+          <div class="stage-controls">
+            <span class="ph-toggle" role="group" aria-label="Choose the environment">
+              <button id="phHigh" type="button" aria-pressed="true">serum &middot; pH&nbsp;7.4</button>
+              <button id="phLow" type="button" aria-pressed="false">endosome &middot; pH&nbsp;6.0</button>
+            </span>
+          </div>
+          <figcaption class="stage-cap">
+            A schematic, not a real structure. At blood pH the histidines sit neutral and the protein stays docked.
+            Drop to endosome pH and the same histidines pick up a positive charge; they push against the receptor
+            surface, and the protein lets go. The whole design problem is tuning those histidines so the push
+            happens between 7.4 and 6.0, and not a step too early or too late.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ===================== THE TARGET ===================== -->
+    <section class="section first" id="target">
+      <div class="wrap col">
+        <div class="sec-head"><span class="n">The target</span><h2>A doorway into the cell</h2></div>
+        <div class="prose">
+          <p class="opener">
+            TfR1, also called CD71, sits on the surface of almost every dividing cell and pulls iron inside. It does
+            this by grabbing cargo, folding into the cell in a little bubble, dropping the cargo in the acid, and
+            then carrying the empty receptor back out to do it again. That round trip is why drug developers love it:
+            attach your drug to something that rides TfR1, and you can reach places that are otherwise walled off,
+            including the brain.
+          </p>
+          <p>
+            The catch is the acid step. A binder that holds on too tightly never gets dropped; it rides the receptor
+            into the cell's disposal system and both get degraded. A useful binder has to do the opposite of what
+            most binders are selected for. It has to <em>release</em> on cue, when the pH falls from 7.4 in the
+            blood to about 6.0 in the endosome.
+          </p>
+          <p>
+            The contest asks for a protein invented from scratch that does three things, in order of priority:
+            holds on at 7.4 and lets go at 6.0; works on both human and mouse TfR1, so it can be tested in animals;
+            and binds the functional apical part of the receptor. Novelty is a hard requirement. Everything here is
+            a computational prediction whose job is to pick the designs most worth making at a bench.
+          </p>
+          <ul class="stats">
+            <li><b>pH&nbsp;7.4<br>&rarr;&nbsp;6.0</b><span>the drop from blood to endosome that has to flip the switch off</span></li>
+            <li><b>20</b><span>new proteins, from seven generation runs, none sharing a backbone family with more than one other</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== WHY IT LETS GO ===================== -->
+    <section class="section" id="release">
+      <div class="wrap col">
+        <div class="sec-head"><span class="n">The mechanism</span><h2>Histidine is the only pH sensor that fits</h2></div>
+        <div class="prose">
+          <p>
+            The move from pH 7.4 to 6.0 is tiny in chemical terms. Only one of the twenty amino acids changes its
+            charge across that exact window: histidine. Below about pH 6.5 it tends to pick up a proton and go
+            positive; above it, it sits neutral. So the switch is built from histidines placed right at the contact
+            between the designed protein and the receptor. At blood pH they are quiet and the protein binds. In the
+            endosome they charge up and shove, and the protein comes off.
+          </p>
+          <p>
+            Getting the direction right is the whole game, and it is easy to get backwards. Put a histidine in the
+            wrong spot and the charge can <em>tighten</em> the grip in acid instead of loosening it, which is the
+            opposite of useful. I used a dedicated histidine&#8209;pKa predictor to keep only designs with at least
+            two histidines that actually flip inside the 5.5 to 7.4 window, then scored the two states (bound at 7.4,
+            charged at 6.0) against each other to check the push ran the right way.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== HOW I LOOKED + 3D ===================== -->
+    <section class="section" id="method">
+      <div class="wrap col">
+        <div class="sec-head"><span class="n">How I looked</span><h2>Drawing proteins for a flat, slippery patch</h2></div>
+        <div class="prose">
+          <p>
+            The useful part of TfR1 is a flat, polar surface with no deep pocket to grip. That shape defeats the
+            popular de&#8209;novo methods, which like to drop a helix into a groove; here there is no groove. The
+            generator that worked was Genie3, steered at the small part of the surface that is shared between human
+            and mouse. Sequences came from a solubility&#8209;tuned version of ProteinMPNN with no cysteines, the
+            sticky residue that makes proteins hard to manufacture. For the cross&#8209;reactive designs I used a
+            multi&#8209;state version that writes one sequence against the human and mouse surfaces at the same time.
+          </p>
+          <p>
+            Every design was folded against the real receptor by a blind structure predictor (ESMFold2 with
+            Protenix), the same setup the contest uses to judge. I calibrated every run with controls: a
+            crystal&#8209;proven apical binder as the positive, and scrambled sequences as the negatives. A design
+            had to beat the scrambles to count at all. Then, because of the problem in the next section, I confirmed
+            the real ones a second way: a docking check that forces the protein onto the apical patch and measures
+            how well it actually sits there.
+          </p>
+        </div>
+      </div>
+      <div class="wrap mol-sec" style="margin-top:2rem;">
+        <div class="split">
+          <div class="prose col">
+            <div class="sec-head"><span class="n">The flagship</span><h2>genie_w2g3_53, as predicted</h2></div>
+            <p>
+              This is the shape my computer predicts for my top&#8209;ranked design (blue) sitting on the human TfR1
+              apical domain (grey). It is a 68&#8209;residue protein that docks on the apical patch and carries the
+              two switch histidines (pink) right at the interface, where their charge can do the work. Spin it with
+              your mouse. It is a prediction, not a solved structure, and the blue is this page's colour, not the
+              real colour of any atom.
+            </p>
+            <div class="mol-legend">
+              <span><span class="sw" style="background:#1d4ed8"></span>designed protein (genie_w2g3_53)</span>
+              <span><span class="sw" style="background:#8a93a6"></span>human TfR1 apical domain</span>
+              <span><span class="sw" style="background:#db2777"></span>switch histidines</span>
+            </div>
+          </div>
+          <figure style="margin:0;">
+            <div class="mol-host" id="viewer"><p class="mol-fallback">A 3D view of the flagship design on TfR1 loads here. It needs a browser with WebGL.</p></div>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== THE RULER THAT COULDN'T SEE ===================== -->
+    <section class="loop-band" id="blind">
+      <div class="wrap">
+        <div class="sec-head"><span class="n" style="color:#8aa0d8">Where the measurement broke</span>
+          <h2 style="color:#fff;">The ruler that couldn't see</h2></div>
+        <p style="font-family:var(--serif); max-width:46ch; color:#cdd8f2; margin:.4rem 0 0;">
+          To grade a design you want two things: does it bind, and does it bind the <b style="color:#fff">right
+          spot</b>. For the second one I used the standard check, how much of the apical patch the protein covers.
+          Then I ran it on the controls. On the human target, the scrambled decoys covered the patch <em>as well as
+          or better than</em> the real, crystal&#8209;proven binder.
+        </p>
+        <p style="font-family:var(--serif); max-width:46ch; color:#cdd8f2; margin:1rem 0 0;">
+          That means the spot&#8209;check is blind here. The receptor surface is so flat that the predictor slides
+          every protein, real or scrambled, across it the same way. On the human target I can honestly say only one
+          thing from folding: a design binds better than random. I cannot say it binds the apical patch. A gate that
+          flags its own positive control is measuring noise, so I threw that gate out.
+        </p>
+        <p style="font-family:var(--serif); max-width:46ch; color:#eef2fb; margin:1rem 0 0;">
+          Two things still worked. The <b style="color:#fff">mouse</b> version of the surface is just bumpy enough
+          that the same check <em>does</em> separate the real binder from the scrambles. And a separate docking run
+          that forces the protein onto the apical patch, graded against the same controls, tells me whether it can
+          sit there at all. I rebuilt the selection on those. When I re&#8209;folded all twenty designs together
+          with the controls and had a cold reviewer attack the result, the mouse channel caught
+          <b style="color:#fff">two designs</b> that scored high but never actually touched the patch. I replaced
+          both. Catching that is the result I care about most here.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===================== THE HONEST PART (ladder) ===================== -->
+    <section class="section" id="honest">
+      <div class="wrap col">
+        <div class="sec-head"><span class="n">What this is, and isn&rsquo;t</span><h2>The honest part</h2></div>
+        <div class="honest">
+          <p style="font-family:var(--serif); margin:0 0 .4rem;">
+            This is all computer work, so here is what it can and cannot tell you.
+          </p>
+          <ul class="ladder">
+            <li><span class="lv hi">trust it</span><span><strong>Each design binds better than random, and folds cleanly.</strong> The blind predictor clears every design over scrambled controls, and a forced&#8209;docking check confirms the real ones can sit on the apical patch. I trust the direction of this.</span></li>
+            <li><span class="lv mid">hold lightly</span><span><strong>The cross&#8209;reactivity and the exact pose.</strong> The mouse signal is real but noisy, and the predicted pose is not a solved structure. I compare like with like and pick for a spread rather than over&#8209;reading any one number.</span></li>
+            <li><span class="lv lab">lab only</span><span><strong>Whether a design truly lands on the human apical patch, and how big the pH switch is.</strong> The flat surface makes the first unmeasurable in silico, and switch size is finer than any pKa predictor. Only a bench test settles both.</span></li>
+          </ul>
+          <p style="font-family:var(--serif); margin:1.2rem 0 0;">
+            This limit is the same for every version I could have submitted; it comes from the target, not the
+            design. The set's job is to point at a varied group worth testing, with an honest label on how sure I am
+            of each part.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== THE 20 DESIGNS ===================== -->
+    <section class="section" id="designs">
+      <div class="wrap">
+        <div class="sec-head col"><span class="n">The set</span><h2>Twenty, built to release</h2>
+          <p style="font-family:var(--serif); color:var(--tx2); max-width:54ch; margin:.6rem 0 0;">
+            All twenty carry a validated pH switch (at least two histidines that flip in the 5.5 to 6.0&#8211;7.4
+            window), none contain cysteine, and all are new. They come from several Genie3 runs plus a couple of
+            multi&#8209;state designs built for both species. The &ldquo;binds&rdquo; column shows where the folding
+            evidence holds: human only, or human and mouse. They run best&#8209;first, with the ten most likely to
+            be picked for the lab at the top. The whole set passed the contest portal, 20 of 20, with no novelty
+            flags.
+          </p>
+        </div>
+        <div class="table-wrap">
+          <table class="designs">
+            <thead>
+              <tr><th>#</th><th>Design</th><th>Source</th><th>Length</th><th>Binds</th><th>Set</th></tr>
+            </thead>
+            <tbody id="designRows"><!-- filled by app.js --></tbody>
+          </table>
+        </div>
+        <p class="table-note">
+          &ldquo;Human + mouse&rdquo; means the folding evidence for landing on the apical patch holds on both
+          species, read on the mouse surface where the check is trustworthy. &ldquo;Human&rdquo; means it clears the
+          binding bar on the human target, which is all that surface can show. &ldquo;Audit pick&rdquo; marks the two
+          designs that replaced the two I caught faking it. Every value is a prediction, not a lab measurement.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===================== SOURCES ===================== -->
+    <section class="section" id="sources">
+      <div class="wrap col">
+        <div class="sec-head"><span class="n">Sources</span><h2>Tools and method</h2></div>
+        <ul class="refs">
+          <li><b>Design (de novo).</b> Backbones from Genie3, conditioned on the conserved apical sub&#8209;site, with RFdiffusion4/Proteina for fold diversity; sequences from a solubility&#8209;tuned, cysteine&#8209;free ProteinMPNN; cross&#8209;reactive designs from a multi&#8209;state tied ProteinMPNN written against the human and mouse apical surfaces together. Natural amino acids, single chain, new structures.</li>
+          <li><b>The binding check.</b> Each design was co&#8209;folded against the apical target with a blind predictor (ESMFold2 + Protenix, no evolutionary input), calibrated every run with a crystal&#8209;proven apical binder and scrambled negatives. On the human surface the epitope&#8209;overlap check fails its own positive control, so binding is read only as &ldquo;above scramble&rdquo;; apical landing is confirmed separately by a pocket&#8209;restrained Boltz&#8209;2 docking run against the same controls, and cross&#8209;reactivity is read on the mouse surface where the check holds.</li>
+          <li><b>The switch.</b> A histidine&#8209;pKa predictor kept only designs with at least two histidines flipping in the physiological window, with a two&#8209;state check that the charge loosens the grip in acid rather than tightening it.</li>
+          <li><b>The honesty.</b> I discarded the human spot&#8209;check after it failed its scrambled controls, re&#8209;folded all twenty with controls in one calibrated run, and had a cold adversarial review attack the result; it caught two designs that scored high on the mouse channel without touching the patch, and I replaced both. Everything here is computational prediction. The full method and per&#8209;design data live in the <a href="https://github.com/Vijayavallabh/anthropic-adaptyv-2026-tfr1" target="_blank" rel="noopener noreferrer">project repository</a>, public after the challenge closes.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <p>J&nbsp;Vijayavallabh &middot; <a href="../">vijayavallabh.github.io</a></p>
+      <p>Adaptyv &times; Anthropic TfR1 Challenge, November 2026 &middot; a companion to the <a href="../glp1r/">GLP&#8209;1R</a>, <a href="../tnf/">TNF&#8209;&alpha;</a> and <a href="../egfr/">EGFR</a> write&#8209;ups.</p>
+    </div>
+  </footer>
+
+  <div class="sl-tip" id="tip" role="status" aria-live="off"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/3Dmol/2.4.2/3Dmol-min.js" defer></script>
+  <script src="app.js" defer></script>
+</body>
+</html>
