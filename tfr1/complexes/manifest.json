@@ -62,5 +62,37 @@
   "hisDist": 7.2,
   "tag": "audit pick",
   "method": "blind"
+ },
+ {
+  "key": "ms_g3_65_xr",
+  "rank": 17,
+  "label": "ms_g3_65_xr",
+  "file": "complexes/ms_g3_65_xr.pdb",
+  "length": 65,
+  "species": "human",
+  "binds": "human + mouse",
+  "switchHis": [
+   28,
+   43
+  ],
+  "hisDist": 8.0,
+  "tag": "multi-state",
+  "method": "pocket"
+ },
+ {
+  "key": "resc_v25g5_13",
+  "rank": 18,
+  "label": "resc_v25g5_13",
+  "file": "complexes/resc_v25g5_13.pdb",
+  "length": 106,
+  "species": "human",
+  "binds": "human",
+  "switchHis": [
+   29,
+   36
+  ],
+  "hisDist": 17.0,
+  "tag": "",
+  "method": "pocket"
  }
 ]
