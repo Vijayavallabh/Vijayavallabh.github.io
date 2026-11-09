@@ -1,0 +1,72 @@
+[
+ {
+  "key": "b3_gpu7_113",
+  "rank": 1,
+  "label": "b3_gpu7_113",
+  "file": "complexes/b3_gpu7_113.pdb",
+  "gen": "BoltzGen",
+  "cls": "single chain",
+  "length": 62,
+  "tier": "pose-robust",
+  "ddG": "-5.8",
+  "poses": "5 of 5",
+  "bridge": 2.95,
+  "tag": "flagship"
+ },
+ {
+  "key": "genie3_g6_28_m0",
+  "rank": 2,
+  "label": "genie3_g6_28_m0",
+  "file": "complexes/genie3_g6_28_m0.pdb",
+  "gen": "Genie3",
+  "cls": "single chain",
+  "length": 63,
+  "tier": "pose-robust",
+  "ddG": "-6.2",
+  "poses": "5 of 5",
+  "bridge": 2.81,
+  "tag": ""
+ },
+ {
+  "key": "genie3_g2_103_m1",
+  "rank": 3,
+  "label": "genie3_g2_103_m1",
+  "file": "complexes/genie3_g2_103_m1.pdb",
+  "gen": "Genie3",
+  "cls": "single chain",
+  "length": 80,
+  "tier": "net-leaning",
+  "ddG": "-7.3",
+  "poses": "4 of 5",
+  "bridge": 2.74,
+  "tag": ""
+ },
+ {
+  "key": "nb3_gpu4_132",
+  "rank": 4,
+  "label": "nb3_gpu4_132",
+  "file": "complexes/nb3_gpu4_132.pdb",
+  "gen": "BoltzGen",
+  "cls": "nanobody",
+  "length": 131,
+  "tier": "net-leaning",
+  "ddG": "-3.3",
+  "poses": "4 of 5",
+  "bridge": 2.56,
+  "tag": ""
+ },
+ {
+  "key": "genie3_g2_141_m1",
+  "rank": 20,
+  "label": "genie3_g2_141_m1",
+  "file": "complexes/genie3_g2_141_m1.pdb",
+  "gen": "Genie3",
+  "cls": "single chain",
+  "length": 82,
+  "tier": "net-leaning",
+  "ddG": "-4.8",
+  "poses": "4 of 5",
+  "bridge": 2.71,
+  "tag": "reserve"
+ }
+]

@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The one buried letter</title>
+  <meta name="description" content="I designed twenty new proteins to tell a cancer cell from a healthy one by a single letter. The cancer marker and the healthy marker are ten-letter peptide fragments that differ at exactly one spot, and that spot is buried out of reach. A plain-language write-up: why the difference is hidden, how a binder reads it without touching it, and the honest limit that no folding score can see it." />
+  <meta name="author" content="J Vijayavallabh" />
+  <link rel="canonical" href="https://vijayavallabh.github.io/pmhc/" />
+
+  <meta name="theme-color" content="#F5F7FB" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0D1526" media="(prefers-color-scheme: dark)" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://vijayavallabh.github.io/pmhc/" />
+  <meta property="og:title" content="The one buried letter" />
+  <meta property="og:description" content="Twenty de novo proteins designed to grab the KRAS G12D cancer marker on HLA and leave the almost-identical healthy marker alone, when the one letter that differs is buried out of reach." />
+  <meta property="og:image" content="https://vijayavallabh.github.io/assets/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="../assets/og.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <a class="topbar-name" href="../"><span class="arrow" aria-hidden="true">&larr;</span>J&nbsp;Vijayavallabh</a>
+    <nav class="topbar-nav" aria-label="Sections">
+      <a href="#hidden">The hidden letter</a>
+      <a href="#method">How I looked</a>
+      <a href="#blind">The score that can't see it</a>
+      <a href="#designs">The 20 designs</a>
+    </nav>
+    <a class="topbar-code" href="https://github.com/Vijayavallabh/anthropic-adaptyv-2026-pmhc" target="_blank" rel="noopener noreferrer">Code</a>
+    <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch colour theme">theme</button>
+  </header>
+
+  <main id="main">
+
+    <!-- ========================= HERO ========================= -->
+    <section class="hero">
+      <div class="wrap">
+        <p class="kicker-line"><a href="../">Work</a> &nbsp;/&nbsp; Adaptyv &times; Anthropic pMHC Challenge 2026</p>
+        <h1>The one buried letter.</h1>
+        <p class="lede">
+          A cancer cell and a healthy cell can look almost the same from the outside. Both chop up their own
+          proteins and hang little ten&#8209;letter fragments on their surface, clipped into a display stand that the
+          immune system reads like a flag. In one of the most common cancer mutations, a protein called KRAS has a
+          single building block swapped, glycine for aspartate, a change written as G12D. A cell carrying it flies a
+          flag that is almost identical to the one on a healthy cell. The two read as ten letters, and they differ at
+          exactly one position. I designed twenty proteins from scratch to grab the cancer flag and leave the healthy
+          one alone.
+        </p>
+        <p class="lede">
+          The hard part is where that one letter sits. It does not stick up on the exposed face of the flag, where a
+          protein could reach out and touch it. It points down into the groove of the display stand, almost fully
+          buried, where it quietly pairs with a part of the stand itself. So a binder cannot read the letter that
+          matters by touching it. It has to hold the parts of the flag that do stick out and sense the hidden letter
+          from a short distance, through the faint charge it carries and the way it makes the flag settle. All of this
+          runs on a computer; nothing has reached a lab bench yet. And the project turns on one honest fact: the usual
+          way to check these designs is blind to that single buried letter. Telling the cancer flag from the healthy
+          one is a question only the bench can answer. What the computer can do is line the twenty up by every other
+          clue and push the most promising few to the front.
+        </p>
+        <p class="byline">
+          <span>J&nbsp;Vijayavallabh</span><span>Computational study</span><span>November&nbsp;2026</span><span>Challenge&nbsp;5 / Track&nbsp;3</span>
+        </p>
+
+        <figure class="stage" aria-labelledby="stage-h">
+          <div class="stage-top">
+            <span class="what" id="stage-h">The two flags differ by one hidden letter</span>
+            <span class="readout" aria-live="polite"><b id="flagWord">cancer flag</b> &middot; <span class="env" id="diffWord">position 6 is a D (aspartate)</span></span>
+          </div>
+
+          <div class="scene-host">
+            <svg class="scene" id="scene" viewBox="0 0 760 320" role="img"
+              aria-label="A cartoon of the peptide flag lying in the groove of the HLA display stand, with a designed protein gripping it from above. Nine of the ten letters stick up where the designed protein can hold them. Position 6 points down into the groove. On the cancer flag it is an aspartate that reaches a positive spot on the stand called Arg114; switch to the healthy flag and position 6 becomes a small, featureless glycine with nothing reaching down.">
+              <defs>
+                <linearGradient id="binderFill" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#2a5be0"/><stop offset="1" stop-color="#1733a0"/>
+                </linearGradient>
+                <linearGradient id="standFill" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#9aa6ba"/><stop offset="1" stop-color="#6b7688"/>
+                </linearGradient>
+                <radialGradient id="bridgeGlow" cx="0.5" cy="0.5" r="0.5">
+                  <stop offset="0" stop-color="#DC2626" stop-opacity="0.38"/><stop offset="0.6" stop-color="#DC2626" stop-opacity="0.08"/><stop offset="1" stop-color="#DC2626" stop-opacity="0"/>
+                </radialGradient>
+              </defs>
+
+              <text x="24" y="30" font-family="IBM Plex Sans" font-size="12" fill="#8792a6">the designed protein (blue) grips the flag (gold); the one different letter (red) is buried in the groove</text>
+
+              <!-- the HLA display stand: a shallow grey cradle -->
+              <path d="M150 196 q0 70 70 74 l320 0 q70 -4 70 -74 l0 26 q0 70 -70 74 l-320 0 q-70 -4 -70 -74 z"
+                    fill="url(#standFill)" stroke="#5a6678" stroke-width="1.3" opacity="0.95"/>
+              <text x="380" y="300" text-anchor="middle" font-family="IBM Plex Sans" font-size="13" fill="#8792a6">HLA display stand</text>
+
+              <!-- the buried-bridge glow (cancer flag only) -->
+              <circle id="bridgeGlowC" cx="380" cy="232" r="46" fill="url(#bridgeGlow)" opacity="1"/>
+
+              <!-- peptide backbone: a run of ten beads resting in the cradle -->
+              <polyline points="230,172 260,166 290,170 320,164 350,168 380,172 410,166 440,170 470,165 500,170"
+                        fill="none" stroke="#D97706" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- the exposed letters the binder grips (positions 4,5,7,8) -->
+              <g fill="#F59E0B" stroke="#b4690a" stroke-width="1">
+                <circle cx="320" cy="150" r="7"/><circle cx="350" cy="152" r="7"/>
+                <circle cx="410" cy="150" r="7"/><circle cx="440" cy="152" r="7"/>
+              </g>
+              <line x1="320" y1="164" x2="320" y2="150" stroke="#D97706" stroke-width="2"/>
+              <line x1="350" y1="168" x2="350" y2="152" stroke="#D97706" stroke-width="2"/>
+              <line x1="410" y1="166" x2="410" y2="150" stroke="#D97706" stroke-width="2"/>
+              <line x1="440" y1="170" x2="440" y2="152" stroke="#D97706" stroke-width="2"/>
+
+              <!-- position 6: points DOWN into the groove -->
+              <line x1="380" y1="172" x2="380" y2="210" stroke="#b4690a" stroke-width="2"/>
+              <!-- Arg114, the positive spot in the groove floor -->
+              <circle cx="380" cy="246" r="8" fill="#0d9488" stroke="#0a6b61" stroke-width="1.2"/>
+              <text x="396" y="250" font-family="IBM Plex Mono" font-size="11" fill="#0d9488">Arg114</text>
+              <!-- the salt bridge (cancer flag only) -->
+              <line id="bridgeLine" x1="380" y1="224" x2="380" y2="238" stroke="#DC2626" stroke-width="2.4" stroke-dasharray="2 3" opacity="1"/>
+              <!-- position-6 bead: red D on the cancer flag, grey G on the healthy flag -->
+              <circle id="pos6" cx="380" cy="214" r="11" fill="#DC2626" stroke="#7f1414" stroke-width="1.3"/>
+              <text id="pos6charge" x="398" y="210" font-family="IBM Plex Mono" font-size="15" fill="#DC2626" opacity="1">&#8722;</text>
+              <text x="380" y="218" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#fff" font-weight="600">6</text>
+
+              <!-- the designed protein: a blue cap gripping the exposed letters -->
+              <g>
+                <path d="M286 138 q-14 -58 48 -66 q46 -6 92 2 q60 10 46 64 q-6 22 -34 18 q-46 -8 -92 -2 q-40 6 -60 -16z"
+                      fill="url(#binderFill)" stroke="#1733a0" stroke-width="1.5"/>
+                <text x="380" y="108" text-anchor="middle" font-family="IBM Plex Sans" font-size="13" fill="#cdd8f6">designed protein</text>
+              </g>
+            </svg>
+          </div>
+
+          <div class="stage-controls">
+            <span class="ph-toggle" role="group" aria-label="Choose which flag to show">
+              <button id="flagMut" type="button" aria-pressed="true">cancer flag &middot; G12D</button>
+              <button id="flagWt" type="button" aria-pressed="false">healthy flag &middot; wild type</button>
+            </span>
+          </div>
+          <figcaption class="stage-cap">
+            A cartoon, not a real structure. Nine of the ten letters on the flag stick up into the open, and the
+            designed protein (blue) holds those. The tenth, position 6, points the other way, down into the groove of
+            the stand. On the cancer flag it is an aspartate (red) that reaches a positive spot on the stand called
+            Arg114 and makes a tiny bridge. Switch to the healthy flag and position 6 becomes a plain glycine with
+            nothing reaching down. That buried swap is the entire difference the design has to feel.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ===================== THE TARGET ===================== -->
+    <section class="section first" id="target">
+      <div class="wrap col">
+        <div class="sec-head"><span class="n">The target</span><h2>A flag that differs by one letter</h2></div>
+        <div class="prose">
+          <p class="opener">
+            The cancer flag is a ten&#8209;letter fragment of the mutated KRAS protein. In the shorthand biologists
+            use it reads VVVGADGVGK. The healthy version reads VVVGAGGVGK. Line the two up and only the sixth letter
+            changes: a D (aspartate) on the cancer flag, a G (glycine) on the healthy one. Everything else is
+            identical. The display stand holding the flag is called HLA, and the exact version here, A*11:01, is one
+            of the most common in East and South Asia, which is part of why this marker is worth chasing.
+          </p>
+          <p>
+            That sixth letter is the whole problem. On the solved crystal structure it does not sit up on the open
+            face of the flag. It points down into the groove of the stand, with only about a tenth of it exposed, and
+            it pairs with a positive spot on the stand itself (Arg114). So the feature that makes the cancer flag
+            different is tucked underneath, pressed against the stand, out of reach. Even the immune system's own
+            receptors, the ones evolved over a lifetime to read these flags, struggle to tell this pair apart.
+          </p>
+          <p>
+            Why bother, then. Because if a protein can grab the cancer flag and ignore the healthy one, it can mark
+            cancer cells for the immune system while leaving the rest of the body alone. The contest asks for exactly
+            that: a protein invented from scratch, not copied from anything in nature or a database, that grabs the
+            G12D flag on HLA&#8209;A*11:01 and not the wild&#8209;type flag, not other unrelated flags, and not the
+            empty stand. Being genuinely new is required. Everything I report is a computer's best guess, and the
+            point of it is to choose the handful most worth making and testing for real.
+          </p>
+          <ul class="stats">
+            <li><b>1</b><span>letter of difference between the cancer flag and the healthy one, at position 6</span></li>
+            <li><b>20</b><span>brand&#8209;new proteins, from two different design engines, spread across shapes so they do not all rise or fall together</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== THE HIDDEN LETTER ===================== -->
+    <section class="section" id="hidden">
+      <div class="wrap col">
+        <div class="sec-head"><span class="n">The mechanism</span><h2>Reading a letter you cannot touch</h2></div>
+        <div class="prose">
+          <p>
+            Because the sixth letter is buried, a binder cannot read it the direct way, by reaching in and feeling its
+            shape. Some binders for other mutations get to do that, where the changed letter points up into the open
+            and the protein builds a little pocket around it. Here that route is closed. The letter faces the wrong
+            way.
+          </p>
+          <p>
+            Two things still leak out of the groove. The aspartate on the cancer flag carries a small negative charge
+            and the glycine on the healthy flag carries none, so the two flags sit in a slightly different electrical
+            field, and that difference is still faintly there a short distance away, up where a binder can be. And the
+            two flags do not settle into the groove the same way; the cancer flag's loop is a little more restless
+            when nothing is holding it. A design that works grips the parts of the flag that stick up, at positions 4,
+            5, 7 and 8, and is shaped so it slightly prefers the field and the settling of the cancer flag. It reads
+            the hidden letter the way you feel a coin through a thin cloth, without ever seeing it.
+          </p>
+          <p>
+            This is also why there is an obvious trap to avoid. A protein that grabbed the broad flat sides of the
+            display stand, instead of the flag sitting in it, would stick to almost every cell in the body, because
+            every cell flies some flag on the very same stand. So I aimed the designs at the flag and the groove
+            right around it, and steered them away from the stand's general surface. A binder that holds the platform
+            rather than the flag is worse than useless, and a good chunk of the checking below exists to catch that.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== HOW I LOOKED + 3D ===================== -->
+    <section class="section" id="method">
+      <div class="wrap col">
+        <div class="sec-head"><span class="n">How I looked</span><h2>Two design engines, one honest filter</h2></div>
+        <div class="prose">
+          <p>
+            I built the twenty designs with two separate programs that invent protein shapes from nothing, one called
+            BoltzGen and one called Genie3, so that a blind spot in one engine would not sink the whole set. A second
+            program then wrote the sequence of building blocks for each shape, set to skip a sticky building block
+            (cysteine) that makes proteins hard to manufacture. None of the designs is copied from a known binder. The
+            result is twenty proteins, fourteen small single&#8209;chain ones and six built in the shape of a nanobody,
+            a compact antibody fragment.
+          </p>
+          <p>
+            To test a design without a lab, I folded it together with the whole four&#8209;part target at once, the
+            flag, the display stand, a small helper piece, and the design itself, and looked at how the fold sits.
+            For the main ranking I used a deliberately strict rule: reward a design for rejecting what the cancer and
+            healthy flags have in common, the shared letters, the stand, the empty stand, rather than for raw
+            stickiness. Grabbing hard is easy; grabbing <em>selectively</em> is the whole game, so the ranking is built
+            around the weakest part of each design's case, not the strongest.
+          </p>
+          <p>
+            Then I added one test that can actually feel the buried letter. It is a physics calculation that swaps the
+            sixth letter from D to G on the computer, on the same pose, and measures how much the design minds the
+            swap. A design that truly prefers the cancer flag should mind a lot. This calculation is slow and only
+            trustworthy when the pose is realistic, with that sixth letter still buried against Arg114 where it
+            belongs, so I used it as a filter on a shortlist, never as the main ranking. The 3D views below are five
+            of these designs, each shown on the real four&#8209;part complex.
+          </p>
+        </div>
+      </div>
+      <div class="wrap mol-sec" id="gallery" style="margin-top:2.4rem;">
+        <div class="sec-head col"><span class="n">The designs, in 3D</span><h2>Our proteins, gripping the flag</h2></div>
+        <p class="mol-intro">
+          Five of the twenty designs, each shown the way my computer predicts it sitting on the target. The grey shape
+          is the display stand (the HLA platform and its helper piece), faded back on purpose. The gold ribbon is the
+          flag, the ten&#8209;letter peptide. The blue ribbon is the designed protein gripping it. The single red spot
+          is position 6, the one buried letter that differs from a healthy cell, reaching down to the teal anchor
+          (Arg114) in the floor of the groove. Pick a design, drag to rotate, and use the buttons to pause the spin,
+          drop the platform surface, or recentre. Every pose here is a prediction, not a solved structure, and the
+          colours are this page's, not the real colour of any atom.
+        </p>
+        <div class="mol-tabs" id="molTabs" role="tablist" aria-label="Choose a design to view"></div>
+        <div class="mol-wrap">
+          <figure class="mol-figure">
+            <div class="mol-host" id="viewer"><p class="mol-fallback">A 3D view of the designs on the peptide-HLA complex loads here. It needs a browser with WebGL.</p></div>
+          </figure>
+          <div class="mol-side">
+            <div class="mol-info" id="molInfo"></div>
+            <div class="mol-controls">
+              <button id="molSpin" type="button" aria-pressed="true">pause spin</button>
+              <button id="molSurf" type="button" aria-pressed="true">hide platform</button>
+              <button id="molReset" type="button">recentre</button>
+            </div>
+            <div class="mol-legend">
+              <span><span class="sw" style="background:#2563eb"></span>designed protein</span>
+              <span><span class="sw" style="background:#f59e0b"></span>the flag (peptide)</span>
+              <span><span class="sw" style="background:#dc2626"></span>position 6, the one difference</span>
+              <span><span class="sw" style="background:#97a1b2"></span>HLA platform</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== THE SCORE THAT CAN'T SEE IT ===================== -->
+    <section class="loop-band" id="blind">
+      <div class="wrap">
+        <div class="sec-head"><span class="n" style="color:#8aa0d8">Where the measurement stops</span>
+          <h2 style="color:#fff;">The score that can't see it</h2></div>
+        <p style="font-family:var(--serif); max-width:46ch; color:#cdd8f2; margin:.4rem 0 0;">
+          Here is the honest limit, and it sits at the centre of the whole project. The folding program that ranks
+          everything is blind to the single buried letter. I checked this directly: when I fold the cancer flag and
+          the healthy flag with the same design, the score barely moves, because the only thing that changed is tucked
+          out of sight. So the folding score can tell me a design grabs the flag. It <b style="color:#fff">cannot</b>
+          tell me the design prefers the cancer flag over the healthy one.
+        </p>
+        <p style="font-family:var(--serif); max-width:46ch; color:#cdd8f2; margin:1rem 0 0;">
+          That preference is a bench measurement. I never dress up a computer number as if it settled it. The physics
+          filter can feel the buried letter, but only as a prior, and only as reliably as the one predicted pose it
+          starts from. A pose is a guess. So I did not trust any single pose. I scored each promising design across
+          five independent predicted poses and watched whether it kept preferring the cancer flag.
+        </p>
+        <p style="font-family:var(--serif); max-width:46ch; color:#eef2fb; margin:1rem 0 0;">
+          That gave two honest groups. <b style="color:#fff">Two designs</b> preferred the cancer flag on all five
+          poses and never flipped; I call those pose&#8209;robust, and they lead the set. <b style="color:#fff">Three
+          more</b> preferred it on four of five, with one pose going the other way; I call those net&#8209;leaning and
+          I label them as such. The five&#8209;pose check earned its keep. It caught one design that looked like the
+          strongest in the whole campaign on a single lucky pose and fell to a coin&#8209;flip across the five, so I
+          dropped it. It also rescued one I had thrown out too early. Catching myself in both directions is the result
+          I am most sure of here.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===================== THE HONEST PART (ladder) ===================== -->
+    <section class="section" id="honest">
+      <div class="wrap col">
+        <div class="sec-head"><span class="n">What this is, and isn&rsquo;t</span><h2>The honest part</h2></div>
+        <div class="honest">
+          <p style="font-family:var(--serif); margin:0 0 .4rem;">
+            This is all computer work, so here is what it can and cannot honestly tell you.
+          </p>
+          <ul class="ladder">
+            <li><span class="lv hi">trust it</span><span><strong>Each design folds as a real, stable protein and grabs the flag better than random.</strong> The folding scores are high and the designs hold together. I trust this much.</span></li>
+            <li><span class="lv mid">hold lightly</span><span><strong>The exact pose, and the physics preference for the cancer flag.</strong> The preference comes from a calculation on a guessed pose. Two designs hold it on all five poses; three hold it on four of five. I read these as priors and pick for variety, not as proof.</span></li>
+            <li><span class="lv lab">lab only</span><span><strong>Whether a design truly prefers the cancer flag over the healthy one, and how strongly.</strong> The buried letter makes this impossible to settle on a computer. A lab test that stains cells with both flags is the only thing that decides it.</span></li>
+          </ul>
+          <p style="font-family:var(--serif); margin:1.2rem 0 0;">
+            A passive binder also has a ceiling it cannot beat: even in the best case, the gap in how tightly it holds
+            the two flags is set by that one buried letter, and for a single small protein that gap is modest, likely
+            in the low tens of fold. The job of these twenty is to point a lab at a varied, promising group to try,
+            each with an honest label on how sure I am.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== THE 20 DESIGNS ===================== -->
+    <section class="section" id="designs">
+      <div class="wrap">
+        <div class="sec-head col"><span class="n">The set</span><h2>Twenty, ranked by evidence</h2>
+          <p style="font-family:var(--serif); color:var(--tx2); max-width:56ch; margin:.6rem 0 0;">
+            All twenty come from the two design engines, run from scratch, and all are genuinely new. They are listed
+            best first, with the ten most likely to be sent to the lab at the top. The &ldquo;evidence&rdquo; column
+            says how strong the selectivity case is: <b>pose&#8209;robust</b> for the two that prefer the cancer flag
+            on all five poses, <b>net&#8209;leaning</b> for the three that prefer it on four of five, and
+            <b>co&#8209;fold</b> for the well&#8209;folded designs ranked on the strict shared&#8209;rejection rule
+            without a physics confirmation. The whole set passed the contest's automatic checks, 20 out of 20, with
+            nothing flagged as too similar to anything known.
+          </p>
+        </div>
+        <div class="table-wrap">
+          <table class="designs">
+            <thead>
+              <tr><th>#</th><th>Design</th><th>Engine</th><th>Length</th><th>Shape</th><th>Evidence</th><th>Set</th></tr>
+            </thead>
+            <tbody id="designRows"><!-- filled by app.js --></tbody>
+          </table>
+        </div>
+        <p class="table-note">
+          &ldquo;Pose&#8209;robust&rdquo; and &ldquo;net&#8209;leaning&rdquo; both come from the physics filter read
+          across five predicted poses; the difference is whether the design ever flips. &ldquo;Co&#8209;fold&rdquo;
+          means the design is well folded and clears the strict shared&#8209;rejection rule, but was not put through
+          the physics filter as a confirmed selective. &ldquo;Reserve&rdquo; marks a net&#8209;leaning design held
+          below the top ten because it is on the oily side and harder to make. Every value here is a prediction, not a
+          lab measurement.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===================== SOURCES ===================== -->
+    <section class="section" id="sources">
+      <div class="wrap col">
+        <div class="sec-head"><span class="n">Sources</span><h2>Tools and method</h2></div>
+        <ul class="refs">
+          <li><b>How the proteins were designed.</b> Two independent engines invent the shapes from scratch, aimed at
+            the flag and the groove around it: BoltzGen (protein and nanobody) for twelve of the designs, and Genie3,
+            a diffusion model, for the other eight. A solubility&#8209;tuned, cysteine&#8209;free sequence designer
+            (SolubleMPNN) then writes the building blocks for each shape. Natural amino acids, single chain or
+            nanobody, new structures, no seeding from a known binder.</li>
+          <li><b>How I checked binding and selectivity.</b> Each design was folded together with the full four&#8209;part
+            complex by a structure predictor (Boltz&#8209;2), five times over six situations: the cancer flag, the
+            healthy flag, a shuffled flag, two unrelated flags, and the empty stand. The ranking rewards the weakest
+            of those gaps, so a design has to reject what the targets share, not just hold the cancer flag. The buried
+            cancer&#8209;versus&#8209;healthy letter is left to the physics filter and the bench, never scored by the
+            folding program, which cannot see it.</li>
+          <li><b>How I read the buried letter.</b> An open&#8209;source physics calculation (an ensemble MM&#8209;GBSA
+            free&#8209;energy estimate in OpenMM) swaps the sixth letter from D to G on the matched pose and measures
+            the change, run only on poses that keep that letter buried against Arg114. Each candidate was scored
+            across five independent poses, and only designs that keep preferring the cancer flag are credited, two on
+            all five poses and three on four of five.</li>
+          <li><b>How I kept myself honest.</b> I set the selectivity bar before seeing the results, treated every
+            folding number as a binder&#8209;grabs&#8209;the&#8209;flag signal and never as proof of cancer&#8209;versus&#8209;healthy,
+            and dropped a design that looked strongest on one lucky pose once five poses showed it was a coin&#8209;flip.
+            Everything here is a computer prediction. The full method and per&#8209;design data live in the
+            <a href="https://github.com/Vijayavallabh/anthropic-adaptyv-2026-pmhc" target="_blank" rel="noopener noreferrer">project repository</a>, public after the challenge closes.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <p>J&nbsp;Vijayavallabh &middot; <a href="../">vijayavallabh.github.io</a></p>
+      <p>Adaptyv &times; Anthropic pMHC Challenge, November 2026 &middot; a companion to the <a href="../tfr1/">TfR1</a>, <a href="../glp1r/">GLP&#8209;1R</a>, <a href="../tnf/">TNF&#8209;&alpha;</a> and <a href="../egfr/">EGFR</a> write&#8209;ups.</p>
+    </div>
+  </footer>
+
+  <div class="sl-tip" id="tip" role="status" aria-live="off"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/3Dmol/2.4.2/3Dmol-min.js" defer></script>
+  <script src="app.js" defer></script>
+</body>
+</html>
